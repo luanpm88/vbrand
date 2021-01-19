@@ -1,0 +1,97 @@
+.mr-auto{ margin-right: auto; }
+.ml-auto{ margin-left: auto; }
+.subscribe-button{padding: .6rem 1rem;font-size: 1.25rem;margin-left: 1px;}
+.mt-80{ margin-top: 80px; }
+.mt-70{ margin-top: 70px; }
+.mt-60{ margin-top: 60px; }
+.mt-50{ margin-top: 50px; }
+
+.function{ display: none; }
+.check_img_errs{ max-width: 100%; }
+.item-game-wrapper {
+    margin-bottom: 30px;
+    background-color: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    overflow: hidden;
+}
+.item-game-wrapper:hover {
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+.item-game-wrapper .item-info .item-title a {
+    font-size: 15px !important;
+    font-family: 'Roboto-Condensed-Bold';
+}
+.item-listing .item{
+	margin: 7px 0;
+}
+.item-listing.list .item {
+    padding: 7px;
+}
+.item-game-wrapper .item-info {
+    padding: 15px 15px 15px 15px;
+}
+.item-game-wrapper .item-info .item-title {
+    text-transform: unset;
+    color: #000;
+    margin-bottom: 10px;
+    text-align: center;
+    min-height: 42px;
+    max-height: 42px;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    font-family: 'Roboto-Condensed-Bold';
+}
+.item-game-wrapper .item-info .item-title a {
+    font-size: 15px !important;
+    font-family: 'Roboto-Condensed-Bold';
+    color: #000;
+}
+.item-game-wrapper .item-info .item-price {
+    text-align: center;
+    margin-top: -8px;
+}
+.item-game-wrapper .item-info .item-btn-a {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+.item-game-wrapper .item-info .item-btn-a a {
+    color: #b2b2b2;
+    margin: 0 2px;
+}
+
+
+.item-game-wrapper .item-info .item-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #21beff;
+    border: 1px solid #21beff;
+    border-radius: 3px;
+    padding: 3px 18px;
+    width: fit-content;
+    text-align: center;
+    margin: 10px auto 0;
+        margin-top: 10px;
+    font-size: 12px;
+    font-family: 'Roboto-Condensed-Bold';
+    cursor: pointer;
+}
+.item-game-wrapper .item-info .item-btn:hover {
+    background-color: #21beff;
+    color: #fff;
+}
+.item-game-wrapper .item-info .item-price .cur-p {
+    font-family: 'Roboto-Condensed-Bold';
+    margin-left: 2px;
+}
+.item-game-wrapper .item-info .item-price .old-p {
+    text-decoration: line-through;
+    margin-left: 2px;
+}
+.item-game-wrapper .item-info .item-price p {
+    margin: 0 0 10px;
+}

@@ -1,0 +1,12 @@
+/*!
+ * Start Bootstrap - Business Frontpage (https://startbootstrap.com/templates/business-frontpage)
+ * Copyright 2013-2020 Start Bootstrap
+ * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-business-frontpage/blob/master/LICENSE)
+ */
+ 
+.page-section {
+    padding: 6rem 0;
+}
+.main-color{ color: #fed136 }
+.main-bgcolor{}
+.main-bg{ background:url('../Links/slide2-1.jpg') top left no-repeat; }
