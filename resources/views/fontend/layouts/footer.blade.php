@@ -11,7 +11,6 @@
         <p>249 Cộng Hòa, Tân Bình, Tp. Hồ Chí Minh</p>
         <p>Email: Support@brandviet.com.vn</p>
         <abbr title="Phone">Phone:</abbr> (84) 838 068 268
-
       </address>
     </div>
     <div class="col-lg-2 col-sm-4">

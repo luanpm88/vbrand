@@ -14,8 +14,7 @@
             <div class="tagline-action">
               <div class="tagline-action-link"> 
                 <a class="btn btn-outline-warning color-black" href="javascript:void(0);" type="button" target="_blank" data-toggle="modal" data-target="#exampleModal">
-                  <i class="fa fa-plus" aria-hidden="true"></i> DÙNG THỬ MIỄN PHÍ
-                </a>
+                  <i class="fa fa-plus" aria-hidden="true"></i> DÙNG THỬ MIỄN PHÍ</a>
               </div>            
             </div>
           </div>        
