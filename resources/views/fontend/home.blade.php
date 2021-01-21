@@ -245,7 +245,8 @@
         </div>
       
     </div>
-  </div>   
+  </div>  
+
 <div class="feature-box centered">
     <div>
       <div class="container">
@@ -355,9 +356,9 @@
       <div class="container">
         <div class="row justify-content-md-center">
           <div class="col-lg-12 col-xl-12">
-            <div class="main-title"><span>TIN MỚI CẬP NHẬT</span></div>
+            <div class="main-title"><span>MẤU THIẾT KẾ MỚI</span></div>
             <div class="main-title-description">
-              Thông tin mới nhất được cập nhật liên tục giúp bạn bắt kịp thị trường, thị hiếu người tiêu dùng và xu hướng tiêu dùng hiện tại để có điều chỉnh phù hợp với thương hiệu, sản phẩm và hoạt động kinh doanh của mình.
+              Hiện có nhiều mãu thiết kế cho bạn lựa chọn, Thay đổi website theo mẫu chỉ trong 1 click chuột, Bạn triển khai mẫu hoàn toàn mới chỉ trong vòng vài phút, hãy tham khảo những mẫu mới nhất sau
             </div>
             <div class="item-listing grid mb50">
               <div class="row">
@@ -370,13 +371,7 @@
                       <a href="{{ url('posts',$rows->slug) }}">
                         @if (!empty($rows->photo))
                             <img src="{{ asset('upload/Post/'.$rows->photo) }}" class="img-fluid" >
-                        @endif
-                        <div class="item-meta">
-                          <div class="item-price"><small>{{ $rows->created_at->format('d-m-Y') }}</small> </div>
-                        </div>
-                        <div class="item-badges">
-                          <div class="item-badge-right">{{ $rows->category->title }}</div>
-                        </div>
+                        @endif  
                       </a>
                     </div>
                     <div class="item-info">
@@ -406,8 +401,8 @@
         <div class="row"> 
           <div class="col-md-6">
             <div class="sale-info mb50">
-                <div class="mb-4"><span class="tagline">THIẾT KẾ WEBSITE</span></div>
-                <div class="main-title"><span>XÂY DỰNG WEBSITE RIÊNG</span></div>
+                <div class="mb-4"><span class="tagline">WEBSITE RIÊNG</span></div>
+                <div class="main-title"><span>BẠN CẦN XÂY DỰNG WEBSITE RIÊNG</span></div>
                 <div class="main-title-description">
                   Thiết kế website riêng chuẩn SEO, cập nhật công nghệ mới nhất hiện nay. Chúng tôi hỗ trợ bạn tối đa về công nghệ và kỹ thuật để bạn dễ dàng triển khai kế hoạch kinh doanh của mình, Bộ phần Kỹ thuật, Hỗ trợ luôn đồng hành cũng bạn 24/7.
                 </div>

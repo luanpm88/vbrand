@@ -18,8 +18,9 @@
     <link href="{{ asset('css/reponsive.css') }}" rel="stylesheet"> 
     <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>  
+    <script src="{{ asset('js/swiper.min.js') }}"></script>
+    
     <script src="{{ asset('js/lib.js') }}"></script>
     <script src="https://www.google.com/recaptcha/api.js"></script> 
 </head>
 <body>
- 

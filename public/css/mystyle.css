@@ -95,3 +95,6 @@
 .item-game-wrapper .item-info .item-price p {
     margin: 0 0 10px;
 }
+.menu-bg{ background-color: #fbfbfb !important ;/*rgba(134, 158, 158, 0.07)*/}
+.navbar-dark .navbar-toggler{ background-color:#000;  }
+.slogonmobi{ color: #000; }

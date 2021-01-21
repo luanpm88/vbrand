@@ -1,5 +1,5 @@
 <header>
-<nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark" id="menu">
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top menu-bg" id="menu">
   <div class="container">
   <a class="navbar-brand" href="{{ url('/') }}">
     <span class="icon-brand"></span> 
@@ -67,11 +67,11 @@
             <a href="{{ URL('member/profile') }}" class="dropdown-item"><i class="bi bi-person-fill"></i>  Tài khoản</a>
             <a href="{{ URL('member/password') }}" class="dropdown-item"><i class="bi bi-pencil-square"></i> Đổi mật khẩu</a>
             <a href="{{ URL('member/alert') }}" class="dropdown-item"><i class="bi bi-bell"></i> Thông báo</a>
-            <a href="{{ URL('member/payment') }}" class="dropdown-item"><i class="fa fa-fw fa-credit-card"></i> Thanh toán</a>
-            <a href="{{ URL('member/account') }}" class="dropdown-item"><i class="fas fa-cog"></i></i> Cấu hình</a> 
+            <a href="{{ URL('member/payment') }}" class="dropdown-item"><i class="bi bi-credit-card"></i> Thanh toán</a>
+            <a href="{{ URL('member/account') }}" class="dropdown-item"><i class="bi bi-gear"></i> Cấu hình</a> 
             <a  href="{{ route('logout') }}" class="dropdown-item"
-                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                  {{ __('layout.logout') }}  <i class="fa fa-sign-out" aria-hidden="true"></i>
+                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="bi bi-power"></i>
+                  {{ __('layout.logout') }}  
             </a>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
             @csrf
