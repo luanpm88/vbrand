@@ -361,31 +361,56 @@
             </div>
             <div class="item-listing grid mb50">
               <div class="row">
-
-                @foreach($data as $rows)
-                
-                <div class="col-md-4">
-                  <div class="item">
-                    <div class="item-image">
-                      <a href="{{ url('posts',$rows->slug) }}">
-                        @if (!empty($rows->photo))
-                            <img src="{{ asset('upload/Post/'.$rows->photo) }}" class="img-fluid" >
-                        @endif  
-                      </a>
-                    </div>
-                    <div class="item-info">
-                      <h3 class="item-title">
+                 
+                @foreach($templates as $rows)
+                <div class="col-xl-4 col-lg-4 col-md-6 grid-item cat2 cat1 mb-30  ">
+                  <div class="card shadow bg-white rounded item">
+                      <div class="imgs">
                         <a href="{{ url('posts',$rows->slug) }}">
-                          {{ $rows->title }}
+                          @if (!empty($rows->photo))
+                              <img src="{{ asset('upload/Template/'.$rows->photo) }}" class="card-img-top"  >
+                          @endif  
                         </a>
-                      </h3>
-                      <div class="item-comments-count"><i class="fa fa-comment-o"></i> {{ $rows->view }}</div>
-                      <div class="item-author">{{ $rows->users->name }}</div>
-                    </div>
+                      </div>
+                      <div class="card-body">
+                          <div class="item-info">
+                            <h3 class="item-title">
+                              <a href="{{ url('posts',$rows->slug) }}">
+                                {{ $rows->title }}
+                              </a>
+                            </h3> 
+                          </div>
+                          <span class="card-text pb-3">
+                            {{ $rows->description ?? '' }}
+                          </span>
+                          <div class="row pt-2">
+                              <div class="col-md-6 col-xs-6">
+                                <div class="text-left">
+                                  <span class="card-text ">{{ $rows->price ?? '' }}</span>
+                                </div>
+                                <div class="price details-price pb-10 " style="color:#ffc107; text-align: left;">
+                                  <div>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i> 
+                                    <i class="bi bi-star-half"></i>
+                                    <i class="bi bi-star"></i> 
+                                  </div>     
+                                </div>
+                              </div>
+                              <div class="col-md-6 col-xs-6">
+                                  <div class="star text-right p-0">
+                                      <a href="javascript:void(0)" class="btn btn-outline-success " data-toggle="modal" data-target="#exampleModal">
+                                        <i class="bi bi-cart-plus"></i> CHỌN
+                                      </a>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
                   </div>
-                </div> 
-                @endforeach                 
+              </div>
 
+                @endforeach
               </div>
             </div>
             
@@ -438,7 +463,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">KHỞI TẠO GIAN HÀNG</h5>
+        <h5 class="modal-title" id="exampleModalLabel">TẠO GIAN HÀNG MIỄN PHÍ</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -516,7 +541,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="Modalrienglable">ĐĂNG KÝ THIẾT KẾ WEBSITE RIÊNG</h5>
+        <h5 class="modal-title" id="Modalrienglable">THIẾT KẾ WEBSITE RIÊNG</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

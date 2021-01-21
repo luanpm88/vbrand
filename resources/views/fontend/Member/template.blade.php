@@ -29,26 +29,50 @@
   @foreach( $data as $items)
   <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 item-frames">
     <div class="item-game-wrapper">
-      <div class="img">
-        <a href="{{ url('member/template/'.$items->slug) }}">
-          <img class="check_img_errs" src="{{ url('Upload/Post/'.$items->photo) }}" alt="">
-        </a>
-      </div>
+        <div class="imgs">
+                        <a href="{{ url('posts',$items->slug) }}">
+                          @if (!empty($items->photo))
+                              <img src="{{ asset('upload/Template/'.$items->photo) }}" class="card-img-top"  >
+                          @endif  
+                        </a>
+                      </div>
       <div class="item-info">
+
         <div class="item-title">
           <a href="{{ url('member/template/'.$items->slug) }}">{{ $items->title }}</a>
         </div>
         <div class="item-price">
           <p class="price">
-            <span class="cur-p">458,000đ</span>
+            <span class="cur-p">
+              Miễn phí
+            </span>
           </p>
         </div>
-        <div class="item-btn-a">
-          <a href="javascript:void(0);" onclick="cart.add('97', '1',this);">
-            <i class="fas fa-shopping-cart"></i>
-          </a>
+        <div class="item-func">
+            <div class="row pt-2">
+                <div class="col-md-6 col-xs-6">
+                  <div class="text-left">
+                    <span class="card-text "></span>
+                  </div>
+                  <div class="price details-price pb-10 " style="color:#ffc107; text-align: left;">
+                    <div>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i> 
+                      <i class="bi bi-star-half"></i>
+                      <i class="bi bi-star"></i> 
+                    </div>     
+                  </div>
+                </div>
+                <div class="col-md-6 col-xs-6">
+                    <div class="star text-right p-0">
+                        <a href="{{ url('member/template/'.$items->slug) }}" class="btn btn-outline-success " >  CHỌN
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="item-btn" onclick="cart.buyNow('97', '1',this);" style="margin-top: 10px">Mua ngay</div>
+
       </div>
     </div>
   </div>

@@ -206,7 +206,7 @@ class MemberController extends Controller
 
         $slug       = $request->slug;
         $template   = Template::where('slug', $slug)->firstOrFail();
-        return view('fontend.Member.template_details',['user'=> Auth::user(),'data'=>$template ]);
+        return view( 'fontend.Member.template_details',[ 'user'=> Auth::user(),'data'=>$template ]);
     }
     
 

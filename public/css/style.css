@@ -154,7 +154,7 @@ h1.block, h2.block, h3.block, h4.block, h5.block, h6.block {
 */
 a {
 	text-shadow: none !important;
-	color: #584b8d;
+	color: #000;
 	transition: color 0.1s linear 0s, background-color 0.1s linear 0s, opacity 0.2s linear 0s !important;
 }
 a:focus, a:hover, a:active {
@@ -637,13 +637,12 @@ a.topfree{ margin-top:5px;margin-bottom: 5px;  }
 /* Card */
 .card {
 	border: none;
-	padding: 15px;
+	padding: 0;
 	border-radius: 3px;
 	box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
 	margin-bottom: 20px;
 }
-.card.shadow {
-	padding: 15px !important;
+.card .shadow { 
 	box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1) !important;
 }
 /* Login */
@@ -1659,7 +1658,7 @@ input[type="radio"], input[type="checkbox"] {
 /*	9.	Item Listings
 -------------------------------------------------------------------*/
 .item-listing .item { 
-	padding: 10px; 
+	/*padding: 10px; */
 	overflow: hidden;
 	box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
 	background-color: #fff;

@@ -1,6 +1,6 @@
 
 <header>
-<nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark" id="menu">
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top menu-bg" id="menu"> 
   <div class="container">
   <a class="navbar-brand" href="{{ url('/') }}">
     <span class="icon-brand"></span> 

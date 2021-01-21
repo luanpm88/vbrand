@@ -9,6 +9,7 @@ use App\Products;
 use App\Category;
 use App\Feedback;
 use App\Posts;
+use App\Template;
 use App\Users;
 use Mail;
 use App\Mail\TestEmail;
@@ -121,9 +122,10 @@ class TrangchuController extends Controller
         ->select( 'posts.*', 'category.title as cat_title'
         )->where('hot', 1 )->orderByRaw('view DESC')->limit(5)->get();
         */
-        $post_hot = Posts::where('hot',1)->orderByRaw('view DESC')->limit(6)->get();
+        $templates = Template::where('status',1)->orderByRaw('view','DESC')->limit(6)->get();
+
         return view('fontend.home', [ 
-                'data'    =>$post_hot
+                'templates'    =>$templates
         ]);
     }
 
