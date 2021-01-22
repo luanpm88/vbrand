@@ -23,31 +23,19 @@
   <form  method="post">
     @csrf
 
-<section class="hotproducts mb-4">
-  <div class="list-sp">
-                <div class="row">
-  @foreach( $data as $items)
-  <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 item-frames">
-    <div class="item-game-wrapper">
-        <div class="imgs">
-                        
-                          @if (!empty($items->photo))
-                              <img src="{{ asset('upload/Template/'.$items->photo) }}" class="card-img-top"  >
-                          @endif  
-                        
-                      </div>
-      <div class="item-info">
+<section class="templates mb-4">
+    
 
-        <div class="item-title">
-           {{ $items->title ?? '' }} 
-        </div>
-        <div class="item-price">
-          <p class="price">
-            <span class="cur-p">
-              Miễn phí
-            </span>
-          </p>
-        </div>
+@if($data)
+<div class="row">
+  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+    <div class="item-game-wrapper">
+      <div class="imgs">          
+        @if (!empty($data->photo))
+          <img src="{{ asset('upload/Template/'.$data->photo) }}" class="card-img-top"  >
+        @endif        
+      </div>
+      <div class="item-info"> 
         <div class="item-func">
             <div class="row pt-2">
                 <div class="col-md-6 col-xs-6">
@@ -74,14 +62,43 @@
         </div>
 
       </div>
+      <div id="button-cart-redirect" data-loading-text="Đang tải..." class="btn btn-green-bg col-md-5 product-content-button-ml">Mua Ngay
+  </div>
+  <div id="button-cart" data-loading-text="Đang tải..." class="btn btn-orange-bg col-md-5 add-cart-orange" >
+  <i class="fa fa-shopping-cart"> </i> Thêm vào giỏ </div>
+  
     </div>
   </div>
+  <div class="col-md-6 col-xs-6 bar-buy-product product-content-button">
+    <div class="template_details">
+    <h1>{{ $data->title ?? '' }} </h1>
+    <div class="template_des">{{ $data->description ?? '' }} </div>
+    <div class="template_price">Giá: {{ $data->price ?? 'Miễn Phí' }} </div>
+    <div class="template_des">
+        Bạn còn: 112 ngày
+    </div>
+    <div class="template_func">
+      <h2>Chức năng</h2>
+      <ul>
+        <li>Trang chủ</li>
+        <li>Trang giới thiệu</li>
+        <li>Trang sản phảm</li>
+        <li>Trang chi tiết</li>
+        <li>Trang tin tức</li>
+        <li>Trang chuyên mục</li>
+        <li>Trang chi tiết tin tức</li>
+        <li>Trang tìm kiếm</li>
+        <li>Trang tag</li>
+      </ul>
+    </div>
+  
+  
+  </div>
 
+  </div>
 
-  @endforeach 
-                                   
 </div>
- 
+  @endif
 </div>
 </section>
 

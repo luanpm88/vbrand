@@ -163,3 +163,32 @@
 .text-left {
     text-align: left !important;
 }
+.btn-green-bg {
+     
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #29b474;
+    color: #fff;
+    padding: 8px 0;
+    cursor: pointer;
+    font-family: 'Roboto-Condensed-Bold';
+    background-color: #29b474;
+    height: 40px;
+    border-radius: 2px !important;
+}
+.btn-orange-bg {
+    
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ffb517;
+    color: #fff;
+    padding: 8px 0;
+    cursor: pointer;
+    font-family: 'Roboto-Condensed-Bold';
+    background-color: #ffb517;
+    height: 40px;
+    border-radius: 2px !important;
+}
+.d-flex {
+    display: flex;
+}
