@@ -39,6 +39,10 @@ class Users extends Authenticatable
 
     public function template()
     {
-        return $this->hasOne('App/users','user_id');
+        return $this->hasOne(Template::class); 
+    }
+    public function package()
+    {
+        return $this->hasOne(Package::class); 
     }
 }

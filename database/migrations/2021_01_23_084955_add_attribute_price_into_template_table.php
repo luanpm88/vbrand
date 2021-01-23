@@ -14,7 +14,7 @@ class AddAttributePriceIntoTemplateTable extends Migration
     public function up()
     {
         Schema::table('template', function (Blueprint $table) {
-            //
+            $table->integer('price')->nullable();
         });
     }
 

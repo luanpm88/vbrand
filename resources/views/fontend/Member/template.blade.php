@@ -19,37 +19,36 @@
 <div class="alert alert-success" role="alert">
   <strong> {{ Session::get('messenge') }}</strong>.
 </div>
-@endif 
-  <form  method="post">
-    @csrf
+@endif
 
+<form  method="post">
+@csrf
 <section class="hotproducts mb-4">
   <div class="list-sp">
-                <div class="row">
-  @foreach( $data as $items)
-  <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 item-frames">
-    <div class="item-game-wrapper">
-        <div class="imgs">
-                        <a href="{{ url('posts',$items->slug) }}">
-                          @if (!empty($items->photo))
-                              <img src="{{ asset('upload/Template/'.$items->photo) }}" class="card-img-top"  >
-                          @endif  
-                        </a>
-                      </div>
-      <div class="item-info">
-
-        <div class="item-title">
-          <a href="{{ url('member/template/'.$items->slug) }}">{{ $items->title }}</a>
-        </div>
-        <div class="item-price">
-          <p class="price">
-            <span class="cur-p">
-              Miễn phí
-            </span>
-          </p>
-        </div>
-        <div class="item-func">
-            <div class="row pt-2">
+    <div class="row">
+      @foreach( $data as $items)
+      <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 item-frames">
+        <div class="item-game-wrapper">
+          <div class="imgs">
+            <a href="{{ url('member/template',$items->slug) }}">
+              @if (!empty($items->photo))
+                  <img src="{{ asset('upload/Template/'.$items->photo) }}" class="card-img-top"  >
+              @endif  
+            </a>
+          </div>
+          <div class="item-info">
+            <div class="item-title">
+              <a href="{{ url('member/template/'.$items->slug) }}">{{ $items->title }}</a>
+            </div>
+            <div class="item-price">
+              <p class="price">
+                <span class="cur-p">
+                  Miễn phí
+                </span>
+              </p>
+            </div>
+            <div class="item-func">
+              <div class="row pt-2">
                 <div class="col-md-6 col-xs-6">
                   <div class="text-left">
                     <span class="card-text "></span>

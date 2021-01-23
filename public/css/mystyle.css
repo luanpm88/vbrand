@@ -95,7 +95,7 @@
 .item-game-wrapper .item-info .item-price p {
     margin: 0 0 10px;
 }
-.menu-bg{ background-color: #fbfbfb !important ;/*rgba(134, 158, 158, 0.07)*/}
+.menu-bg{ background-color: #fff !important ;/*rgba(134, 158, 158, 0.07)*/}
 .navbar-dark .navbar-toggler{ background-color:#000;  }
 .slogonmobi{ color: #000; }
 /*
@@ -168,12 +168,10 @@
     justify-content: center;
     align-items: center;
     border: 1px solid #29b474;
-    color: #fff;
-    padding: 8px 0;
+    color: #fff; 
     cursor: pointer;
     font-family: 'Roboto-Condensed-Bold';
-    background-color: #29b474;
-    height: 40px;
+    background-color: #29b474; 
     border-radius: 2px !important;
 }
 .btn-orange-bg {
@@ -181,14 +179,13 @@
     justify-content: center;
     align-items: center;
     border: 1px solid #ffb517;
-    color: #fff;
-    padding: 8px 0;
+    color: #fff; 
     cursor: pointer;
     font-family: 'Roboto-Condensed-Bold';
-    background-color: #ffb517;
-    height: 40px;
+    background-color: #ffb517; 
     border-radius: 2px !important;
 }
 .d-flex {
     display: flex;
 }
+.template_details h1{ margin: 0; text-transform: uppercase; }

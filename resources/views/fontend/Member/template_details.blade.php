@@ -53,29 +53,26 @@
                   </div>
                 </div>
                 <div class="col-md-6 col-xs-6">
-                    <div class="star text-right p-0">
-                        <a href="#" class="btn btn-outline-success " >  CHỌN
-                        </a>
-                    </div>
+                     
                 </div>
             </div>
         </div>
 
       </div>
-      <div id="button-cart-redirect" data-loading-text="Đang tải..." class="btn btn-green-bg col-md-5 product-content-button-ml">Mua Ngay
-  </div>
-  <div id="button-cart" data-loading-text="Đang tải..." class="btn btn-orange-bg col-md-5 add-cart-orange" >
-  <i class="fa fa-shopping-cart"> </i> Thêm vào giỏ </div>
+      
   
     </div>
+    <div id="button-cart-redirect" data-loading-text="Đang tải..." class="btn btn-green-bg col-md-5 product-content-button-ml">Xem demo </div>
+  <div id="button-cart" data-loading-text="Đang tải..." class="btn btn-orange-bg col-md-5 add-cart-orange" > CHỌN GIAO DIỆN NÀY  </div>
   </div>
   <div class="col-md-6 col-xs-6 bar-buy-product product-content-button">
     <div class="template_details">
-    <h1>{{ $data->title ?? '' }} </h1>
-    <div class="template_des">{{ $data->description ?? '' }} </div>
-    <div class="template_price">Giá: {{ $data->price ?? 'Miễn Phí' }} </div>
-    <div class="template_des">
-        Bạn còn: 112 ngày
+      <h1>{{ $data->title ?? '' }} </h1>
+      <p class="template_des">{{ $data->description ?? '' }} </p>
+      <p class="template_price">Giá: {{ $data->price ?? 'Miễn Phí' }} </p>
+      <p class="template_des">
+          Bạn còn: 112 ngày
+      </p>
     </div>
     <div class="template_func">
       <h2>Chức năng</h2>

@@ -20,17 +20,32 @@
 </div>
 <div class="row">
     <div class="col-lg-12">
-        <div class="theiaStickySidebar" style="padding-top: 0px; padding-bottom: 1px; position: static; transform: none;">
+
+        <div class="theiaStickySidebar">
+            
             <div class="sorting">
                 <div class="row justify-content-between">
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                        <a href="{{ url('member/products/add') }}" class="btn btn-secondary "> <i class="bi bi-card-list"></i> MỚI NHẤT</a>                         
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12"> 
+                        <a href="{{ url('member/products/add') }}" class="btn btn-secondary "> <i class="bi bi-caret-UP"></i> LAZADA</a> 
+                        <a href="{{ url('member/products/add') }}" class="btn btn-secondary "> <i class="bi bi-caret-UP"></i> TIKI</a> 
+                        <a href="{{ url('member/products/add') }}" class="btn btn-secondary "> <i class="bi bi-caret-UP"></i> SHOPPEE</a>
+                        <a href="{{ url('member/products/add') }}" class="btn btn-secondary "> <i class="bi bi-caret-UP"></i> SENDO</a> 
+
+                    </div>
+                </div>                
+            </div>
+            <div class="othersorting" style="margin: 9px 0">
+                <div class="row justify-content-between">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12"> 
+                        <a href="{{ url('member/products/add') }}" class="btn btn-secondary "> <i class="bi bi-card-list"></i> MỚI NHẤT</a>
+                        <a href="{{ url('member/products/add') }}" class="btn btn-secondary "> <i class="bi bi-card-list"></i> MỚI NHẤT</a>
                         <a href="{{ url('member/products/add') }}" class="btn btn-secondary "> <i class="bi bi-caret-down"></i> TĂNG DẦN</a> 
                         <a href="{{ url('member/products/add') }}" class="btn btn-secondary "> <i class="bi bi-caret-UP"></i> GIẢM DẦN</a> 
                         <a href="{{ url('member/products/add') }}" class="btn btn-secondary "> <i class="fa fa-plus" aria-hidden="true"></i> GIẢM DẦN</a> 
                     </div>
-                </div>                
+                </div>
             </div>
+
             <div class="clearfix"></div>
             @if($data)
             <div class="item-listing list">
@@ -39,14 +54,14 @@
                 <?php $user = DB::table('users')->where('id',$row->user_id)->first(); ?>
                 <div class="item">
                     <div class="row">
-                        <div class="col-lg-5">
+                        <div class="col-lg-2">
                             <div class="item-image">
                             @if (!empty($row->photo))
                                 <img src="{{ asset('upload/Product/'.$row->photo) }}" class="img-fluid">
                             @endif  
                             </div>
                         </div>
-                        <div class="col-lg-7">
+                        <div class="col-lg-10">
                             <div class="item-info">
                                 <h3 class="item-title"><a href="property_single.html">{{ $row->title }}</a></h3>
                                 <div class="item-description">{{ $row->description }}</div> 
