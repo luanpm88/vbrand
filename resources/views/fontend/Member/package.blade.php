@@ -26,11 +26,12 @@
   <div class="list-sp">
     <div class="row">
 
-      
+       
       @foreach( $data as $items)
       <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
         <form  method="post">
         @csrf
+        <input type="hidden" name="package_id" value="{{ $items->id }}">
         <div class="card ">
           <div class="card-header">
             <h4 class="my-0 font-weight-normal">{{ $items->title }}</h4>
@@ -38,7 +39,15 @@
           <div class="card-body">
             <p class="card-title pricing-card-title">{{ Str::currency($items->price) ?? '' }}<sup>đ</sup> <small class="text-muted">/ Tháng</small></p>
             <p class="list-unstyled mt-3 mb-4">{!! $items->description !!}</p>
-            <button type="button" class="btn btn-lg btn-block btn-outline-primary">Choose</button>
+            @if($user->package_id)
+              @if($user->package_id == $items->id)
+                <button type="submit" class="btn btn-lg btn-block btn-primary">Choose</button>
+              @else
+                <button type="submit" class="btn btn-lg btn-block btn-outline-primary">Choose</button>
+              @endif
+            @else
+              <button type="submit" class="btn btn-lg btn-block btn-outline-primary">Choose</button>
+            @endif
           </div>
         </div>
         </form> 

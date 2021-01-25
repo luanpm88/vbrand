@@ -211,6 +211,12 @@ class MemberController extends Controller
         $package  = Package::where('status',1)->orderBy('id','ASC')->get();
         return view('fontend.Member.package',['user'=> Auth::user(),'data' => $package ]);
     }
+    public function package_store (Request $request){  
+        $user       = Auth::user();
+        $user->package_id = $request->package_id;
+        $user->save();
+        return redirect()->route('fontend.packagelist')->with(['messenge'=>'Cập nhật thành công!!!']); 
+    }
     public function payment(){ 
         return view('fontend.Member.payment',['data'=> Auth::user() ]);
     }    
@@ -224,6 +230,13 @@ class MemberController extends Controller
         return view( 'fontend.Member.template_details',[ 'user'=> Auth::user(),'data'=>$template ]);
     }
     public function template_store(Request $request)
+    {
+        $user       = Auth::user();
+        $user->template_id = $request->template_id;
+        $user->save();
+        return redirect()->route('fontend.templatelist')->with(['messenge'=>'Cập nhật thành công!!!']); 
+    }
+    public function template_details_store(Request $request)
     {
         $slug       = $request->slug;
         $template   = Template::where('slug', $slug)->firstOrFail();

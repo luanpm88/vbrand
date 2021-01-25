@@ -62,8 +62,24 @@
       
   
     </div>
-    <div id="button-cart-redirect" data-loading-text="Đang tải..." class="btn btn-green-bg col-md-5 product-content-button-ml">Xem demo </div>
-  <div id="button-cart" data-loading-text="Đang tải..." class="btn btn-orange-bg col-md-5 add-cart-orange" > CHỌN GIAO DIỆN NÀY  </div>
+    <form  method="post">
+        @csrf
+      <input type="hidden" name="template_id" value="{{ $data->id }}">
+<div id="button-cart-redirect" class="btn btn-green-bg col-md-5 product-content-button-ml">Xem demo </div>
+@if($user->template_id)
+      @if($user->template_id == $data->id)
+        <button type="submit" class="btn btn-orange-bg col-md-5 add-cart-orange">Approved</button>
+      @else
+        <button  type="submit" class="btn btn-orange-bg col-md-5 add-cart-orange" > CHỌN GIAO DIỆN NÀY  </button>
+      @endif
+    @else
+      <button  type="submit" class="btn btn-orange-bg col-md-5 add-cart-orange" > CHỌN GIAO DIỆN NÀY  </button>
+    @endif  
+ 
+    </form>
+    
+
+  
   </div>
   <div class="col-md-6 col-xs-6 bar-buy-product product-content-button">
     <div class="template_details">

@@ -27,7 +27,11 @@
   <div class="list-sp">
     <div class="row">
       @foreach( $data as $items)
+      
       <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 item-frames">
+        <form  method="post">
+        @csrf
+      <input type="hidden" name="template_id" value="{{ $items->id }}">
         <div class="item-game-wrapper">
           <div class="imgs">
             <a href="{{ url('member/template',$items->slug) }}">
@@ -65,8 +69,16 @@
                 </div>
                 <div class="col-md-6 col-xs-6">
                     <div class="star text-right p-0">
-                        <a href="{{ url('member/template/'.$items->slug) }}" class="btn btn-outline-success " >  CHỌN
-                        </a>
+                      @if($user->template_id)
+                        @if($user->template_id == $items->id)
+                          <button type="submit" class="btn btn-lg btn-block btn-primary">Approved</button>
+                        @else
+                          <button type="submit" class="btn btn-outline-success">CHỌN</button>
+                        @endif
+                      @else
+                        <button type="submit" class="btn btn-outline-success">CHỌN</button>
+                      @endif  
+
                     </div>
                 </div>
             </div>
@@ -74,9 +86,9 @@
 
       </div>
     </div>
-  </div>
-
-
+  
+</form>
+</div>
   @endforeach 
                                    
 </div>
