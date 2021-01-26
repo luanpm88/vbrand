@@ -20,62 +20,47 @@
   <strong> {{ Session::get('messenge') }}</strong>.
 </div>
 @endif 
-  <form  method="post">
-    @csrf
+  
+ 
+  <section class="hotproducts mb-4">
+  <div class="list-sp">
+    <div class="row">
 
-<section class="hotproducts mb-4">
-<div class="row">
- 
-    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 card  ">
-      <div class="card-header">
-        <h4 class="my-0 font-weight-normal">NOMAL</h4>
+       
+      @foreach( $data as $items)
+      <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
+        <form  method="post">
+        @csrf
+        <input type="hidden" name="package_id" value="{{ $items->id }}">
+        <div class="card ">
+          <div class="card-header">
+            <h4 class="my-0 font-weight-normal">{{ $items->title }}</h4>
+          </div>
+          <div class="card-body">
+            <p class="card-title pricing-card-title">{{ Str::currency($items->price) ?? '' }}<sup>đ</sup> <small class="text-muted">/ Tháng</small></p>
+            <p class="list-unstyled mt-3 mb-4">{!! $items->description !!}</p>
+            @if($user->package_id)
+              @if($user->package_id == $items->id)
+                <button type="submit" class="btn btn-lg btn-block btn-primary">Choose</button>
+              @else
+                <button type="submit" class="btn btn-lg btn-block btn-outline-primary">Choose</button>
+              @endif
+            @else
+              <button type="submit" class="btn btn-lg btn-block btn-outline-primary">Choose</button>
+            @endif
+          </div>
+        </div>
+        </form> 
       </div>
-      <div class="card-body">
-        <h1 class="card-title pricing-card-title">$0 <small class="text-muted">/ mo</small></h1>
-        <ul class="list-unstyled mt-3 mb-4">
-          <li>5 users included</li>
-          <li>2 GB of storage</li>
-          <li>Email support</li>
-          <li>Help center access</li>
-        </ul>
-        <button type="button" class="btn btn-lg btn-block btn-outline-primary">Choose</button>
-      </div>
+      @endforeach
+
+
+
     </div>
-    <div class=" col-lg-4 col-md-4 col-sm-6 col-xs-6 card  ">
-      <div class="card-header">
-        <h4 class="my-0 font-weight-normal">SILVER</h4>
-      </div>
-      <div class="card-body">
-        <h1 class="card-title pricing-card-title">$25 <small class="text-muted">/ mo</small></h1>
-        <ul class="list-unstyled mt-3 mb-4">
-          <li>20 users included</li>
-          <li>10 GB of storage</li>
-          <li>Priority email support</li>
-          <li>Help center access</li>
-        </ul>
-        <button type="button" class="btn btn-lg btn-block btn-primary">Actived</button>
-      </div>
-    </div>
-    <div class=" col-lg-4 col-md-4 col-sm-6 col-xs-6 card  ">
-      <div class="card-header">
-        <h4 class="my-0 font-weight-normal">GOLD</h4>
-      </div>
-      <div class="card-body">
-        <h1 class="card-title pricing-card-title">$99 <small class="text-muted">/ mo</small></h1>
-        <ul class="list-unstyled mt-3 mb-4">
-          <li>illimited users included</li>
-          <li>50 GB of storage</li>
-          <li>Phone, email support</li>
-          <li>Help center access</li>
-        </ul>
-        <button type="button" class="btn btn-lg btn-block btn-outline-primary">Choose</button>
-      </div>
-    </div>
- 
-</div>
+  </div>
 </section>
-
+   
  
-  </form> 
+  
 </div> 
 @endsection()

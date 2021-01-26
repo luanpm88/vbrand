@@ -25,7 +25,9 @@ class CreatePostsTable extends Migration
             $table->date('created')->nullable();
             $table->tinyInteger('status')->nullable();
             $table->string('photo')->nullable();
-            $table->integer('del')->nullable();
+            $table->integer('del')->nullable(); 
+            $table->tinyInteger('view')->nullable();
+            $table->tinyInteger('hot')->nullable();
             $table->timestamps();
         });
     }

@@ -21,8 +21,11 @@ class CreateTemplateTable extends Migration
             $table->mediumText('description')->nullable();
             $table->longtext('content')->nullable();
             $table->mediumText('keyword')->nullable(); 
-            $table->longtext('photo')->nullable();
+            $table->mediumText('created')->nullable(); 
             $table->tinyInteger('status')->nullable();
+            $table->longtext('photo')->nullable(); 
+            $table->tinyInteger('view')->nullable();
+            $table->tinyInteger('hot')->nullable();
             $table->timestamps();
         });
     }

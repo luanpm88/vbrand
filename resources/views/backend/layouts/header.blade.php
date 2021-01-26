@@ -9,12 +9,12 @@
         <meta content="Themesbrand" name="author" />
         <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">        
          
-        <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
-        <link href="{{ asset('assets/css/metismenu.min.css') }}" rel="stylesheet" type="text/css">
-        <link href="{{ asset('assets/css/icons.css') }}" rel="stylesheet" type="text/css">
-        <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('assetss/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('assetss/css/metismenu.min.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('assetss/css/icons.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('assetss/css/style.css') }}" rel="stylesheet" type="text/css">
         <style type="text/css">.nicEdit-main { overflow: auto !important; height: 450px;}</style>
-        <script src="{{ asset('assets/js/nicEdit.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('assetss/js/nicEdit.js') }}" type="text/javascript"></script>
 
     </head> 
     <body>

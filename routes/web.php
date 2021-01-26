@@ -59,7 +59,7 @@ Route::prefix('member')->middleware(['auth'])->group(function(){
 	Route::get('account', 'MemberController@accountsetting');
 	Route::post('account', 'MemberController@alert_store');
 
-	Route::get('package', 'MemberController@package');
+	Route::get('package', 'MemberController@package')->name('fontend.packagelist');
 	Route::post('package', 'MemberController@package_store');
 
 	Route::get('promotion', 'MemberController@promotion');
@@ -77,8 +77,11 @@ Route::prefix('member')->middleware(['auth'])->group(function(){
 	Route::post('email', 'MemberController@email_store');
 
 	Route::get('template', 'MemberController@template')->name('fontend.templatelist');
+
 	Route::get('template/{slug}', 'MemberController@template_details');
-	Route::post('template', 'MemberController@template_store'); 
+	Route::post('template/{slug}', 'MemberController@template_details_store');
+
+	Route::post('template', 'MemberController@template_store');  
 
 	Route::get('card', 'MemberController@card');
 

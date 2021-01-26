@@ -8,6 +8,8 @@ use DateTime,File,Input,DB;
 use App\Products;
 use App\Category;
 use App\Template;
+use App\Package;
+
 use App\myclass\Slug;
 
 class MemberController extends Controller 
@@ -153,12 +155,30 @@ class MemberController extends Controller
     public function domain(){ 
         return view('fontend.Member.domain',['data'=> Auth::user() ]);
     }
+    public function domain_store(Request $request){ 
+        $user       = Auth::user();
+        if($request->domain){
+            if($user->domain){
+                if( $request->domain != $user->domain) {
+                    $user->domain = $request->domain;                
+                    $user->save();
+                    return redirect()->back()->with(['messenge'=> 'Change Successfully !!']);
+                }else{
+                    return redirect()->back()->with(['messenge'=> 'No change !!']);
+                }
+            }else{
+                $user->domain = $request->domain;
+                $user->save();
+                return redirect()->back()->with(['messenge'=> 'Add Successfully !!']);
+            }
+        }
+    }
 
     public function customer(){ 
         return view('fontend.Member.customer',['data'=> Auth::user() ]);
     }
 
-     public function email(){ 
+    public function email(){ 
         return view('fontend.Member.email',['data'=> Auth::user() ]);
     } 
 
@@ -176,8 +196,7 @@ class MemberController extends Controller
     public function password(){ 
         return view('fontend.Member.password',['data'=> Auth::user() ]);
     }
-    public function changepassword(Request $request){  
-
+    public function changepassword(Request $request){
         $user = Auth::user();
         if($input['currentpassword'] == $user->password){
             if( $input['newpassword']== $input['renewpassword'] ){
@@ -187,30 +206,37 @@ class MemberController extends Controller
             }
         }
         return view('fontend.Member.password',['data'=> $user ])->with(['message'=>  "Don't change any things"]);
-        
     }
-
     public function package (){ 
-        return view('fontend.Member.package',['data'=> Auth::user() ]);
+        $package  = Package::where('status',1)->orderBy('id','ASC')->get();
+        return view('fontend.Member.package',['user'=> Auth::user(),'data' => $package ]);
     }
-
+    public function package_store (Request $request){  
+        $user       = Auth::user();
+        $user->package_id = $request->package_id;
+        $user->save();
+        return redirect()->route('fontend.packagelist')->with(['messenge'=>'Cập nhật thành công!!!']); 
+    }
     public function payment(){ 
         return view('fontend.Member.payment',['data'=> Auth::user() ]);
-    }
-    
+    }    
     public function template(){
         $templates  = Template::where('status',1)->orderBy('id','DESC')->paginate(10);
         return view('fontend.Member.template',['user'=> Auth::user(), 'data'=> $templates ]);
     }
     public function template_details(Request $request){
-
         $slug       = $request->slug;
         $template   = Template::where('slug', $slug)->firstOrFail();
-        return view('fontend.Member.template_details',['user'=> Auth::user(),'data'=>$template ]);
+        return view( 'fontend.Member.template_details',[ 'user'=> Auth::user(),'data'=>$template ]);
     }
-    
-
     public function template_store(Request $request)
+    {
+        $user       = Auth::user();
+        $user->template_id = $request->template_id;
+        $user->save();
+        return redirect()->route('fontend.templatelist')->with(['messenge'=>'Cập nhật thành công!!!']); 
+    }
+    public function template_details_store(Request $request)
     {
         $slug       = $request->slug;
         $template   = Template::where('slug', $slug)->firstOrFail();

@@ -1,4 +1,4 @@
- <?php
+<?php
 
 namespace App\Http\Controllers;
 
@@ -99,7 +99,7 @@ class TemplateController extends Controller
         if ($request->hasFile('photo')) {
             $filename=$request->file('photo')->getClientOriginalName();
             $request->file('photo')->move(
-                base_path() . '/public/upload/Post/', $filename
+                base_path() . '/public/upload/Template/', $filename
             );
             $template->photo = $filename;
         }
@@ -161,6 +161,7 @@ class TemplateController extends Controller
             'category'=>$category, 'post_same'=>$template_same, 'other'=>$other
         ]);
     }
+    
     
 }
 

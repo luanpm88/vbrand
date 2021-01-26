@@ -4,16 +4,16 @@
     <div class="row align-items-center">
         
         <div class="col-sm-6">
-            <h4 class="page-title">Quản trị bài viết</h4>
+            <h4 class="page-title">Quản trị Template</h4>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
                 <li class="breadcrumb-item"><a href="javascript:void(0);">bài viết</a></li>
-                <li class="breadcrumb-item active">Danh sách bài viết</li>
+                <li class="breadcrumb-item active">Danh sách Template</li>
             </ol>
         </div>
         <div class="col-sm-6">
             <div class="float-right d-none d-md-block"> 
-                <a href="{{ url('admin/posts/add') }}" class="btn btn-primary arrow-none waves-effect waves-light"> <i class="mdi mdi-settings mr-2"></i> Thêm bài viết </a> 
+                <a href="{{ url('admin/template/add') }}" class="btn btn-primary arrow-none waves-effect waves-light"> <i class="mdi mdi-settings mr-2"></i> Thêm Template </a> 
 
             </div>
         </div>
@@ -51,7 +51,7 @@
                         <th scope="row">1</th>
                         <td>
                         	@if (!empty($row->photo))
-				        	<img style="width: 100px" src="{{ asset('upload/Post/'.$row->photo) }}">
+				        	<img style="width: 100px" src="{{ asset('upload/Template/'.$row->photo) }}">
 				        	@endif
                         </td>
                         <td>{{ $row->title }}</td>
@@ -63,13 +63,13 @@
 					        @endif 
                         </td>
                         <td>
-                        	<a href="{{ url('admin/posts/edit',$row->id) }}" class="btn btn-info">Edit</a>
+                        	<a href="{{ url('admin/template/edit',$row->id) }}" class="btn btn-info">Edit</a>
                         </td>
                         <td>
-                        	<a href="{{ url('admin/posts/del',$row->id) }}" onclick="javascript:pront('Xóa danh mục này ?')" class="btn btn-info">Delete</a>
+                        	<a href="{{ url('admin/template/del',$row->id) }}" onclick="javascript:pront('Xóa danh mục này ?')" class="btn btn-info">Delete</a>
                         </td>
                         <td>
-                        	<a href="{{ url('admin/posts/show',$row->id) }}" class="btn btn-info">show</a>
+                        	<a href="{{ url('admin/template/show',$row->id) }}" class="btn btn-info">show</a>
                         </td>
                     </tr>
 					@endforeach
@@ -81,16 +81,6 @@
 
     <div class="card-footer">
     	 {{ $data->links() }}
-    	<!--nav aria-label="Page navigation example">
-		  <ul class="pagination">
-		    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-		    <li class="page-item"><a class="page-link" href="#">1</a></li>
-		    <li class="page-item"><a class="page-link" href="#">2</a></li>
-		    <li class="page-item"><a class="page-link" href="#">3</a></li>
-		    <li class="page-item"><a class="page-link" href="#">Next</a></li>
-		  </ul>
-		</nav-->
-
     </div>
 </div> 
 
