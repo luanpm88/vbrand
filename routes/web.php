@@ -19,6 +19,11 @@ Route::get('/', function () {
 }); 
 */
 
+// Open Platform Connection
+Route::get('connection', 'Store\ConnectionController@index');
+Route::get('connection/connect', 'Store\ConnectionController@connect');
+Route::get('connection/get-products', 'Store\ConnectionController@getProducts');
+
 Route::get('/', function () {
     return view('welcome');
 });

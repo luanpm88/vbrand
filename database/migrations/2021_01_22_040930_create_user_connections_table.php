@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddGoogleIdColumn extends Migration
+class CreateUserConnectionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,12 @@ class AddGoogleIdColumn extends Migration
      */
     public function up()
     {
-        Schema::table('users', function ($table) {
-            // $table->string('google_id')->nullable();
+        Schema::create('user_connections', function (Blueprint $table) {
+            $table->id();
+            $table->string('type');
+            $table->integer('user_id');
+            $table->longtext('data')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -25,6 +29,6 @@ class AddGoogleIdColumn extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('user_connections');
     }
 }
