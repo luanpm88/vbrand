@@ -25,14 +25,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $category  = DB::table('category')->where('home', 1)->where('parent', '<', 1)->get();
-        view()->share('maincate', $category);
-         // add Str::currency macro
-        Str::macro('currency', function ($price)
-        {
-            return number_format($price, 0, '.', ',');
-        });
-
-        
+        if (\Schema::hasTable('category')) {
+            $category  = DB::table('category')->where('home', 1)->where('parent', '<', 1)->get();
+            view()->share('maincate', $category);
+            // add Str::currency macro
+            Str::macro('currency', function ($price)
+            {
+                return number_format($price, 0, '.', ',');
+            });
+        }        
     }
 }
