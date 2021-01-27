@@ -14,7 +14,7 @@ class AddAtttributeTemplateIdIntoUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->integer('template_id')->nullable();
+            $table->integer('template_ids')->nullable();
         });
     }
 
