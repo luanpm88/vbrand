@@ -5,6 +5,7 @@ use Laravel\Passport\HasApiTokens;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\UserConnection;
 
 class User extends Authenticatable
 {
@@ -36,4 +37,24 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function userConnections()
+    {
+    	return $this->hasmany('App\Models\UserConnection');
+    }
+
+    public function getUserConnection($type)
+    {
+        $connection = $this->userConnections()
+            ->where('type', '=', $type)
+            ->first();
+
+        if (!$connection) {
+            $connection = new UserConnection();
+            $connection->user_id = $this->id;
+            $connection->type = $type;
+        }
+
+        return $connection;
+    }
 }

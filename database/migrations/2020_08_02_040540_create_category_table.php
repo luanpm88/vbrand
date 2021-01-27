@@ -22,9 +22,7 @@ class CreateCategoryTable extends Migration
             $table->mediumText('keyword')->nullable();
             $table->date('created')->nullable();
             $table->tinyInteger('status')->nullable();
-            $table->integer('del')->nullable();
-            $table->date('created_at')->nullable();
-            $table->date('updated_at')->nullable();            
+            $table->integer('del')->nullable();        
             $table->tinyInteger('home')->nullable();             
             $table->integer('parent')->nullable();
             $table->string('tag')->nullable();
@@ -39,6 +37,6 @@ class CreateCategoryTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('_category');
+        Schema::dropIfExists('category');
     }
 }
