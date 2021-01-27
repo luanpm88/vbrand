@@ -15,6 +15,7 @@ class CreateTemplateTable extends Migration
     {
         Schema::create('template', function (Blueprint $table) { 
             $table->increments('id')->unsigned();
+            $table->integer('user_id')->nullable();
             $table->tinyInteger('category_id')->nullable();
             $table->string('title')->nullable();
             $table->string('slug')->nullable();
@@ -26,6 +27,7 @@ class CreateTemplateTable extends Migration
             $table->longtext('photo')->nullable(); 
             $table->tinyInteger('view')->nullable();
             $table->tinyInteger('hot')->nullable();
+            $table->tinyInteger('del')->nullable();
             $table->timestamps();
         });
     }
