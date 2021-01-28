@@ -19,14 +19,18 @@ Route::get('/', function () {
 }); 
 */
 
-// Open Platform Connection
-Route::get('connection', 'Store\ConnectionController@index');
-Route::get('connection/connect', 'Store\ConnectionController@connect');
-Route::get('connection/get-products', 'Store\ConnectionController@getProducts');
-
 // Store Backend
-Route::namespace('Backend')->group(function () {
-    Route::get('/backend/products', 'ProductController@index');
+Route::namespace('Client')->group(function () {
+	// Product
+	Route::get('/client/products/image/{id}', 'ProductController@image');
+    Route::get('/client/products', 'ProductController@index');
+
+	// Open Platform Connection
+	Route::get('client/connection', 'ConnectionController@index');
+	Route::get('client/connection/connect', 'ConnectionController@connect');
+	Route::get('client/connection/get-products', 'ConnectionController@getProducts');
+	Route::match(['get', 'post'], 'client/connection/lazada/sync', 'ConnectionController@lazadaSync');
+	Route::post('client/connection/lazada/sync/close', 'ConnectionController@lazadaSyncClose');
 });
 
 Route::get('/', function () {

@@ -40,7 +40,7 @@ class LazadaConnection
 	}
 
     public function getConnectLink() {
-        return "https://auth.lazada.com/oauth/authorize?response_type=code&force_auth=true&redirect_uri=" . action('Store\ConnectionController@connect') . "&client_id=" . $this->appKey;
+        return "https://auth.lazada.com/oauth/authorize?response_type=code&force_auth=true&redirect_uri=" . action('Client\ConnectionController@connect') . "&client_id=" . $this->appKey;
     }
 
     public function getAccessToken($code)
@@ -77,15 +77,12 @@ class LazadaConnection
             $request->addApiParam($key, $value);
         }
 
-        return $this->service->execute($request, $this->data['access_token']);
+        return json_decode($this->service->execute($request, $this->data['access_token']), true);
     }
 
-    public function getProducts()
+    public function getProducts($options=[])
     {
-        return $this->makeRequest('/products/get',[
-            'startRow' => '0',
-            'pageSize' => '2',  
-        ]);
+        return $this->makeRequest('/products/get', $options);
     }
     
     public function getBrands()
