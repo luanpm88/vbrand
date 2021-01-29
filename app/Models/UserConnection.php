@@ -81,7 +81,7 @@ class UserConnection extends Model
                 if (isset($product["attributes"]["short_description"])) {
                     $p->description = $product["attributes"]["short_description"];
                 }
-                $p->lazada_data = json_encode($product);
+                // $p->lazada_data = json_encode($product);
                 if (isset($product["skus"][0]["Images"]) && isset($product["skus"][0]["Images"][0])) {
                     try {
                         copy($product["skus"][0]["Images"][0], storage_path('app/' . $p->photo));
