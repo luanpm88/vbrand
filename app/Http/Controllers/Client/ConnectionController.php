@@ -39,7 +39,7 @@ class ConnectionController extends Controller
         $lazada->getAccessToken($request->code);
 
         // update connection
-        $userConnection->setData($lazada->data);
+        $userConnection->updateData($lazada->data);
 
         // redirect
         $request->session()->flash('success', 'Connected to Lazada!');
