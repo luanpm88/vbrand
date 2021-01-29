@@ -1,7 +1,8 @@
-@extends('fontend.Member.master')
+@extends('client.layouts.main')
 @section('content')
-    <link href="{{ asset('client/css/main.css') }}" rel="stylesheet">
-    <script src="{{ asset('client/js/main.js') }}"></script> 
+    <!-- Google icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
 
     <!-- Popup -->
     <link href="{{ asset('client/css/popup.css') }}" rel="stylesheet">
@@ -11,9 +12,10 @@
     <link href="{{ asset('client/css/datalist.css') }}" rel="stylesheet">
     <script src="{{ asset('client/js/datalist.js') }}"></script> 
 
-    <!-- Google icons -->
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <link href="{{ asset('client/css/main.css') }}" rel="stylesheet">
+    <script src="{{ asset('client/js/main.js') }}"></script> 
+
+    
 
     @include('client.connections.lazadaSyncHeader')
 
@@ -109,7 +111,7 @@
             <div class="card p-3 datalist product-datalist">
                 <div class="datalist-filter-boxes d-flex align-items-center mb-2">
                     <div class="datalist-filter-box me-2">
-                        <select class="form-select" aria-label="Default select example" name="category_id">
+                        <select class="form-select" name="category_id">
                             <option selected>Chọn theo chuyên mục</option>
                             <option value="1">Laptop</option>
                             <option value="2">PCS</option>

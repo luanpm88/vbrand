@@ -1,3 +1,19 @@
+$.fn.serializeObject = function() {
+    var o = {};
+    var a = this.serializeArray();
+    $.each(a, function() {
+        if (o[this.name]) {
+            if (!o[this.name].push) {
+                o[this.name] = [o[this.name]];
+            }
+            o[this.name].push(this.value || '');
+        } else {
+            o[this.name] = this.value || '';
+        }
+    });
+    return o;
+};
+
 class DataList {
     constructor(options) {
         var _this = this;
@@ -81,8 +97,7 @@ class DataList {
         _this.loading();
 
         // get all params
-        var form = $('<form>').html(_this.list.clone());
-        console.log(form.serialize());
+        _this.data = $.extend(_this.data, _this.list.find(':input').serializeObject());
 
         // stop previous request
         if (_this.xhr && _this.xhr.readyState != 4) {

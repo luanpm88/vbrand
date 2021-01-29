@@ -102,3 +102,7 @@ body {
   .connection-button:hover {
     border: solid 1px #198754;
   }
+  .material-icons-outlined {
+    font-size: inherit;
+    line-height: inherit;
+  }

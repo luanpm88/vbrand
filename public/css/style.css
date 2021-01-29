@@ -2638,3 +2638,18 @@ input[type="radio"], input[type="checkbox"] {
     /*color: #fff;*/
     font-weight: bold;
 }
+
+.pagination.small > .page-item .page-link {
+width: 30px;
+height: 30px;
+line-height: 30px;
+margin-top: 0;
+}
+.pagination.small > .page-item.active .page-link, .pagination.small > .page-item.active .page-link:focus, .pagination.small > .page-item.active .page-link:hover {
+width: 35px;
+height: 35px;
+line-height: 35px;
+}
+.page-item.disabled {
+	opacity: 0.2;
+}
