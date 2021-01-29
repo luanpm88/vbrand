@@ -124,8 +124,21 @@ class MemberController extends Controller
         $Products->delete(); 
         return redirect()->route('backend.listProducts')->with(['message'=> 'Successfully deleted!!']);
     }
-    public function dashboard(){ 
-        return view('fontend.Member.dashboard');
+    public function dashboard(){  
+        $user       = Auth::user();
+        $data       = array();
+        //echo "<pre>"; print_r($user);echo "</pre>";
+        // check package
+        if(empty($user->package_id)){
+            $package  = Package::where('status',1)->orderBy('id','ASC')->get();
+            $data['package']     = $package;
+        }elseif(empty($user->template_id)){
+
+            $template  = Template::where('status',1)->orderBy('id','ASC')->get();
+            $data['template']     = $template;
+        }
+        //echo "<pre>";print_r($data);echo "</pre>";
+        return view('fontend.Member.dashboard',['user'=> $user, 'data'=> $data ]);
     }
 
     
@@ -137,7 +150,7 @@ class MemberController extends Controller
 
     }
     
-    public function promotion(){ 
+    public function promotion(){
         return view('fontend.Member.promotion',['data'=> Auth::user() ]);
     }
 

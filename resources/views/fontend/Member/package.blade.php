@@ -6,11 +6,11 @@
 <div class="page-title-box">
     <div class="row align-items-center">
         <div class="col-sm-10">
-            <h4 class="page-title">CHỌN GÓI DỊCH VỤ</h4>
+            <h4 class="page-title">{{ __('mem.package_name') }}</h4>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:void(0);">DASHBOARD</a></li>
-                <li class="breadcrumb-item"><a href="javascript:void(0);">CÀI ĐẶT</a></li>
-                <li class="breadcrumb-item active">CẬP NHẬT GÓI DỊCH VỤ</li>
+                <li class="breadcrumb-item"><a href="{{ url('member') }}">DASHBOARD</a></li>
+                <li class="breadcrumb-item"><a href="javascript:void(0);">{{ __('mem.setup') }}</a></li>
+                <li class="breadcrumb-item active">{{ __('mem.package_config') }}</li>
             </ol>
         </div> 
     </div>
@@ -19,9 +19,8 @@
 <div class="alert alert-success" role="alert">
   <strong> {{ Session::get('messenge') }}</strong>.
 </div>
-@endif 
-  
- 
+@endif
+
   <section class="hotproducts mb-4">
   <div class="list-sp">
     <div class="row">
@@ -41,12 +40,12 @@
             <p class="list-unstyled mt-3 mb-4">{!! $items->description !!}</p>
             @if($user->package_id)
               @if($user->package_id == $items->id)
-                <button type="submit" class="btn btn-lg btn-block btn-primary">Choose</button>
+                <button type="submit" class="btn full-width btn-primary">{{ __('mem.choose') }}</button>
               @else
-                <button type="submit" class="btn btn-lg btn-block btn-outline-primary">Choose</button>
+                <button type="submit" class="btn full-width btn-outline-primary">{{ __('mem.choose') }}</button>
               @endif
             @else
-              <button type="submit" class="btn btn-lg btn-block btn-outline-primary">Choose</button>
+              <button type="submit" class="btn full-width btn-outline-primary">{{ __('mem.choose') }}</button>
             @endif
           </div>
         </div>

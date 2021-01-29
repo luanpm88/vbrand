@@ -8,8 +8,7 @@
         <div class="col-sm-10">
             <h4 class="page-title">QUẢN TRỊ GIAO DIỆN WEBSITE</h4>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:void(0);">DASHBOARD</a></li>
-                <li class="breadcrumb-item"><a href="javascript:void(0);">HỆ THỐNG</a></li>
+                <li class="breadcrumb-item"><a href="{{ url('member') }}">DASHBOARD</a></li> 
                 <li class="breadcrumb-item active">GIAO DIỆN WEBSITE</li>
             </ol>
         </div> 
@@ -27,17 +26,16 @@
   <div class="list-sp">
     <div class="row">
       @foreach( $data as $items)
-      
       <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 item-frames">
         <form  method="post">
         @csrf
-      <input type="hidden" name="template_id" value="{{ $items->id }}">
+        <input type="hidden" name="template_id" value="{{ $items->id }}">
         <div class="item-game-wrapper">
           <div class="imgs">
             <a href="{{ url('member/template',$items->slug) }}">
               @if (!empty($items->photo))
                   <img src="{{ asset('upload/Template/'.$items->photo) }}" class="card-img-top"  >
-              @endif  
+              @endif
             </a>
           </div>
           <div class="item-info">
