@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\Jobs\LazadaSync;
+use App\Library\Lazada\LazadaConnection;
 
 class ConnectionController extends Controller
 {
