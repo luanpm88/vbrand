@@ -103,7 +103,7 @@ class UserConnection extends Model
                     ]);
                 } catch(\Exception $e) {
                     // write error
-                    Log::error($e->getMessage());
+                    \Log::error($e->getMessage());
                 }
                     
             }
