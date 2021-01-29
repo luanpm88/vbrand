@@ -83,8 +83,12 @@ class UserConnection extends Model
                 }
                 $p->lazada_data = json_encode($product);
                 if (isset($product["skus"][0]["Images"]) && isset($product["skus"][0]["Images"][0])) {
-                    $p->photo = 'products/' . $p->lazada_id;
-                    copy($product["skus"][0]["Images"][0], storage_path('app/' . $p->photo));
+                    try {
+                        copy($product["skus"][0]["Images"][0], storage_path('app/' . $p->photo));
+                        $p->photo = 'products/' . $p->lazada_id;
+                    } catch(\Exception $e) {
+                        // @write log
+                    }
                 }
 
                 $p->save();
