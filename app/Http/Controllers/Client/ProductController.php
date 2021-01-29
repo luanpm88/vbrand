@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Library\Lazada\LazadaConnection;
 use App\User;
 use App\Models\Product;
+use App\Library\Pagination;
 
 class ProductController extends Controller
 {
@@ -22,7 +23,16 @@ class ProductController extends Controller
         return view('client.products.index', [
             'lazadaConnectLink' => $lazadaConnection->service()->getConnectLink(),
             'lazadaConnection' => $lazadaConnection,
-            'products' => Product::all(),
+        ]);
+    }
+
+    public function list(Request $request)
+    {
+        list($products, $pagination) = Pagination::get($request, Product::search($request));
+
+        return view('client.products.list', [
+            'products' => $products,
+            'pagination' => $pagination,
         ]);
     }
     
@@ -30,6 +40,8 @@ class ProductController extends Controller
     {
         $product = Product::find($id);
 
-        return response()->file(storage_path('app/' . $product->photo));
+        if ($product->photo) {
+            return response()->file(storage_path('app/' . $product->photo));
+        }
     }
 }

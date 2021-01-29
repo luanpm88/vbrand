@@ -23,6 +23,7 @@ Route::get('/', function () {
 Route::namespace('Client')->group(function () {
 	// Product
 	Route::get('/client/products/image/{id}', 'ProductController@image');
+	Route::post('/client/products/list', 'ProductController@list');
     Route::get('/client/products', 'ProductController@index');
 
 	// Open Platform Connection

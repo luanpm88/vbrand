@@ -6,4 +6,5 @@ return [
     'connection.sync.status.starting' => 'Chuẩn bị tải...',
     'connection.sync.status.importing' => 'Đang tải sản phẩm...',
     'connection.sync.status.done' => 'Hoàn thành',
+    'pagination.page_of' => 'Page :page of <span class="font-weight-semibold">:pages</span>',
 ];

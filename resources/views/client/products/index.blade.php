@@ -7,6 +7,10 @@
     <link href="{{ asset('client/css/popup.css') }}" rel="stylesheet">
     <script src="{{ asset('client/js/popup.js') }}"></script> 
 
+    <!-- DataList -->
+    <link href="{{ asset('client/css/datalist.css') }}" rel="stylesheet">
+    <script src="{{ asset('client/js/datalist.js') }}"></script> 
+
     <!-- Google icons -->
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
@@ -102,10 +106,10 @@
                     </a>
                 </div>
             </div>
-            <div class="card p-3 datalist">
+            <div class="card p-3 datalist product-datalist">
                 <div class="datalist-filter-boxes d-flex align-items-center mb-2">
                     <div class="datalist-filter-box me-2">
-                        <select class="form-select" aria-label="Default select example">
+                        <select class="form-select" aria-label="Default select example" name="category_id">
                             <option selected>Chọn theo chuyên mục</option>
                             <option value="1">Laptop</option>
                             <option value="2">PCS</option>
@@ -115,56 +119,14 @@
                     <div class="datalist-filter-box" style="flex-grow:1">
                         <div class="input-group">
                             <span class="input-group-text" id="basic-addon1"><i class="material-icons-outlined">search</i></span>
-                            <input type="text" class="form-control" placeholder="Tìm kiếm theo mã sản phẩm, tên sản phẩm, barcode" aria-label="Username" aria-describedby="basic-addon1">
+                            <input name="keyword" type="text" class="form-control" placeholder="Tìm kiếm theo mã sản phẩm, tên sản phẩm, barcode" aria-label="Username" aria-describedby="basic-addon1">
                         </div>
                     </div>
-                </div>
-                <h5>Tất cả sản phẩm</h5>
-                <table class="table table-striped table-bordered">
-                    <thead>
-                        <tr>
-                            <td>#</td>
-                            <td></td>
-                            <td width="30%">Sản phẩm</td>
-                            <td>Loại</td>
-                            <td>Nhãn hiệu</td>
-                            <td>Có thể bán</td>
-                            <td>Trạng thái</td>
-                            <td>Ngày khởi tạo</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($products as $product)
-                            <tr>
-                                <td></td>
-                                <td class="img-col">
-                                    <div class="">
-                                        <img src="{{ action('Client\ProductController@image', $product->id) }}"
-                                        />
-                                    </div>
-                                </td>
-                                <td>{{ $product->title }}</td>
-                                <td>Laptop</td>
-                                <td>ASUS - ROG</td>
-                                <td>10</td>
-                                <td>
-                                    <span class="badge bg-info">Đang giao dịch</span>
-                                </td>
-                                <td>{{ $product->created_at->diffForHumans() }}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>                
+                </div>                
+                <div class="datalist-container">
+                    
+                </div>              
             </div>
-            <nav aria-label="Page navigation example" class="d-flex justify-content-center">
-                <ul class="pagination mt-0 mb-4">
-                  <li class="page-item"><a class="page-link" href="#"><</a></li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item"><a class="page-link" href="#">></a></li>
-                </ul>
-            </nav>
         </div> <!-- end col -->
     </div> <!-- end row -->
     <script>
@@ -179,5 +141,24 @@
         });
 
         checkHeaderProgress();
+
+        // product datalist
+        var productDataList = new DataList({
+            url: '{{ action('Client\ProductController@list') }}',
+            list: $('.product-datalist'),
+            container: $('.product-datalist .datalist-container'),
+            data: {
+                _token: '{{ csrf_token() }}',
+            }
+        });
+
+        productDataList.load();
+
+        // keyword change
+        $('[name=keyword], [name=category_id]').on('keyup change', function(e) {
+            e.preventDefault();
+
+            productDataList.load();
+        });
     </script>
 @endsection()
