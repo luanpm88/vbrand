@@ -69,41 +69,43 @@ class UserConnection extends Model
         for ($i=0; $i < $pages; $i++) {
             $products = $this->service()->getProducts(['offset' => $i*$perPage, 'limit' => $perPage])['data']['products'];
             foreach ($products as $key => $product) {
-                // find exist product
-                $p = Product::where('lazada_id', '=', $product["item_id"])->first();
+                try {
+                    // find exist product
+                    $p = Product::where('lazada_id', '=', $product["item_id"])->first();
 
-                if (!$p) {
-                    $p = new Product();
-                    $p->lazada_id = $product["item_id"];
-                }
+                    if (!$p) {
+                        $p = new Product();
+                        $p->lazada_id = $product["item_id"];
+                    }
 
-                $p->title = $product["attributes"]["name"];
-                if (isset($product["attributes"]["short_description"])) {
-                    $p->description = $product["attributes"]["short_description"];
-                }
-                // $p->lazada_data = json_encode($product);
-                if (isset($product["skus"][0]["Images"]) && isset($product["skus"][0]["Images"][0])) {
-                    try {
+                    $p->title = $product["attributes"]["name"];
+                    if (isset($product["attributes"]["short_description"])) {
+                        $p->description = $product["attributes"]["short_description"];
+                    }
+                    // $p->lazada_data = json_encode($product);
+                    if (isset($product["skus"][0]["Images"]) && isset($product["skus"][0]["Images"][0])) {
                         copy($product["skus"][0]["Images"][0], storage_path('app/' . $p->photo));
                         $p->photo = 'products/' . $p->lazada_id;
-                    } catch(\Exception $e) {
-                        // @write log
                     }
+
+                    $p->save();
+
+
+                    $imported++;
+                    // importing
+                    $this->updateData([
+                        'sync' => [
+                            'status' => 'importing',
+                            'imported' => $imported,
+                            'total' => $total,
+                            'progress' => round(($imported / $total) * 100, 2),
+                        ]
+                    ]);
+                } catch(\Exception $e) {
+                    // write error
+                    Log::error($e->getMessage());
                 }
-
-                $p->save();
-
-
-                $imported++;
-                // importing
-                $this->updateData([
-                    'sync' => [
-                        'status' => 'importing',
-                        'imported' => $imported,
-                        'total' => $total,
-                        'progress' => round(($imported / $total) * 100, 2),
-                    ]
-                ]);
+                    
             }
 
             sleep(3);
