@@ -40,8 +40,10 @@ class ProductController extends Controller
     {
         $product = Product::find($id);
 
-        if ($product->photo) {
+        if (!$product->photo) {
             return response()->file(storage_path('app/' . $product->photo));
+        } else {
+            return response()->file(public_path('images/no-product-image.png'));
         }
     }
 }
