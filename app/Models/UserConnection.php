@@ -82,10 +82,11 @@ class UserConnection extends Model
                     if (isset($product["attributes"]["short_description"])) {
                         $p->description = $product["attributes"]["short_description"];
                     }
-                    // $p->lazada_data = json_encode($product);
+                    $p->lazada_data = json_encode($product);
                     if (isset($product["skus"][0]["Images"]) && isset($product["skus"][0]["Images"][0])) {
-                        copy($product["skus"][0]["Images"][0], storage_path('app/' . $p->photo));
-                        $p->photo = 'products/' . $p->lazada_id;
+                        $photo = 'products/' . $p->lazada_id;
+                        copy($product["skus"][0]["Images"][0], storage_path('app/' . $photo));
+                        $p->photo = $photo;
                     }
 
                     $p->save();
