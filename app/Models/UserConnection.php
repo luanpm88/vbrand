@@ -63,7 +63,7 @@ class UserConnection extends Model
             ]
         ]);
         
-        $perPage = 20;
+        $perPage = 5;
         $pages = ceil($total/$perPage);
         $imported = 0;
         for ($i=0; $i < $pages; $i++) {
