@@ -8,9 +8,9 @@ class Template extends Model
 {
     protected $table = "template";
     public function user(){
-    	return $this->hasmany('App/users','template_id');
+    	return $this->hasOne(User::class);
     } 
-     public function category()
+    public function category()
 	{
 		return $this->belongsTo('App\Category','category_id');
 	}

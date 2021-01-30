@@ -8,7 +8,7 @@
         <div class="col-sm-8">
             <h4 class="page-title">TÊN MIỀN CỦA BẠN</h4>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:void(0);">DASHBOARD</a></li>
+                <li class="breadcrumb-item"><a href="{{ url('member') }}">DASHBOARD</a></li>
                 <li class="breadcrumb-item active">TÊN MIỀN</li>
             </ol>
         </div> 

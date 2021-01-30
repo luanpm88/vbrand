@@ -19,6 +19,7 @@
             <a href="{{ URL('member/email') }}" class="list-group-item"><i class="fas fa-cog"></i> Quản trị Email </a>
             <a href="{{ URL('member/template') }}" class="list-group-item"><i class="fas fa-cog"></i> Quản trị Giao Diện </a>
             <a href="{{ URL('member/package') }}" class="list-group-item"><i class="fas fa-cubes"></i> Nâng cấp tài khoản</a>
+            <a href="{{ URL('member/payment') }}" class="list-group-item"><i class="fas fa-cubes"></i> Thanh toán</a>
             <a href="{{ URL('member/alert') }}" class="list-group-item d-flex justify-content-between align-items-center">
                 <span><i class="fas fa-bell"></i> Thông báo</span>
                 <span class="badge badge-primary badge-pill">7</span>

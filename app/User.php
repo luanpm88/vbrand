@@ -57,4 +57,12 @@ class User extends Authenticatable
 
         return $connection;
     }
+    public function template()
+    {
+        return $this->belongsTo(Template::class,'template_id');
+    }
+    public function package()
+    {
+        return $this->belongsTo(Package::class,'package_id');
+    }
 }

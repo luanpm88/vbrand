@@ -9,7 +9,8 @@ use App\Products;
 use App\Category;
 use App\Template;
 use App\Package;
-
+use App\Orders;
+use App\Ordersdetail;
 use App\myclass\Slug;
 
 class MemberController extends Controller 
@@ -124,20 +125,82 @@ class MemberController extends Controller
         $Products->delete(); 
         return redirect()->route('backend.listProducts')->with(['message'=> 'Successfully deleted!!']);
     }
-    public function dashboard(){ 
-        return view('fontend.Member.dashboard');
-    }
+    public function dashboard(){  
+        $user       = Auth::user();
+        $data       = array();
+        //echo "<pre>"; print_r($user->template);echo "</pre>";
+        // check package
+        if(empty($user->package_id)){
+            $package  = Package::where('status',1)->orderBy('id','ASC')->get();
+            $data['package']     = $package;
+        }elseif(empty($user->template_id)){
 
+            $template  = Template::where('status',1)->orderBy('id','ASC')->get();
+            $data['template']     = $template;
+        }
+        //echo "<pre>";print_r($data);echo "</pre>";
+        return view('fontend.Member.dashboard',['user'=> $user, 'data'=> $data ]);
+    }
+    public function dashboard_update( Request $request ){
+        $user       = Auth::user();
+        if(isset($request->template_id)){ 
+            $user->template_id = $request->template_id;
+            $user->save();
+            return redirect()->back()->with(['messenge'=> 'Successfully !!']);
+        }
+        if(isset($request->package_id)){
+            $user->package_id = $request->package_id; 
+            $user->save();
+            return redirect()->back()->with(['messenge'=> 'Successfully !!']);
+        }
+        if(isset($request->dot) && isset($request->domain)){
+            $user->domain = trim($request->domain).$request->dot; 
+            $user->save();
+            return redirect()->back()->with(['messenge'=> 'Successfully !!']);
+        }
+        if(isset($request->paybtn)){
+            $order = new Orders();
+            $user = Auth::user();
+            $order->user_id     = $user->id;
+            $order->total       = $request->paymenttotal;
+            $order->save();
+            echo $order->id;
+            switch ($request->paymenttype) {
+                case 'Paypal':
+                     echo "paypay";
+                    break;
+                case 'ATM':
+                    # code...
+                    break;
+                case 'ZaloPay':
+                    # code...
+                    break;
+                case 'MoMo':
+                    # code...
+                    break;
+                case 'Payoo':
+                    # code...
+                    break;                    
+                default:
+                    # code...
+                    break;
+            }
+             
+            echo $request->paymenttotal;
+        }
+        
+
+    }
     
     public function accountsetting(){ 
         return view('fontend.Member.accountsetting',['data'=> Auth::user() ]);
     }
-    public function accountsetting_store(){ 
+    public function accountsetting_store(Request $request){ 
         return view('fontend.Member.password',['data'=> Auth::user() ]);
 
     }
     
-    public function promotion(){ 
+    public function promotion(){
         return view('fontend.Member.promotion',['data'=> Auth::user() ]);
     }
 

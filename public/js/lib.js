@@ -122,4 +122,10 @@ $(window).ready(function(e) {
 	$('.close-panel').on('click', function() {
 		$.sidr('close', 'sidebar');
 	});
+	
+	$('.close').on('click', function () {
+	  	$(this).closest().alert('close');
+	})
+
+
 });

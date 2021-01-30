@@ -8,8 +8,7 @@
         <div class="col-sm-10">
             <h4 class="page-title">QUẢN TRỊ GIAO DIỆN WEBSITE</h4>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:void(0);">DASHBOARD</a></li>
-                <li class="breadcrumb-item"><a href="javascript:void(0);">HỆ THỐNG</a></li>
+                <li class="breadcrumb-item"><a href="{{ url('member') }}">DASHBOARD</a></li> 
                 <li class="breadcrumb-item active">GIAO DIỆN WEBSITE</li>
             </ol>
         </div> 
