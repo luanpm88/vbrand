@@ -62,6 +62,7 @@ Route::get('sitemap-tags.xml', 'SitemapController@tags');
 
 Route::prefix('member')->middleware(['auth'])->group(function(){
 	Route::get('/', 'MemberController@dashboard')->name('member');
+	Route::post('/', 'MemberController@dashboard_update');
 	Route::get('dashboard', 'MemberController@dashboard');
 
 	Route::get('password', 'MemberController@password');

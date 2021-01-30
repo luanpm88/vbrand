@@ -127,7 +127,7 @@ class MemberController extends Controller
     public function dashboard(){  
         $user       = Auth::user();
         $data       = array();
-        //echo "<pre>"; print_r($user);echo "</pre>";
+        //echo "<pre>"; print_r($user->template);echo "</pre>";
         // check package
         if(empty($user->package_id)){
             $package  = Package::where('status',1)->orderBy('id','ASC')->get();
@@ -140,12 +140,31 @@ class MemberController extends Controller
         //echo "<pre>";print_r($data);echo "</pre>";
         return view('fontend.Member.dashboard',['user'=> $user, 'data'=> $data ]);
     }
+    public function dashboard_update( Request $request ){
+        $user       = Auth::user();
+        if(isset($request->template_id)){ 
+            $user->template_id = $request->template_id;
+            $user->save();
+            return redirect()->back()->with(['messenge'=> 'Successfully !!']);
+        }
+        if(isset($request->package_id)){
+            $user->package_id = $request->package_id; 
+            $user->save();
+            return redirect()->back()->with(['messenge'=> 'Successfully !!']);
+        }
+        if(isset($request->dot) && isset($request->domain)){
+            $user->domain = trim($request->domain).$request->dot; 
+            $user->save();
+            return redirect()->back()->with(['messenge'=> 'Successfully !!']);
+        }
 
+
+    }
     
     public function accountsetting(){ 
         return view('fontend.Member.accountsetting',['data'=> Auth::user() ]);
     }
-    public function accountsetting_store(){ 
+    public function accountsetting_store(Request $request){ 
         return view('fontend.Member.password',['data'=> Auth::user() ]);
 
     }

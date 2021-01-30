@@ -8,7 +8,7 @@
 
  @if(!empty($user->package_id))
 <div class="alert alert-success" role="alert">
-  {{ __('mem.package_name') }} : <strong>{{ $user->package->title }}</strong>, Giá: {{ Str::currency($user->package->price) ?? '' }}<sup>đ</sup> <small class="text-muted">/ Tháng</small>
+  {{ __('mem.package_name') }} : <strong>{{ $user->package->title ?? '' }}</strong>, Giá: {{ Str::currency($user->package->price) ?? '' }}<sup>đ</sup> <small class="text-muted">/ Tháng</small>
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
     <span aria-hidden="true">&times;</span>
   </button>
@@ -16,7 +16,16 @@
 @endif
  @if(!empty($user->template_id))
 <div class="alert alert-success" role="alert">
-  {{ __('mem.package_name') }} : <strong>{{ $user->package->title }}</strong>, Giá: {{ Str::currency($user->package->price) ?? '' }}<sup>đ</sup> <small class="text-muted">/ Tháng</small>
+  {{ __('mem.template_name') }} : <strong>{{ $user->template->title ?? '' }}</strong>, Giá: {{ Str::currency($user->template->price) ?? '' }}<sup>đ</sup> <small class="text-muted">/ Tháng</small>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+@endif
+
+@if (!empty($user->domain))
+<div class="alert alert-success" role="alert">
+  {{ __('mem.domain_name') }} : <strong>{{ $user->domain ?? '' }}</strong>
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
     <span aria-hidden="true">&times;</span>
   </button>
@@ -54,11 +63,8 @@
                     <button type="submit" class="btn full-widthk btn-outline-primary">{{ __('mem.choose') }}</button>
                   </form>
                 @endif
-              @else
-                <form  method="post">@csrf
-                  <input type="hidden" name="template_id" value="{{ $items->id }}">
-                  <button type="submit" class="btn full-width btn-outline-primary">{{ __('mem.choose') }}</button>
-                </form>
+              @else                 
+                  <button type="submit" class="btn full-width btn-outline-primary">{{ __('mem.choose') }}</button>                
               @endif
             </div>
           </div>
@@ -68,7 +74,9 @@
       </div>
     </div>
   </section>
-@elseif(empty($user->templates_id)) 
+
+@elseif(empty($user->template_id)) 
+
 <div class="alert alert-warning" role="alert">
   <strong>{{ __('mem.package_not_choose') }}</strong>, Vui lòng chọn giao diện website bên dưới.
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -141,25 +149,134 @@
   </div>
 </div>
 </section>
- 
-
-
 
 @elseif(empty($user->domain))
-
-@endif
-
-
-@if (empty($user->domain))
   <div class="alert alert-warning" role="alert">
     <strong>{{ __('mem.domain_not_choose') }}</strong>, ( nếu bạn chưa có tên miền, Liên hệ ngay chúng tôi<span class="hot"> HOTLINE: <a href="tel:0838 068 268" class="bold ">0838 068 268</a> - 24/7 </span>)
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-@endif
-<div>
 
-  <p><i>Lưu ý, các bước trên phải hoàn thiện để bạn có thể sử dụng dịch vụ của chúng tôi.</i></p>
+
+
+
+
+  <div class="row mb-4">
+  <!--Chuyên mục-->
+    <div class="col-lg-12"> 
+
+      <div class="card ">
+          <div class="card-header">
+            <h4 class="my-0 font-weight-normal">{{ __('mem.domain_update') }}</h4>
+          </div>
+          <div class="card-body">
+         
+            <form  method="post">@csrf
+              <div class="form-group mb-1">
+                <label class="control-label">{{ __('mem.domain_input') }}</label>
+              </div>
+              <div class="form-group">
+                <div class="row">
+            
+              
+                  <div class="col-lg-9 mb-2">
+                    <input type="text" autocomplete="off"  class="form-control" name="domain"  value="{{ old('domain') ?? '' }}">
+                  </div>
+                  <div class="col-lg-3">
+                    <select name="dot" class="select2 form-control">
+                      <option value=".com.vn">.com.vn</option>
+                      <option value=".com">.com</option>
+                      <option value=".vn">.vn</option>
+                      <option value=".net">.net</option>
+                      <option value=".org">.org</option>
+                    </select> 
+                  </div>
+                 
+                  <div class="col-lg-12 mb-4">
+                    <button type="submit" class="btn btn-outline-primary btn-small">{{ __('mem.save') }}</button>
+                  </div>
+                  <div class="col-lg-12 mb-1">
+                    <p><strong>Lưu ý</strong>: <i>Tên miền Chỉ nhập số và chữ</i></p>
+                  </div>
+                  <div class="col-lg-12">
+                    <p><strong>ĐỪNG KINH DOANH KHI CHƯA CÓ TÊN MIỀN</strong>, Hãy bảo vệ thương hiệu của bạn ngay từ bây giờ</p>
+                  </div>
+
+                        <div class="col-lg-12 mb-2">
+                  <div class="input-group mb-3">
+  <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+  <div class="input-group-append">
+    <span class="input-group-text" id="basic-addon2">@example.com</span>
+  </div>
+</div>
+
+
+                </div>
+              </div> 
+            </form>
+        </div>
+      </div> 
+    </div> <!-- end col -->
+    
+</div>
+
+@else
+
+<div class="row">
+  <div class="col-lg-12 ">
+
+    <div class="card ">
+          <div class="card-header">
+            <h4 class="my-0 font-weight-normal">{{ __('mem.payment_choose') }}</h4>
+          </div>
+          <div class="card-body">
+         
+            <form  method="post">@csrf
+              <div class="form-group mb-1">
+                <label class="control-label">{{ __('mem.domain_input') }}</label>
+              </div>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-lg-9 mb-2">
+                    <input type="text" autocomplete="off"  class="form-control" name="domain"  value="{{ old('domain') ?? '' }}">
+                  </div>
+                  <div class="col-lg-3">
+                    <select name="dot" class="select2 form-control">
+                      <option value=".com.vn">.com.vn</option>
+                      <option value=".com">.com</option>
+                      <option value=".vn">.vn</option>
+                      <option value=".net">.net</option>
+                      <option value=".org">.org</option>
+                    </select> 
+                  </div>
+                 
+                  <div class="col-lg-12 mb-4">
+                    <button type="submit" class="btn btn-outline-primary btn-small">{{ __('mem.save') }}</button>
+                  </div>
+                  <div class="col-lg-12 mb-1">
+                    <p><strong>Lưu ý</strong>: <i>Tên miền Chỉ nhập số và chữ</i></p>
+                  </div>
+                  <div class="col-lg-12">
+                    <p><strong>ĐỪNG KINH DOANH KHI CHƯA CÓ TÊN MIỀN</strong>, Hãy bảo vệ thương hiệu của bạn ngay từ bây giờ</p>
+                  </div>
+                </div>
+              </div> 
+            </form>
+        </div>
+      </div>   
+
+  </div>
+</div>
+
+
+@endif
+
+
+
+<div class="row">
+  <div class="col-lg-12 ">
+    <p><i>Lưu ý, các bước trên phải hoàn thiện để bạn có thể sử dụng dịch vụ của chúng tôi.</i></p>
+  </div>
 </div>
 @endsection()
