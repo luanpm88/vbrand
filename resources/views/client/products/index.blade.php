@@ -100,10 +100,10 @@
                     </a>
                 </div>
                 <div>
-                    <a href="" class="btn btn-light">
+                    <a href="{{ url('member/products/add') }}" class="btn btn-light">
                         <div class="d-flex align-items-center">
                             <i class="material-icons-outlined">add</i>
-                            <span> new Product</span>
+                            <span> Thêm sản phẩm</span>
                         </div>
                     </a>
                 </div>

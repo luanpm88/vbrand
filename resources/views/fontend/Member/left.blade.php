@@ -3,7 +3,7 @@
         <div class="list-group no-border list-unstyled">
             <span class="list-group-item heading">SẢN PHẨM</span>
             <a href="{{ URL('member/products/add') }}" class="list-group-item"><i class="fas fa-plus-square"></i> Thêm Mới</a>
-            <a href="{{ URL('member/products') }}" class="list-group-item ">
+            <a href="{{ action('Client\ProductController@index') }}" class="list-group-item ">
                 <i class="fa fa-fw fa-bars"></i> Danh sách sản phẩm</a> 
 
             <a href="{{ URL('member/promotion') }}" class="list-group-item"><i class="fas fa-cog"></i> Khuyến mãi</a>
