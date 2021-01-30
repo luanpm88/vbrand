@@ -150,9 +150,9 @@ class OrdersController extends Controller
                         ->where( 'order_id', '=', $request->id )
                         ->get();
                 if($order->invoice_id){
-                    return view('fontend.Order.detail',['data'=>$details,'user'=>$user,'order'=>$order]);
+                    return view('fontend.Member.Order.detail',['data'=>$details,'user'=>$user,'order'=>$order]);
                 }else{
-                    return view('fontend.Order.details_make_payment',['order'=>$order, 'details_products'=>$details])->with(['messege'=>'Chi tiết đơn hàng của bạn']);
+                    return view('fontend.Member..Order.details_make_payment',['order'=>$order, 'details_products'=>$details])->with(['messege'=>'Chi tiết đơn hàng của bạn']);
                 }
             }
             return redirect()->route('fontent.userorders')->with(['messenge'=>'Không tồn tại đơn hàng']);
@@ -175,7 +175,7 @@ class OrdersController extends Controller
         if (Auth::check()) { 
             $user = Auth::user();
             $order = Orders::where('user_id', '=', $user->id )->paginate(10);
-            return view('fontend.Order.list', ['data'=>$order, 'date'=> date('d-m-Y') ])->with(['messenge'=>'danh sách đơn hàng của bạn']);
+            return view('fontend.Member.Order.list', ['data'=>$order, 'date'=> date('d-m-Y') ])->with(['messenge'=>'danh sách đơn hàng của bạn']);
         }
     }
     public function make_new_orders(Request $request)

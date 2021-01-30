@@ -216,3 +216,8 @@ button.close {
 }
 .bold{ font-weight: bold; }
 .hot{ color: red; }
+.form-check{
+    padding-top: 7px;padding-bottom: 7px;
+}
+ul.bayerlist{}
+ul.bayerlist li{ padding: 0 0 7px 0; }

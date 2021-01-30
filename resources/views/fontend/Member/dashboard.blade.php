@@ -225,47 +225,93 @@
 
 <div class="row">
   <div class="col-lg-12 ">
-
+    <form  method="post">@csrf
     <div class="card ">
           <div class="card-header">
-            <h4 class="my-0 font-weight-normal">{{ __('mem.payment_choose') }}</h4>
+            <h4 class="my-0 font-weight-normal">{{ __('mem.payment') }}</h4>
           </div>
           <div class="card-body">
-         
-            <form  method="post">@csrf
-              <div class="form-group mb-1">
-                <label class="control-label">{{ __('mem.domain_input') }}</label>
-              </div>
-              <div class="form-group">
-                <div class="row">
-                  <div class="col-lg-9 mb-2">
-                    <input type="text" autocomplete="off"  class="form-control" name="domain"  value="{{ old('domain') ?? '' }}">
-                  </div>
-                  <div class="col-lg-3">
-                    <select name="dot" class="select2 form-control">
-                      <option value=".com.vn">.com.vn</option>
-                      <option value=".com">.com</option>
-                      <option value=".vn">.vn</option>
-                      <option value=".net">.net</option>
-                      <option value=".org">.org</option>
-                    </select> 
-                  </div>
-                 
-                  <div class="col-lg-12 mb-4">
-                    <button type="submit" class="btn btn-outline-primary btn-small">{{ __('mem.save') }}</button>
-                  </div>
-                  <div class="col-lg-12 mb-1">
-                    <p><strong>Lưu ý</strong>: <i>Tên miền Chỉ nhập số và chữ</i></p>
-                  </div>
-                  <div class="col-lg-12">
-                    <p><strong>ĐỪNG KINH DOANH KHI CHƯA CÓ TÊN MIỀN</strong>, Hãy bảo vệ thương hiệu của bạn ngay từ bây giờ</p>
-                  </div>
-                </div>
-              </div> 
-            </form>
-        </div>
-      </div>   
+              <div class="row">
+                <div class="col-lg-6">
+                  <h3>BẠN ĐÃ CHỌN</h3>
+                    <ul class="bayerlist">
+                      <li>Domain: <strong>{{ $user->domain ?? '' }}</strong> </li>
+                      <li>Gói Website <strong>{{ $user->package->title ?? '' }}</strong>: <strong>{{ Str::currency($user->package->price) ?? '' }}</strong><sup>đ</sup> <small class="text-muted">/ Tháng</small></li>
+                      <li>Template <strong>{{ $user->template->title ?? '' }}</strong>: <strong>{{ Str::currency($user->template->price) ?? '' }}</strong><sup>đ</sup> <small class="text-muted">/ Tháng</small></li>
+                    </ul>
+                    @php
+                      $total = $user->template->price + $user->package->price;
+                      $totalmin = ($total)*6;
+                      $total1 = ( $total*12)*0.95;
+                      $total2 = ( $total*24)*0.85; 
 
+
+                    @endphp
+
+                    <p>Tổng Cộng: <strong>{{ Str::currency($total) ?? '' }} </strong><sup>đ</sup> <small class="text-muted">/ Tháng</small></p>
+                    
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="paymenttotal" id="payment1" value="{{ $totalmin }}" checked>
+                      <label class="form-check-label" for="payment1">
+                        Thanh toán tối thiểu 06 tháng:  <strong>{{ Str::currency( $totalmin) ?? '' }} </strong><sup>đ</sup> <small class="text-muted">/ 06 Tháng</small>
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="paymenttotal" id="payment2" value="{{ $total1 }}" >
+                      <label class="form-check-label" for="payment2">
+                        Thanh toán 1 năm ( chiết khấu 5% ):  <strong>{{ Str::currency( $total1) ?? '' }} </strong><sup>đ</sup> <small class="text-muted">/ 01 năm</small>
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="paymenttotal" id="payment3" value="{{ $total2 }}" >
+                      <label class="form-check-label" for="payment3">
+                        Thanh toán 2 năm ( chiết khấu 15% ):  <strong>{{ Str::currency( $total2) ?? '' }} </strong><sup>đ</sup> <small class="text-muted">/ 02 năm</small>
+                      </label>
+                    </div> 
+
+                </div>
+                <div class="col-lg-6 ">
+                  <h3>{{ __('mem.payment_choose') }}</h3>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="paymenttype" id="exampleRadios1" value="Paypal" checked>
+                    <label class="form-check-label" for="exampleRadios1">
+                      <img src="{{ asset('images/paypal.png') }}"> Thanh toán qua Paypal
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="paymenttype" id="exampleRadios2" value="ATM">
+                    <label class="form-check-label" for="exampleRadios2">
+                      <img src="{{ asset('images/atm.png') }}"> Thanh toán qua ATM nội địa/Internet Banking
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="paymenttype" id="exampleRadios3" value="ZaloPay">
+                    <label class="form-check-label" for="exampleRadios3">
+                      <img src="{{ asset('images/zalopay.png') }}"> Thanh toán qua ZaloPay
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="paymenttype" id="exampleRadios4" value="MoMo">
+                    <label class="form-check-label" for="exampleRadios4">
+                      <img src="{{ asset('images/momo.png') }}"> Thanh toán bằng ví MoMo
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="paymenttype" id="exampleRadios5" value="Payoo">
+                    <label class="form-check-label" for="exampleRadios5">
+                      <img src="{{ asset('images/payoo.png') }}"> Thanh toán bằng ví Payoo
+                    </label>
+                  </div>
+                </div> 
+              </div> 
+        </div>
+        <div class="card-footer"> 
+          <div class="form-group">
+                <button type="submit" name="paybtn" value="payment" class="btn btn-outline-primary btn-small">TẠO ĐƠN HÀNG VÀ THANH TOÁN</button>
+              </div> 
+        </div>
+      </div>  
+      </form> 
   </div>
 </div>
 

@@ -9,7 +9,8 @@ use App\Products;
 use App\Category;
 use App\Template;
 use App\Package;
-
+use App\Orders;
+use App\Ordersdetail;
 use App\myclass\Slug;
 
 class MemberController extends Controller 
@@ -157,7 +158,37 @@ class MemberController extends Controller
             $user->save();
             return redirect()->back()->with(['messenge'=> 'Successfully !!']);
         }
-
+        if(isset($request->paybtn)){
+            $order = new Orders();
+            $user = Auth::user();
+            $order->user_id     = $user->id;
+            $order->total       = $request->paymenttotal;
+            $order->save();
+            echo $order->id;
+            switch ($request->paymenttype) {
+                case 'Paypal':
+                     echo "paypay";
+                    break;
+                case 'ATM':
+                    # code...
+                    break;
+                case 'ZaloPay':
+                    # code...
+                    break;
+                case 'MoMo':
+                    # code...
+                    break;
+                case 'Payoo':
+                    # code...
+                    break;                    
+                default:
+                    # code...
+                    break;
+            }
+             
+            echo $request->paymenttotal;
+        }
+        
 
     }
     

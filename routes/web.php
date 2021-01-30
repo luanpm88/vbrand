@@ -83,6 +83,18 @@ Route::prefix('member')->middleware(['auth'])->group(function(){
 	Route::get('statistical', 'MemberController@statistical');
 	Route::get('customer', 'MemberController@customer');
 	
+	
+	Route::get('order/show/{id}', 'OrdersController@details_user_order');
+	Route::get('order/del/{id}', 'OrdersController@destroy_user_order');
+
+	Route::get('payment', 'OrdersController@list_user_order')->name('fontent.userorders');;
+	Route::post('paymentmaker', 'OrdersController@make_new_orders');
+	Route::get('orderpayment/{id}', 'OrdersController@make_payment')->name('orderspayment');
+	Route::post('orderpayment/{id}', 'OrdersController@make_update_orders')->name('updateorders');
+
+	Route::post('payment-handle/{id}', 'PayPalsdkController@paymentHandle')->name('payment.PayPalsdk');
+	Route::get('payment-success/{id}', 'PayPalsdkController@paymentSuccess')->name('payment.PayPalsuccess');
+	Route::get('payment-cancel/{id}', 'PayPalsdkController@paymentCancel')->name('payment.PayPacancel');
 
 
 	Route::get('domain', 'MemberController@domain');

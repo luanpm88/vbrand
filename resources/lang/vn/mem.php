@@ -24,6 +24,7 @@ return [
 
     'payment_choose'	=> "CHỌN PHƯƠNG THỨC THANH TOÁN",
     'payment'			=> "THANH TOÁN",
+    'payment_list'      => "LỊCH SỬ THANH TOÁN",
 
 
 ];

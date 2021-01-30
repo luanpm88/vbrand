@@ -8,8 +8,7 @@
         <div class="col-sm-6">
             <h4 class="page-title">ĐỔI MẬT KHẨU ĐĂNG NHẬP</h4>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:void(0);">DASHBOARD</a></li>
-                <li class="breadcrumb-item"><a href="javascript:void(0);">CÀI ĐẶT</a></li>
+                <li class="breadcrumb-item"><a href="{{ url('member') }}">DASHBOARD</a></li> 
                 <li class="breadcrumb-item active">MẬT KHẨU ĐĂNG NHẬP</li>
             </ol>
         </div> 

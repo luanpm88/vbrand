@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use DB;
@@ -12,7 +11,6 @@ use PayPal\Auth\OAuthTokenCredential;
 
 use PayPal\Api\Payer;
 use PayPal\Api\Item;
-
 
 use PayPal\Api\ItemList;
 use PayPal\Api\Amount;
