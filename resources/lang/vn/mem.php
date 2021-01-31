@@ -26,5 +26,9 @@ return [
     'payment'			=> "THANH TOÁN",
     'payment_list'      => "LỊCH SỬ THANH TOÁN",
 
+    'choosed'		=> "ĐÃ CHỌN",
+    'choose'		=> "CHỌN",
+
+
 
 ];

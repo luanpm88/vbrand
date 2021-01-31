@@ -24,7 +24,6 @@
   <section class="hotproducts mb-4">
   <div class="list-sp">
     <div class="row">
-
        
       @foreach( $data as $items)
       <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
@@ -40,7 +39,7 @@
             <p class="list-unstyled mt-3 mb-4">{!! $items->description !!}</p>
             @if($user->package_id)
               @if($user->package_id == $items->id)
-                <button type="submit" class="btn full-width btn-primary">{{ __('mem.choose') }}</button>
+                <button type="submit" class="btn full-width btn-primary">{{ __('mem.choosed') }}</button>
               @else
                 <button type="submit" class="btn full-width btn-outline-primary">{{ __('mem.choose') }}</button>
               @endif

@@ -5,6 +5,27 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use DateTime,File,Input,DB; 
+
+use PayPal\Rest\ApiContext;
+use PayPal\Auth\OAuthTokenCredential;
+
+use PayPal\Api\Payer;
+use PayPal\Api\Item;
+
+use PayPal\Api\ItemList;
+use PayPal\Api\Amount;
+use PayPal\Api\Transaction;
+use PayPal\Api\RedirectUrls;
+use PayPal\Api\Payment;
+
+use PayPal\Api\Details;
+use PayPal\Api\PaymentExecution;
+
+
+
+use Mail;
+use App\Mail\sendorder;
+
 use App\Products;
 use App\Category;
 use App\Template;
@@ -125,7 +146,7 @@ class MemberController extends Controller
         $Products->delete(); 
         return redirect()->route('backend.listProducts')->with(['message'=> 'Successfully deleted!!']);
     }
-    public function dashboard(){  
+    public function dashboard(){
         $user       = Auth::user();
         $data       = array();
         //echo "<pre>"; print_r($user->template);echo "</pre>";
@@ -160,14 +181,97 @@ class MemberController extends Controller
         }
         if(isset($request->paybtn)){
             $order = new Orders();
-            $user = Auth::user();
             $order->user_id     = $user->id;
             $order->total       = $request->paymenttotal;
-            $order->save();
-            echo $order->id;
+            $tygia              = 24000;
+            $order->currency    = 'USD';
+            $order->save(); 
+
             switch ($request->paymenttype) {
                 case 'Paypal':
-                     echo "paypay";
+                    $payer = new Payer();
+                    $payer->setPaymentMethod("PayPal");
+                    // Set redirect URLs
+                    $redirectUrls = new RedirectUrls();
+                    $redirectUrls->setReturnUrl( url('/').'/member/payment-success/'.$order->id )
+                                ->setCancelUrl( url('/').'/member/payment-cancel/'.$order->id );
+                    
+                    $cart       = session()->get('cart');
+                    $product    = array();
+                    $setSubtotal    =   0;
+                    $setTotal       =   0;
+                    $setShipping    =   2;
+                    $setTax         =   2;
+                    
+                    if($user->template_id){
+                        $setSubtotal    +=  bcdiv($user->template->price/24000 , 1, 2);  
+                        //$setSubtotal    += 10;
+                        $product[]  = [
+                            'name'      => $user->template->title,
+                            'price'     =>  bcdiv( $user->template->price/24000, 1, 2),
+                            'currency'  =>'USD',
+                            'quantity'  => 1,
+                            'sku'       => $user->template->id
+                        ];
+                    }
+                    if($user->package_id){
+                        $setSubtotal    +=   bcdiv($user->package->price/24000 , 1, 2) ;
+                        //$setSubtotal    += 8;
+                        $product[]  = [
+                            'name'      => $user->package->title,
+                            'price'     =>  bcdiv( $user->package->price/24000, 1, 2),
+                            'currency'  =>'USD',
+                            'quantity'  => 1,
+                            'sku'       => $user->package->id
+                        ];
+                    }
+
+                    $setTotal       =   $setSubtotal + $setTax + $setShipping;
+                    
+                    //echo "setTotal:".$setTotal;echo "<pre>";print_r($product);die('');
+
+
+
+                    $details        = new Details();
+                    $details->setShipping($setShipping)->setTax($setTax)->setSubtotal($setSubtotal);
+                    $amount         = new Amount();
+                    $amount->setCurrency("USD")->setTotal($setTotal)->setDetails($details);            
+                    $itemList       = new ItemList();
+                    $itemList->setItems( $product );
+                    $transaction = new Transaction();
+                    $transaction->setAmount($amount)
+                                ->setDescription("thanh toan goi website va giao dien web cho brandviet")
+                                ->setItemList($itemList)
+                                ->setInvoiceNumber(uniqid());
+                    $payment = new Payment();
+                    $payment->setIntent('sale')->setPayer($payer)->setRedirectUrls($redirectUrls)->setTransactions(array($transaction));
+                    //----------------------------------
+                    $clientId = 'AVmu5EItIs2ky1qQ3aeolxM6NfVNjOmmx1lmzpKDi5xVCOXmd_AL4YmOzHGrv2WqGi_RfHg3dMLCh9NL';
+                    $clientSecret = 'EPTLTn5COD4L-l3Zk3c7tzHmYtad_zoWdZ6z4Y0Vp85sX5l6--359W_zZbsjeWZ4UsUZm79mrVyFQ10v';
+                    $apiContext = new ApiContext(
+                        new OAuthTokenCredential(
+                            $clientId,
+                            $clientSecret
+                        )
+                    );
+                    /*
+                        make login form paypal contact
+                    */
+                    try {
+                        $payment->create($apiContext);
+                        $approvalUrl = $payment->getApprovalLink();// Redirect the customer to $approvalUrl
+
+                    } catch (PayPal\Exception\PayPalConnectionException $ex) {
+                        echo $ex->getCode();
+                        echo $ex->getData();
+                        die($ex);
+                    } catch (Exception $ex) {
+                        die($ex);
+                    }
+                    /*
+                        return and show form paypal contact
+                    */
+                    return redirect($approvalUrl);
                     break;
                 case 'ATM':
                     # code...
@@ -186,11 +290,11 @@ class MemberController extends Controller
                     break;
             }
              
-            echo $request->paymenttotal;
+            
         }
         
 
-    }
+    } 
     
     public function accountsetting(){ 
         return view('fontend.Member.accountsetting',['data'=> Auth::user() ]);

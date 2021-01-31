@@ -185,7 +185,7 @@ class OrdersController extends Controller
             $order = new Orders();
             $cart = session()->get('cart');
             $order->user_id     = $user->id;
-            $order->total       = $request->total;
+            $order->total       = $request->total; 
             $order->recept_email = $user->email; 
             $order->save();
             //--- order details 

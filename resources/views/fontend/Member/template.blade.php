@@ -69,12 +69,12 @@
                     <div class="star text-right p-0">
                       @if($user->template_id)
                         @if($user->template_id == $items->id)
-                          <button type="submit" class="btn btn-lg btn-block btn-primary">Approved</button>
+                          <button type="submit" class="btn btn-lg btn-block btn-primary">{{ __('mem.choosed') }}</button>
                         @else
-                          <button type="submit" class="btn btn-outline-success">CHỌN</button>
+                          <button type="submit" class="btn btn-outline-success">{{ __('mem.choose') }}</button>
                         @endif
                       @else
-                        <button type="submit" class="btn btn-outline-success">CHỌN</button>
+                        <button type="submit" class="btn btn-outline-success">{{ __('mem.choose') }}</button>
                       @endif  
 
                     </div>
