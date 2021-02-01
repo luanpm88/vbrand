@@ -218,7 +218,7 @@ class MemberController extends Controller
                         $product[]  = [
                             'name'      => $user->package->title,
                             'price'     =>  round( $user->package->price/24000, 2),
-                            'currency'  =>'USD',
+                            'currency'  =>'USD', 
                             'quantity'  => 1,
                             'sku'       => $user->package->id
                         ];
