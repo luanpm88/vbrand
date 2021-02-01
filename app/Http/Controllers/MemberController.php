@@ -180,21 +180,12 @@ class MemberController extends Controller
         if(isset($request->paybtn)){
             $order = new Orders();
             $order->user_id     = $user->id;
-            $order->total       = $request->paymenttotal;
-            $tygia              = 24000;
-            $order->currency    = 'USD';
-            $order->save(); 
+            $tygia              = 24000;           
+            
 
             switch ($request->paymenttype) {
                 case 'Paypal':
-                    $payer = new Payer();
-                    $payer->setPaymentMethod("PayPal");
-                    // Set redirect URLs
-                    $redirectUrls = new RedirectUrls();
-                    $redirectUrls->setReturnUrl( url('/').'/member/payment-success/'.$order->id )
-                                ->setCancelUrl( url('/').'/member/payment-cancel/'.$order->id );
                     
-                    $cart       = session()->get('cart');
                     $product    = array();
                     $setSubtotal    =   0;
                     $setTotal       =   0;
@@ -218,7 +209,7 @@ class MemberController extends Controller
                         $product[]  = [
                             'name'      => $user->package->title,
                             'price'     =>  round( $user->package->price/24000, 2),
-                            'currency'  =>'USD', 
+                            'currency'  =>'USD',
                             'quantity'  => 1,
                             'sku'       => $user->package->id
                         ];
@@ -226,9 +217,16 @@ class MemberController extends Controller
 
                     $setTotal       =   $setSubtotal + $setTax + $setShipping;
                     
-                    //echo "setTotal:".$setTotal;echo "<pre>";print_r($product);die('');
+                    $order->currency    = 'USD';
+                    $order->total       = $setTotal;
+                    $order->save(); 
 
-
+                    $payer = new Payer();
+                    $payer->setPaymentMethod("PayPal");
+                    // Set redirect URLs
+                    $redirectUrls = new RedirectUrls();
+                    $redirectUrls->setReturnUrl( url('/').'/member/payment-success/'.$order->id )
+                                ->setCancelUrl( url('/').'/member/payment-cancel/'.$order->id ); 
 
                     $details        = new Details();
                     $details->setShipping($setShipping)->setTax($setTax)->setSubtotal($setSubtotal);

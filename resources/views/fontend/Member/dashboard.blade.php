@@ -251,19 +251,19 @@
                     <p>Tổng Cộng: <strong>{{ Str::currency($total) ?? '' }} </strong><sup>đ</sup> <small class="text-muted">/ Tháng</small></p>
                     
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="paymenttotal" id="payment1" value="{{ $totalmin }}" checked>
+                      <input class="form-check-input" type="radio" name="month" id="payment1" value="6" checked>
                       <label class="form-check-label" for="payment1">
                         Thanh toán tối thiểu 06 tháng:  <strong>{{ Str::currency( $totalmin) ?? '' }} </strong><sup>đ</sup> <small class="text-muted">/ 06 Tháng</small>
                       </label>
                     </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="paymenttotal" id="payment2" value="{{ $total1 }}" >
+                      <input class="form-check-input" type="radio" name="month" id="payment2" value="12" >
                       <label class="form-check-label" for="payment2">
                         Thanh toán 1 năm ( chiết khấu 5% ):  <strong>{{ Str::currency( $total1) ?? '' }} </strong><sup>đ</sup> <small class="text-muted">/ 01 năm</small>
                       </label>
                     </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="paymenttotal" id="payment3" value="{{ $total2 }}" >
+                      <input class="form-check-input" type="radio" name="month" id="payment3" value="24" >
                       <label class="form-check-label" for="payment3">
                         Thanh toán 2 năm ( chiết khấu 15% ):  <strong>{{ Str::currency( $total2) ?? '' }} </strong><sup>đ</sup> <small class="text-muted">/ 02 năm</small>
                       </label>
