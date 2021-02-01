@@ -21,8 +21,6 @@ use PayPal\Api\Payment;
 use PayPal\Api\Details;
 use PayPal\Api\PaymentExecution;
 
-
-
 use Mail;
 use App\Mail\sendorder;
 
@@ -204,22 +202,22 @@ class MemberController extends Controller
                     $setTax         =   2;
                     
                     if($user->template_id){
-                        $setSubtotal    +=  bcdiv($user->template->price/24000 , 1, 2);  
+                        $setSubtotal    +=  round($user->template->price/24000 , 2);  
                         //$setSubtotal    += 10;
                         $product[]  = [
                             'name'      => $user->template->title,
-                            'price'     =>  bcdiv( $user->template->price/24000, 1, 2),
+                            'price'     =>  round( $user->template->price/24000, 2),
                             'currency'  =>'USD',
                             'quantity'  => 1,
                             'sku'       => $user->template->id
                         ];
                     }
                     if($user->package_id){
-                        $setSubtotal    +=   bcdiv($user->package->price/24000 , 1, 2) ;
+                        $setSubtotal    +=   round($user->package->price/24000 ,2) ;
                         //$setSubtotal    += 8;
                         $product[]  = [
                             'name'      => $user->package->title,
-                            'price'     =>  bcdiv( $user->package->price/24000, 1, 2),
+                            'price'     =>  round( $user->package->price/24000, 2),
                             'currency'  =>'USD',
                             'quantity'  => 1,
                             'sku'       => $user->package->id
