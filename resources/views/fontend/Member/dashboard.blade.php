@@ -158,10 +158,6 @@
     </button>
   </div>
 
-
-
-
-
   <div class="row mb-4">
   <!--Chuyên mục-->
     <div class="col-lg-12"> 
@@ -223,6 +219,8 @@
 
 @else
 
+@if(!empty($cart))
+
 <div class="row">
   <div class="col-lg-12 ">
     <form  method="post">@csrf
@@ -235,17 +233,40 @@
                 <div class="col-lg-6">
                   <h3>BẠN ĐÃ CHỌN</h3>
                     <ul class="bayerlist">
-                      <li>Domain: <strong>{{ $user->domain ?? '' }}</strong> </li>
-                      <li>Gói Website <strong>{{ $user->package->title ?? '' }}</strong>: <strong>{{ Str::currency($user->package->price) ?? '' }}</strong><sup>đ</sup> <small class="text-muted">/ Tháng</small></li>
-                      <li>Template <strong>{{ $user->template->title ?? '' }}</strong>: <strong>{{ Str::currency($user->template->price) ?? '' }}</strong><sup>đ</sup> <small class="text-muted">/ Tháng</small></li>
+                      @php
+                        $total = 0;
+                        
+                      @endphp
+                      @foreach($cart as $item)
+                      
+                      @if( $item->type ==3 )
+                        <li>Domain: <strong>{{ $item->name ?? '' }}</strong> </li>
+                      @elseif($item->type ==2 )
+                        <li>
+                          Gói Website <strong>{{ $item->package->title ?? '' }}</strong>: 
+                          <strong>{{ Str::currency($item->package->price) ?? '' }}</strong><sup>đ</sup> 
+                          <small class="text-muted">/ Tháng</small>
+                        </li>
+                        @php
+                          $total += $item->package->price;
+                        @endphp
+                      @elseif($item->type ==1 )
+                        <li>T
+                          emplate <strong>{{ $item->template->title ?? '' }}</strong>: 
+                          <strong>{{ Str::currency($item->template->price) ?? '' }}</strong><sup>đ</sup> 
+                          <small class="text-muted">/ Tháng</small>
+                        </li>
+                        @php
+                          $total += $item->template->price;
+                        @endphp
+                      @endif
+                      @endforeach  
                     </ul>
-                    @php
-                      $total = $user->template->price + $user->package->price;
+
+                    @php 
                       $totalmin = ($total)*6;
                       $total1 = ( $total*12)*0.95;
-                      $total2 = ( $total*24)*0.85; 
-
-
+                      $total2 = ( $total*24)*0.85;
                     @endphp
 
                     <p>Tổng Cộng: <strong>{{ Str::currency($total) ?? '' }} </strong><sup>đ</sup> <small class="text-muted">/ Tháng</small></p>
@@ -307,13 +328,16 @@
         </div>
         <div class="card-footer"> 
           <div class="form-group">
-                <button type="submit" name="paybtn" value="payment" class="btn btn-outline-primary btn-small">TẠO ĐƠN HÀNG VÀ THANH TOÁN</button>
-              </div> 
+            <button type="submit" name="paybtn" value="payment" class="btn btn-outline-primary btn-small"> <i class="fas fa-plus-square"></i> TẠO ĐƠN HÀNG VÀ THANH TOÁN</button>
+            <button type="submit" name="cancebtn" value="cancepayment" class="btn btn-outline-danger btn-small"><i class="fas fa-window-close"></i> HỦY CHỌN</button>
+          </div> 
         </div>
       </div>  
       </form> 
   </div>
 </div>
+
+@endif
 
 
 @endif
