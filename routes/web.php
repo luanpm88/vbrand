@@ -19,6 +19,10 @@ Route::get('/', function () {
 }); 
 */
 
+Route::get('/policy', function () {
+    return view('policy');
+});
+
 // Store Backend
 Route::namespace('Client')->group(function () {
 	// Product
@@ -32,11 +36,12 @@ Route::namespace('Client')->group(function () {
 	Route::get('client/connection/get-products', 'ConnectionController@getProducts');
 	Route::match(['get', 'post'], 'client/connection/lazada/sync', 'ConnectionController@lazadaSync');
 	Route::post('client/connection/lazada/sync/close', 'ConnectionController@lazadaSyncClose');
+
+	// Message
+	Route::get('client/messages', 'MessageController@index');
 });
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 Route::get('locale/{locale}', function ($locale){
 	if (! in_array($locale, ['en', 'vn', 'cn'])) {
