@@ -27,6 +27,8 @@ Route::get('/facebook/hook', function () {
     echo '123321';
 });
 
+Broadcast::routes();
+
 // Store Backend
 Route::namespace('Client')->group(function () {
 	// Product

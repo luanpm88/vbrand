@@ -19,23 +19,25 @@ class MessageController extends Controller
         $user = User::first();
         $messenger = new Messenger($user->getData()['facebook']['authResponse']['accessToken']);
 
+        \Auth::login($user);
+
         // check facebook connect state
         if(!$messenger->accessToken) {
             return rediect()->action('Client\MessageController@connect');
         }
         
-        // FIND ALL PAGES / ACCOUNTS
-        $pages = $messenger->getPages();
+        // // FIND ALL PAGES / ACCOUNTS
+        // $pages = $messenger->getPages();
 
-        // GET ALL CONVERSATIONS OF A PAGE
-        $conversations = $pages[0]->getConversations();   
+        // // GET ALL CONVERSATIONS OF A PAGE
+        // $conversations = $pages[0]->getConversations();   
 
-        // GET ALL MESSAGES OF A CONVERSATION
-        $messages = $conversations[0]->getMessages();
+        // // GET ALL MESSAGES OF A CONVERSATION
+        // $messages = $conversations[0]->getMessages();
 
         return view('client.messages.index', [
             'messenger' => $messenger,
-            'conversations' => $conversations,
+            // 'conversations' => $conversations,
         ]);
     }
 
@@ -46,7 +48,7 @@ class MessageController extends Controller
      */
     public function connect()
     {
-        $messenger = new FacebookMessenger();
+        $messenger = new Messenger();
 
         return view('client.messages.connect', [
             'messenger' => $messenger,

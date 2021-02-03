@@ -24,6 +24,6 @@ class MessengerChannel
      */
     public function join(User $user)
     {
-        //
+        return true;
     }
 }
