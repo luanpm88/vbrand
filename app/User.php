@@ -65,4 +65,31 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Package::class,'package_id');
     }
+
+    /**
+     * Get data.
+     *
+     * @var object | collect
+     */
+    public function getData()
+    {
+        if (!$this['data']) {
+            return json_decode('{}', true);
+        }
+
+        return json_decode($this['data'], true);
+    }
+
+    /**
+     * Update data.
+     *
+     * @var object | collect
+     */
+    public function updateData($data)
+    {
+        $data = (object) array_merge((array) $this->getData(), $data);
+        $this['data'] = json_encode($data);
+
+        $this->save();
+    }
 }

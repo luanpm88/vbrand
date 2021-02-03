@@ -23,6 +23,10 @@ Route::get('/policy', function () {
     return view('policy');
 });
 
+Route::get('/facebook/hook', function () {
+    echo '123321';
+});
+
 // Store Backend
 Route::namespace('Client')->group(function () {
 	// Product
@@ -38,6 +42,8 @@ Route::namespace('Client')->group(function () {
 	Route::post('client/connection/lazada/sync/close', 'ConnectionController@lazadaSyncClose');
 
 	// Message
+	Route::post('client/messages/save-token', 'MessageController@saveToken');
+	Route::get('client/messages/connect', 'MessageController@connect');
 	Route::get('client/messages', 'MessageController@index');
 });
 
