@@ -1,9 +1,26 @@
 @extends('fontend.Member.master')
-@section('content') 
+
+@section('content')
 @if (Session::has('messenge'))
 <div class="alert alert-success" role="alert">
   <strong> {{ Session::get('messenge') }}</strong>.
 </div>
+@endif
+
+
+@if(!$cart->isEmpty())
+
+@php
+print_r($cart);
+@endphp
+ànasfdnsafsdafl
+
+@else
+
+
+
+
+
 @endif
 
  @if(!empty($user->package_id))
@@ -14,7 +31,8 @@
   </button>
 </div>
 @endif
- @if(!empty($user->template_id))
+
+@if(!empty($user->template_id))
 <div class="alert alert-success" role="alert">
   {{ __('mem.template_name') }} : <strong>{{ $user->template->title ?? '' }}</strong>, Giá: {{ Str::currency($user->template->price) ?? '' }}<sup>đ</sup> <small class="text-muted">/ Tháng</small>
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">

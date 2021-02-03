@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Collection;
 use DateTime,File,Input,DB; 
 
 use PayPal\Rest\ApiContext;
@@ -29,7 +30,7 @@ use App\Category;
 use App\Template;
 use App\Package;
 use App\Orders;
-use App\Ordersdetail;
+use App\Orders_detail;
 use App\myclass\Slug;
 
 class MemberController extends Controller 
@@ -141,56 +142,47 @@ class MemberController extends Controller
     public function destroy($id)
     {
         $Products = Products::find($id);
-        $Products->delete(); 
+        $Products->delete();
         return redirect()->route('backend.listProducts')->with(['message'=> 'Successfully deleted!!']);
     }
     public function dashboard(){
         $user       = Auth::user();
         $data       = array();
         $cart       = Cart::where('user_id',$user->id)->get();
-        // check package
-        if(empty($user->package_id)){
-            $package  = Package::where('status',1)->orderBy('id','ASC')->get();
-            $data['package']     = $package;
-        }elseif(empty($user->template_id)){
-            $template  = Template::where('status',1)->orderBy('id','ASC')->get();
-            $data['template']     = $template;
+
+        if( $cart->count() >0 ){
+            //echo "<pre>";print_r($cart);echo "</pre>";die('');
+            return view('fontend.Member.cart',['user'=> $user, 'cart'=>$cart ]);
+        }else{
+            die( "sdasd" );
+            if(empty($user->status)){ /* chua tao don hang lan nao ca */
+                die( "sdasd" );
+                // check package
+                if(empty($user->package_id)){
+                    $package  = Package::where('status',1)->orderBy('id','ASC')->get();
+                    $data['package']    =   $package;
+                }elseif(empty($user->template_id)){
+                    $template  = Template::where('status',1)->orderBy('id','ASC')->get();
+                    $data['template']   =   $template;
+                }
+                return view('fontend.Member.dashboard',['user'=> $user, 'data'=> $data ]);
+
+            }else{ 
+
+            }
+            
         }
-        //echo "<pre>";print_r($data);echo "</pre>";
-        return view('fontend.Member.dashboard',['user'=> $user, 'data'=> $data,'cart'=>$cart ]);
+        
+        // echo "<pre>"; print_r($data); echo "</pre>";
+        
     }
-    public function dashboard_update( Request $request ){
-        $user   = Auth::user();
-        if(isset($request->template_id)){
-            $user->template_id = $request->template_id;
-            $user->save();
-            $cart   = new Cart();
-            $cart->user_id      = $user->id;
-            $cart->type         = 1; // template
-            $cart->relation_id  = $request->template_id;
-            $cart->save();
-            return redirect()->back()->with(['messenge'=> 'Successfully !!']);
-        }
-        if(isset($request->package_id)){
-            $user->package_id = $request->package_id;
-            $user->save();
-            $cart   = new Cart();
-            $cart->user_id      = $user->id;
-            $cart->type         = 2; // package
-            $cart->relation_id  = $request->package_id;
-            $cart->save();
-            return redirect()->back()->with(['messenge'=> 'Successfully !!']);
-        }
-        if(isset($request->dot) && isset($request->domain)){
-            $user->domain = trim($request->domain).$request->dot; 
-            $user->save();
-            $cart   = new Cart();
-            $cart->user_id      = $user->id;
-            $cart->type         = 3; // domain
-            $cart->name         = $request->domain;
-            $cart->save();
-            return redirect()->back()->with(['messenge'=> 'Successfully !!']);
-        }
+    public function cart(){
+        $user       = Auth::user();
+        $cart       = Cart::where('user_id',$user->id)->get();
+        return view('fontend.Member.cart',['user'=> $user, 'cart'=>$cart ]);
+    }
+    public function cart_update( Request $request ){
+        $user       = Auth::user();
         /*
             tao don hang va thanh toan
             tien hanh huy cart tam
@@ -215,18 +207,30 @@ class MemberController extends Controller
                             'name'      => $user->template->title,
                             'price'     =>  round( $user->template->price/24000, 2),
                             'currency'  =>'USD',
-                            'quantity'  => 1,
+                            'quantity'  => 6,
                             'sku'       => $user->template->id
                         ];
+                        $orderdetail-> new Orders_detail();
+                        $orderdetail->user_id = $user->id;
+                        $orderdetail->relation_id = $user->template->id;
+                        $orderdetail->month = 6;
+                        $orderdetail->create = date('Y/m/d');
+                        $orderdetail->save();
                     }
                     if($user->package_id){
+                        $orderdetail-> new Orders_detail();
+                        $orderdetail->user_id = $user->id;
+                        $orderdetail->relation_id = $user->package->id;
+                        $orderdetail->month = 6;
+                        $orderdetail->create = date('Y-m-d');
+                        $orderdetail->save();
                         $setSubtotal    +=   round($user->package->price/24000 ,2) ;
                         //$setSubtotal    += 8;
                         $product[]  = [
                             'name'      => $user->package->title,
                             'price'     =>  round( $user->package->price/24000, 2),
                             'currency'  =>'USD',
-                            'quantity'  => 1,
+                            'quantity'  => 6,
                             'sku'       => $user->package->id
                         ];
                     }
@@ -235,7 +239,16 @@ class MemberController extends Controller
                     
                     $order->currency    = 'USD';
                     $order->total       = $setTotal;
-                    $order->save(); 
+                    $order->save();
+
+                    
+                    /* update orders_details */
+                    
+
+                    /* xoa cart table */
+                    $deletedRows = Cart::where('user_id',$user->id)->delete();
+                    return redirect()->route('member');
+                    die('');
 
                     $payer = new Payer();
                     $payer->setPaymentMethod("PayPal");
@@ -303,6 +316,48 @@ class MemberController extends Controller
             }
              
             
+        }
+
+    }
+
+    public function dashboard_update( Request $request ){
+        $user   = Auth::user();
+        if(isset($request->template_id)){ 
+            $template           = Template::where('slug', $request->template_id)->firstOrFail();
+            $user->template_id  = $request->template_id;
+            $user->save();
+            $cart   = new Cart();
+            $cart->user_id      = $user->id;
+            $cart->type         = 1; // template
+            $cart->month        = 6;
+            $cart->price        = $template->price;
+            $cart->relation_id  = $request->template_id;
+            $cart->save();
+            return redirect()->back()->with(['messenge'=> 'Successfully !!']);
+        }
+        if(isset($request->package_id)){
+            $package           = Package::where('slug', $request->package_id)->firstOrFail();
+            $user->package_id   = $request->package_id;
+            $user->save();
+            $cart   = new Cart();
+            $cart->user_id      = $user->id;
+            $cart->type         = 2; // package
+            $cart->month        = 6;
+            $cart->price        = $package->price;
+            $cart->relation_id  = $request->package_id;
+            $cart->save();
+            return redirect()->back()->with(['messenge'=> 'Successfully !!']);
+        }
+        if(isset($request->dot) && isset($request->domain)){
+            $user->domain = trim($request->domain).$request->dot; 
+            $user->save();
+            $cart   = new Cart();
+            $cart->user_id      = $user->id;
+            $cart->type         = 3; // domain
+            $cart->month        = 12;
+            $cart->name         = $request->domain;
+            $cart->save();
+            return redirect()->back()->with(['messenge'=> 'Successfully !!']);
         }
         
 
