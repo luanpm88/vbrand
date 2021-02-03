@@ -19,10 +19,6 @@ Route::get('/', function () {
 }); 
 */
 
-Route::get('/policy', function () {
-    return view('policy');
-});
-
 // Store Backend
 Route::namespace('Client')->group(function () {
 	// Product
