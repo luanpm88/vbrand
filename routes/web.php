@@ -19,6 +19,10 @@ Route::get('/', function () {
 }); 
 */
 
+Route::get('/policy', function () {
+    return view('policy');
+});
+
 // Store Backend
 Route::namespace('Client')->group(function () {
 	// Product
@@ -144,7 +148,7 @@ Route::get('marketing', function () {    return view('fontend.webdesign'); });
 Route::get('other-marketing', function () {    return view('fontend.webdesign'); });
 Route::get('applocation', function () {    return view('fontend.applocation'); });
 
-Route::get('policy', function () {    return view('fontend.policy'); });
+// Route::get('policy', function () {    return view('fontend.policy'); });
 Route::get('partner', function () {    return view('fontend.partner'); });
 Route::get('recruitment', function () {    return view('fontend.recruitment'); });
 
