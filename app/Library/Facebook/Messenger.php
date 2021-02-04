@@ -70,22 +70,4 @@ class Messenger
 
         return array_map($func, $data);
     }
-
-    public function getConversations($page)
-    {
-        return $this->makeRequest(
-            '/' . $page->id . '/conversations',
-            $page->accessToken,
-            true
-        );
-    }
-
-    public function getMessages($page, $conversationId)
-    {
-        return $this->makeRequest(
-            '/' . $conversationId . '/messages?fields=from,to,message,created_time',
-            $page['access_token'],
-            true
-        );
-    }
 }

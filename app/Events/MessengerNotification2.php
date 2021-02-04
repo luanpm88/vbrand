@@ -10,22 +10,20 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class MessengerNotification implements ShouldBroadcastNow
+class MessengerNotification2 implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $type;
-    public $data;
+    public $message;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($type, $data)
+    public function __construct($message)
     {
-        $this->type = $type;
-        $this->data = $data;
+        $this->message = $message;
     }
 
     /**

@@ -7,13 +7,22 @@ class Conversation
 {
     public $page;
     public $id;
-    public $from;
-    public $to;
+    public $data;
 
     public function __construct($page)
 	{
 		$this->page = $page;
 	}
+
+    public function fetchData()
+    {
+        $data = $this->page->messenger->makeRequest(
+            '/' . $this->id . '?fields=snippet,senders,unread_count,updated_time,participants',
+            $this->page->accessToken
+        );
+
+        $this->data = $data;
+    }
 
     public function getMessages()
     {

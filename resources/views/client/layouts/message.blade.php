@@ -24,7 +24,7 @@
         <link href="{{ asset('client/css/main.css') }}" rel="stylesheet">
         <script src="{{ asset('client/js/main.js') }}"></script>
         
-       
+        <link href="{{ asset('client/css/message.css') }}" rel="stylesheet">
     </head>
     <body>
         @yield('content')

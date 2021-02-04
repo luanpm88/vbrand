@@ -19,6 +19,7 @@ class MessageController extends Controller
         $user = User::first();
         $messenger = new Messenger($user->getData()['facebook']['authResponse']['accessToken']);
 
+        // broadcast need user log in
         \Auth::login($user);
 
         // check facebook connect state
@@ -26,8 +27,9 @@ class MessageController extends Controller
             return rediect()->action('Client\MessageController@connect');
         }
         
-        // // FIND ALL PAGES / ACCOUNTS
-        // $pages = $messenger->getPages();
+        // FIND ALL PAGES / ACCOUNTS
+        $page = $messenger->getPages()[0];
+        $page->fetchData();
 
         // // GET ALL CONVERSATIONS OF A PAGE
         // $conversations = $pages[0]->getConversations();   
@@ -36,8 +38,7 @@ class MessageController extends Controller
         // $messages = $conversations[0]->getMessages();
 
         return view('client.messages.index', [
-            'messenger' => $messenger,
-            // 'conversations' => $conversations,
+            'page' => $page,
         ]);
     }
 
@@ -66,6 +67,50 @@ class MessageController extends Controller
 
         $user->updateData([
             'facebook' => $request->data
+        ]);
+    }
+    
+    /**
+     * get conversations. 
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getConversations(Request $request)
+    {
+        $user = User::first();
+        $messenger = new Messenger($user->getData()['facebook']['authResponse']['accessToken']);
+
+        // FIND ALL PAGES / ACCOUNTS
+        $pages = $messenger->getPages();
+
+        // GET ALL CONVERSATIONS OF A PAGE
+        $conversations = $pages[0]->getConversations();
+
+        return response()->json($conversations);
+    }
+
+    /**
+     * get conversation. 
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getConversation(Request $request)
+    {
+        $user = User::first();
+        $messenger = new Messenger($user->getData()['facebook']['authResponse']['accessToken']);
+
+        // FIND ALL PAGES / ACCOUNTS
+        $pages = $messenger->getPages();
+
+        // GET ALL CONVERSATIONS OF A PAGE
+        $conversation = $pages[0]->getConversation($request->id);
+
+        // GET ALL MESSAGES OF A CONVERSATION
+        $messages = $conversation ->getMessages();
+
+        return response()->json([
+            'conversation' => $conversation,
+            'messages' => $messages,
         ]);
     }
 }

@@ -44,6 +44,8 @@ Route::namespace('Client')->group(function () {
 	Route::post('client/connection/lazada/sync/close', 'ConnectionController@lazadaSyncClose');
 
 	// Message
+	Route::get('client/messages/get-conversation', 'MessageController@getConversation');
+	Route::get('client/messages/get-conversations', 'MessageController@getConversations');
 	Route::post('client/messages/save-token', 'MessageController@saveToken');
 	Route::get('client/messages/connect', 'MessageController@connect');
 	Route::get('client/messages', 'MessageController@index');
