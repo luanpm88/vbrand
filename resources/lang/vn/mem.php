@@ -28,6 +28,7 @@ return [
 
     'choosed'		=> "ĐÃ CHỌN",
     'choose'		=> "CHỌN",
+    'change'        => "THAY ĐỔI",
 
 
 
