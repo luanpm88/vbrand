@@ -203,7 +203,8 @@
     <script>
         Echo.private('Messenger')
         .listen('MessengerNotification', (e) => {
-            $('.notification').html(e.message);
+            // $('.notification').html(e.message);
+            console.log(e.data);
         });
     </script>
 @endsection

@@ -29,6 +29,7 @@ Broadcast::routes();
 Route::namespace('Client')->group(function () {
 	// Messenger webhook
 	Route::get('/facebook/webhooks', 'MessageController@webhooks');
+	Route::post('/facebook/webhooks', 'MessageController@webhooks');
 
 	// Product
 	Route::get('/client/products/image/{id}', 'ProductController@image');

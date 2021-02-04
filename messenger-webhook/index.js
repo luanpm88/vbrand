@@ -24,6 +24,19 @@ app.post('/webhook', (req, res) => {
         // will only ever contain one message, so we get index 0
         let webhook_event = entry.messaging[0];
         console.log(webhook_event);
+
+        const axios = require('axios');
+        const https = require('https');
+        const agent = new https.Agent({  
+            rejectUnauthorized: false
+        });
+        axios.post('https://vbrand.local/facebook/webhooks', webhook_event, { httpsAgent: agent })
+            .then(response => {
+                console.log(response.data);
+            })
+            .catch(error => {
+                console.log(error);
+        });
       });
   
       // Returns a '200 OK' response to all requests
