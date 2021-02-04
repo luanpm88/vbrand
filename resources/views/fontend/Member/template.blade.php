@@ -43,10 +43,12 @@
               <a href="{{ url('member/template/'.$items->slug) }}">{{ $items->title }}</a>
             </div>
             <div class="item-price">
-              <p class="price">
-                <span class="cur-p">
-                  Miễn phí
-                </span>
+              <p class="card-title pricing-card-title">
+              @if($items->price>0)
+                {{ Str::currency($items->price) ?? '' }}<sup>đ</sup> <small class="text-muted">/ Tháng</small>
+              @else
+                Miễn Phí
+              @endif
               </p>
             </div>
             <div class="item-func">
@@ -69,7 +71,7 @@
                     <div class="star text-right p-0">
                       @if($user->template_id)
                         @if($user->template_id == $items->id)
-                          <button type="submit" class="btn btn-lg btn-block btn-primary">{{ __('mem.choosed') }}</button>
+                          <button type="submit" class="btn btn-block btn-primary">{{ __('mem.choosed') }}</button>
                         @else
                           <button type="submit" class="btn btn-outline-success">{{ __('mem.choose') }}</button>
                         @endif

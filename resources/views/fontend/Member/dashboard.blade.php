@@ -8,37 +8,56 @@
 @endif
 
 
-@if(!$cart->isEmpty())
+ 
 
-@php
-print_r($cart);
-@endphp
-ànasfdnsafsdafl
+@if(!empty($user->package_id))
+<div class="card ">
+  <div class="card-header">
+    <h4 class="my-0 font-weight-normal">{{ __('mem.package_name') }} {{ __('mem.choosed') }}</h4>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-lg-7 col-md-7 col-sm-6 col-xs-6">
 
-@else
-
-
-
-
-
-@endif
-
- @if(!empty($user->package_id))
-<div class="alert alert-success" role="alert">
-  {{ __('mem.package_name') }} : <strong>{{ $user->package->title ?? '' }}</strong>, Giá: {{ Str::currency($user->package->price) ?? '' }}<sup>đ</sup> <small class="text-muted">/ Tháng</small>
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>
+        <P>{{ __('mem.package_name') }} : <strong>{{ $user->package->title ?? '' }}</strong></P>
+        <P>Giá: {{ Str::currency($user->package->price) ?? '' }}<sup>đ</sup> <small class="text-muted">/ Tháng</small></P>
+        <p>{!! $user->package->description ?? '' !!}</p>
+      </div>
+      <div class="col-lg-5 col-md-5 col-sm-6 col-xs-6">
+        <img src="{{ url('images/gia-han.jpg') }}" class="img">        
+      </div>
+    </div>
+  </div>
+  <div class="card-footer text-right">
+      <a href="{{ url('member/package') }}" class="btn btn-secondary">Bạn còn 15 ngày nữa, Vui lòng gia hạn ngay</a>
+  </div>
+</div> 
 @endif
 
 @if(!empty($user->template_id))
-<div class="alert alert-success" role="alert">
-  {{ __('mem.template_name') }} : <strong>{{ $user->template->title ?? '' }}</strong>, Giá: {{ Str::currency($user->template->price) ?? '' }}<sup>đ</sup> <small class="text-muted">/ Tháng</small>
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>
+<div class="card ">
+  <div class="card-header">
+    <h4 class="my-0 font-weight-normal">{{ __('mem.template_name') }} {{ __('mem.choosed') }}</h4>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-lg-7 col-md-7 col-sm-6 col-xs-6">
+
+        <P>{{ __('mem.template_name') }} : <strong>{{ $user->template->title ?? '' }}</strong></P>
+        <P>Giá: {{ Str::currency($user->template->price) ?? '' }}<sup>đ</sup> <small class="text-muted">/ Tháng</small></P>
+        <p>{!! $user->template->description ?? '' !!}</p>
+      </div>
+      <div class="col-lg-5 col-md-5 col-sm-6 col-xs-6">
+        <img src="{{ url('images/gia-han.jpg') }}" class="img">        
+      </div>
+    </div>
+  </div>
+  <div class="card-footer text-right">
+      <a href="{{ url('member/template') }}" class="btn btn-secondary">Bạn còn 15 ngày nữa, Vui lòng gia hạn ngay</a>
+  </div>
+</div> 
+
+ 
 @endif
 
 @if (!empty($user->domain))
@@ -235,13 +254,13 @@ print_r($cart);
     
 </div>
 
-@else
+@endif
 
 @if(!empty($cart))
 
 <div class="row">
   <div class="col-lg-12 ">
-    <form  method="post">@csrf
+    <form  method="post" action="{{ url('member/cart') }}">@csrf
     <div class="card ">
           <div class="card-header">
             <h4 class="my-0 font-weight-normal">{{ __('mem.payment') }}</h4>
@@ -252,8 +271,7 @@ print_r($cart);
                   <h3>BẠN ĐÃ CHỌN</h3>
                     <ul class="bayerlist">
                       @php
-                        $total = 0;
-                        
+                        $total = 0;                        
                       @endphp
                       @foreach($cart as $item)
                       
@@ -358,7 +376,7 @@ print_r($cart);
 @endif
 
 
-@endif
+ 
 
 
 

@@ -21,6 +21,7 @@ class CreateCartTable extends Migration
             $table->integer('relation_id')->nullable();
             $table->mediumText('description')->nullable();
             $table->date('created')->nullable();
+            $table->integer('price')->nullable();
             $table->Integer('month')->nullable(); 
             $table->timestamps();
         });

@@ -3,50 +3,50 @@
 <script type="text/javascript">    
     var _token = '{{ csrf_token() }}';   
 </script>
-<div class="page-title-box">
-    <div class="row align-items-center">
-        <div class="col-sm-8">
-            <h4 class="page-title">TÊN MIỀN CỦA BẠN</h4>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ url('member') }}">DASHBOARD</a></li>
-                <li class="breadcrumb-item active">TÊN MIỀN</li>
-            </ol>
-        </div> 
-    </div>
-</div>
+ 
 @if (Session::has('messenge'))
 <div class="alert alert-success" role="alert">
   <strong> {{ Session::get('messenge') }}</strong>.
 </div>
 @endif
 
-  <div class="col-md-12 col-lg-12 col-xl-12"> 
-<form method="post">
-@csrf
-      <h3 class="subheadline">BẠN ĐÃ CÓ TÊN MIỀN</h3>
-      <div class="form-group">
-        <label for="private_message">NHẬP TÊN MIỀN CỦA BẠN</label>
-      </div> 
-      <div class="form-group">
-        <input type="text" id="domain" name="domain" value="{{ $data->domain ?? '' }}">
-        <button type="submit" class="btn btn-lg btn-green-bg btn-sm"><i class="bi bi-plus-square"></i> LƯU LẠI</button>
-      </div>
-    </form>
-    <form method="POST">
-      @csrf
-    <h3 class="subheadline">ĐĂNG KÝ MỚI TÊN MIỀN</h3>
-      <div class="form-group">
-          <label for="private_message">NHẬP TÊN MIỀN BẠN MUỐN ĐĂNG KÝ</label>
-      </div> 
-      <div class="form-group">                  
-          <input type="text" id="domain">
-          <button type="submit" class="btn btn-lg btn-primary btn-sm">KIỂM TRA</button>
-      </div>
-      <div class="form-group">
-        <p>Ex: Brandviet.com</p>
-      </div>
-    </form>
-    
+
+<div class="card ">
+  <form method="post">
+  @csrf
+  <div class="card-header">
+    <h4 class="my-0 font-weight-normal">DOMAIN CỦA BẠN</h4>
   </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-lg4 col-md-4 col-sm-6 col-xs-6">
+         <label class="sr-only" for="inlineFormInputGroupUsername2">Username</label>
+  <div class="input-group mb-2 mr-sm-2">
+    <div class="input-group-prepend">
+      <div class="input-group-text">Domain</div>
+    </div>
+    <input id="domain" name="domain" type="text" class="form-control" id="inlineFormInputGroupUsername2" placeholder="Username" value="{{ $data->domain ?? '' }}">
+  </div>
+
+         
+      </div>
+      <div class="col-lg4 col-md-4 col-sm-6 col-xs-6">
+        <button type="submit" class="btn btn-secondary">Cập nhật</button> 
+      </div>
+      
+    </div>
+  </div>
+  <div class="card-footer">
+      <strong>Lưu ý</strong>: nếu bạn chưa có tên miền, Liên hệ ngay chúng tôi<span class="hot"> HOTLINE: <a href="tel:0838 068 268" class="bold ">0838 068 268</a> - 24/7 </span>
+  </div>
+</form>
+</div> 
+
+
+ 
+
+
+
+
 </div> 
 @endsection()

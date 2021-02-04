@@ -151,12 +151,21 @@ class MemberController extends Controller
         $cart       = Cart::where('user_id',$user->id)->get();
 
         if( $cart->count() >0 ){
-            //echo "<pre>";print_r($cart);echo "</pre>";die('');
-            return view('fontend.Member.cart',['user'=> $user, 'cart'=>$cart ]);
+            if(empty($user->package_id)){
+                $package  = Package::where('status',1)->orderBy('id','ASC')->get();
+                $data['package']    =   $package;
+                return view('fontend.Member.cart',['user'=> $user, 'cart'=>$cart, 'data'=> $data ]);
+            }elseif(empty($user->template_id)){
+                $template  = Template::where('status',1)->orderBy('id','ASC')->get();
+                $data['template']   =   $template;
+                return view('fontend.Member.cart',['user'=> $user, 'cart'=>$cart, 'data'=> $data ]);
+            }else{
+                return view('fontend.Member.cart',['user'=> $user, 'cart'=>$cart ]);
+            }
+
         }else{
-            die( "sdasd" );
-            if(empty($user->status)){ /* chua tao don hang lan nao ca */
-                die( "sdasd" );
+            
+            if(empty($user->status)){ /* chua tao don hang lan nao ca */ 
                 // check package
                 if(empty($user->package_id)){
                     $package  = Package::where('status',1)->orderBy('id','ASC')->get();
@@ -183,6 +192,41 @@ class MemberController extends Controller
     }
     public function cart_update( Request $request ){
         $user       = Auth::user();
+        if(isset($request->template_id)){ 
+            $template           = Template::where('id', $request->template_id)->firstOrFail();
+            $user->template_id  = $request->template_id;            
+            $user->save();            
+            $cart   = new Cart();
+            $cart->user_id      = $user->id;
+            $cart->type         = 1; // template
+            $cart->month        = 6;
+            $cart->relation_id  = $request->template_id;
+            $cart->save();
+            return redirect()->back()->with(['messenge'=> 'Successfully !!']);
+        }
+        if(isset($request->package_id)){
+            $package           = Package::where('id', $request->package_id)->firstOrFail();
+            $user->package_id   = $request->package_id;
+            $user->save();
+            $cart   = new Cart();
+            $cart->user_id      = $user->id;
+            $cart->type         = 2; // package
+            $cart->month        = 6; 
+            $cart->relation_id  = $request->package_id;
+            $cart->save();
+            return redirect()->back()->with(['messenge'=> 'Successfully !!']);
+        }
+        if(isset($request->dot) && isset($request->domain)){
+            $user->domain = trim($request->domain).$request->dot; 
+            $user->save();
+            $cart   = new Cart();
+            $cart->user_id      = $user->id;
+            $cart->type         = 3; // domain
+            $cart->month        = 12;
+            $cart->name         = $user->domain;
+            $cart->save();
+            return redirect()->back()->with(['messenge'=> 'Successfully !!']);
+        }
         /*
             tao don hang va thanh toan
             tien hanh huy cart tam
@@ -190,60 +234,55 @@ class MemberController extends Controller
         if(isset($request->paybtn)){
             $order = new Orders();
             $order->user_id     = $user->id;
+            $order->save();
             $tygia              = 24000;
             switch ($request->paymenttype) {
-                case 'Paypal':
-                    
+                case 'Paypal':                    
                     $product    = array();
                     $setSubtotal    =   0;
                     $setTotal       =   0;
                     $setShipping    =   2;
-                    $setTax         =   2;
-                    
+                    $setTax         =   2;                    
                     if($user->template_id){
                         $setSubtotal    +=  round($user->template->price/24000 , 2);  
-                        //$setSubtotal    += 10;
                         $product[]  = [
                             'name'      => $user->template->title,
                             'price'     =>  round( $user->template->price/24000, 2),
-                            'currency'  =>'USD',
+                            'currency'  => 'USD',
                             'quantity'  => 6,
                             'sku'       => $user->template->id
                         ];
                         $orderdetail = new Orders_detail();
+                        $orderdetail->order_id = $order->id;
                         $orderdetail->user_id = $user->id;
                         $orderdetail->relation_id = $user->template->id;
                         $orderdetail->month = 6;
-                        $orderdetail->create = date('Y/m/d');
+                        $orderdetail->created = date('Y/m/d');
                         $orderdetail->save();
                     }
                     if($user->package_id){
-                        $orderdetail = new Orders_detail();
-                        $orderdetail->user_id = $user->id;
+                        $orderdetail    = new Orders_detail();
+                        $orderdetail->user_id   = $user->id;
+                        $orderdetail->order_id = $order->id;
                         $orderdetail->relation_id = $user->package->id;
-                        $orderdetail->month = 6;
-                        $orderdetail->create = date('Y-m-d');
+                        $orderdetail->month     = 6;
+                        $orderdetail->created   = date('Y-m-d');
                         $orderdetail->save();
                         $setSubtotal    +=   round($user->package->price/24000 ,2) ;
-                        //$setSubtotal    += 8;
                         $product[]  = [
                             'name'      => $user->package->title,
-                            'price'     =>  round( $user->package->price/24000, 2),
-                            'currency'  =>'USD',
+                            'price'     => round( $user->package->price/24000, 2),
+                            'currency'  => 'USD',
                             'quantity'  => 6,
                             'sku'       => $user->package->id
                         ];
                     }
-
-                    $setTotal       =   $setSubtotal + $setTax + $setShipping;
-                    
+                    $setTotal           = $setSubtotal + $setTax + $setShipping;                    
                     $order->currency    = 'USD';
                     $order->total       = $setTotal;
                     $order->save();
 
-                    
-                    /* update orders_details */
-                    
+                    /* update orders_details */                    
 
                     /* xoa cart table */
                     $deletedRows = Cart::where('user_id',$user->id)->delete();
@@ -323,27 +362,25 @@ class MemberController extends Controller
     public function dashboard_update( Request $request ){
         $user   = Auth::user();
         if(isset($request->template_id)){ 
-            $template           = Template::where('slug', $request->template_id)->firstOrFail();
-            $user->template_id  = $request->template_id;
-            $user->save();
+            $template           = Template::where('id', $request->template_id)->firstOrFail();
+            $user->template_id  = $request->template_id;            
+            $user->save();            
             $cart   = new Cart();
             $cart->user_id      = $user->id;
             $cart->type         = 1; // template
             $cart->month        = 6;
-            $cart->price        = $template->price;
             $cart->relation_id  = $request->template_id;
             $cart->save();
             return redirect()->back()->with(['messenge'=> 'Successfully !!']);
         }
         if(isset($request->package_id)){
-            $package           = Package::where('slug', $request->package_id)->firstOrFail();
+            $package           = Package::where('id', $request->package_id)->firstOrFail();
             $user->package_id   = $request->package_id;
             $user->save();
             $cart   = new Cart();
             $cart->user_id      = $user->id;
             $cart->type         = 2; // package
-            $cart->month        = 6;
-            $cart->price        = $package->price;
+            $cart->month        = 6; 
             $cart->relation_id  = $request->package_id;
             $cart->save();
             return redirect()->back()->with(['messenge'=> 'Successfully !!']);
@@ -355,7 +392,7 @@ class MemberController extends Controller
             $cart->user_id      = $user->id;
             $cart->type         = 3; // domain
             $cart->month        = 12;
-            $cart->name         = $request->domain;
+            $cart->name         = $user->domain;
             $cart->save();
             return redirect()->back()->with(['messenge'=> 'Successfully !!']);
         }
@@ -465,9 +502,30 @@ class MemberController extends Controller
     }
     public function template_store(Request $request)
     {
-        $user       = Auth::user();
+        $user           = Auth::user();
+        $template       = DB::table('template')->where('id',$request->template_id)->first();
+         
+        $old_price      = $user->template->price;
+        echo $old_price ;
+         echo('template site'.$template->price);
+        die('');
+       
+
+        if( $template->price > $old_template->price ){
+            $cart = new Cart();
+            $cart->user_id      = $user->id;
+            $cart->type         = 1; // template
+            $cart->month        = 6;
+            $cart->relation_id  = $request->template_id;
+            $cart->save();
+            die($request->template_id.'--'.$user->template_id);
+        }else{
+            die('template->price:'.$template->price.'--old_template->price:'.$old_template->price);
+        }
+
         $user->template_id = $request->template_id;
         $user->save();
+       
         return redirect()->route('fontend.templatelist')->with(['messenge'=>'Cập nhật thành công!!!']); 
     }
     public function template_details_store(Request $request)
