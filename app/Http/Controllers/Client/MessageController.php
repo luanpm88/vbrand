@@ -14,11 +14,17 @@ class MessageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $user = User::first();
-        $messenger = new Messenger($user->getData()['facebook']['authResponse']['accessToken']);
 
+        try {
+            $messenger = new Messenger($user->getData()['facebook']['authResponse']['accessToken']);
+        } catch(\Facebook\Exceptions\FacebookResponseException $e) {
+            $request->session()->flash('error', $e->getMessage());
+            return redirect()->action('Client\MessageController@connect');
+        }
+        
         // broadcast need user log in
         \Auth::login($user);
 

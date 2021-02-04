@@ -1,0 +1,87 @@
+body {
+    background-color: #fff;
+}
+.nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
+    background-color: #fff;
+    border-color: #dee2e6 #dee2e6 #fff;
+}
+.messenger-sidebar {
+    border-right: solid 1px #ddd;
+    height: 100vh;
+}
+.conversation {
+    margin-left: -8px;
+    margin-right: -8px;
+    border-radius: 10px;
+    cursor: pointer;
+    position: relative;
+}
+.conversation:hover, .conversation.active {
+    background-color: #f2f2f2;
+}
+.conversation label {
+    font-size: 17px;
+}
+.conversation .unread_count {
+    position: absolute;
+    top: calc(50% - 10px);
+    right: 0;
+    border-radius: 20px;
+    padding: 5px 8px;
+}
+.conversation .avatar {
+    border-radius: 100%;
+    width: 60px;
+    height: 60px;
+}
+.messenger-sidebar .header {
+
+}
+.messenger-sidebar .header h3 {
+    
+}
+.messenger-sidebar .header .avatar {
+    border-radius: 100%;
+    width: 40px;
+    height: 40px;
+}
+main {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.messenger-chatbox {
+    border-right: solid 1px #ddd;
+    height: 100vh;
+}
+.messenger-chatbox .header {
+    border-bottom: solid 1px #ddd;
+}
+.messenger-chatbox .header h3 {
+    
+}
+.messenger-chatbox .header .avatar {
+    border-radius: 100%;
+    width: 40px;
+    height: 40px;
+}
+.chatbox-content .message {
+    display: inline-block;
+    padding: 5px 14px;
+    background: rgb(0, 153, 255);
+    color: white;
+    border-radius: 50px;
+}
+.chatbox-content .message-line {
+    margin-bottom: 10px;
+}
+.chatbox-content {
+    height: calc(100vh - 73px);
+    overflow: auto;
+}
+.message-line.own {
+    text-align: right;
+}
+.message-line.own .message {
+    background: #eaf1f6;
+    color: #222;
+}
