@@ -210,7 +210,7 @@ class MemberController extends Controller
                             'quantity'  => 6,
                             'sku'       => $user->template->id
                         ];
-                        $orderdetail-> new Orders_detail();
+                        $orderdetail = new Orders_detail();
                         $orderdetail->user_id = $user->id;
                         $orderdetail->relation_id = $user->template->id;
                         $orderdetail->month = 6;
@@ -218,7 +218,7 @@ class MemberController extends Controller
                         $orderdetail->save();
                     }
                     if($user->package_id){
-                        $orderdetail-> new Orders_detail();
+                        $orderdetail = new Orders_detail();
                         $orderdetail->user_id = $user->id;
                         $orderdetail->relation_id = $user->package->id;
                         $orderdetail->month = 6;
