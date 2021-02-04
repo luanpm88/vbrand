@@ -15,6 +15,7 @@ class AddAttributeDomainIntoUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('domain')->nullable();
+            $table->integer()('status')->nullable();
         });
     }
 

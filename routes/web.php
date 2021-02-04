@@ -129,6 +129,9 @@ Route::prefix('member')->middleware(['auth'])->group(function(){
 
 	Route::get('card', 'MemberController@card');
 
+	Route::get('cart', 'MemberController@cart');
+	Route::post('cart', 'MemberController@cart_update');
+
 
 	Route::prefix('products')->group(function(){
 		Route::get('/', 'MemberController@index')->name('backend.listProducts');
