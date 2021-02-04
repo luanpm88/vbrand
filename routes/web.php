@@ -23,14 +23,13 @@ Route::get('/policy', function () {
     return view('policy');
 });
 
-Route::get('/facebook/hook', function () {
-    echo '123321';
-});
-
 Broadcast::routes();
 
 // Store Backend
 Route::namespace('Client')->group(function () {
+	// Messenger webhook
+	Route::get('/facebook/webhooks', 'MessageController@webhooks');
+
 	// Product
 	Route::get('/client/products/image/{id}', 'ProductController@image');
 	Route::post('/client/products/list', 'ProductController@list');
