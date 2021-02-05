@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 #Route::auth();
 /*
 Route::get('/', function () {
-    return view('welcome');
+    return view('welcome'); 
 }); 
 */
 
@@ -71,7 +71,6 @@ Route::get('sitemap-category.xml', 'SitemapController@categories');
 Route::get('sitemap-tags.xml', 'SitemapController@tags');
 
 
-
 /*
 	my profile
 */
@@ -98,6 +97,13 @@ Route::prefix('member')->middleware(['auth'])->group(function(){
 
 	Route::get('package', 'MemberController@package')->name('fontend.packagelist');
 	Route::post('package', 'MemberController@package_store');
+	Route::post('package/add', 'MemberController@package_add');
+	
+	Route::get('template', 'MemberController@template')->name('fontend.templatelist');
+	Route::get('template/{slug}', 'MemberController@template_details');
+	Route::post('template/add', 'MemberController@template_add');
+	Route::post('template/{slug}', 'MemberController@template_details_store');
+	Route::post('template', 'MemberController@template_store');  
 
 	Route::get('promotion', 'MemberController@promotion');
 	Route::get('voucher', 'MemberController@voucher');
@@ -119,18 +125,13 @@ Route::prefix('member')->middleware(['auth'])->group(function(){
 
 
 	Route::get('domain', 'MemberController@domain');
+	Route::get('domain/edit', 'MemberController@domain_edit');
 	Route::post('domain', 'MemberController@domain_store');
 	Route::post('domain/seek', 'MemberController@domain_seek');
 
 	Route::get('email', 'MemberController@email');
 	Route::post('email', 'MemberController@email_store');
 
-	Route::get('template', 'MemberController@template')->name('fontend.templatelist');
-
-	Route::get('template/{slug}', 'MemberController@template_details');
-	Route::post('template/{slug}', 'MemberController@template_details_store');
-
-	Route::post('template', 'MemberController@template_store');  
 
 	Route::get('card', 'MemberController@card');
 

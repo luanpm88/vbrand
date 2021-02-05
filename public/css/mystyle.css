@@ -190,6 +190,7 @@
     display: flex;
 }
 .template_details h1{ margin: 0; text-transform: uppercase; }
+.template-img{ height: 200px; overflow: hidden; padding: 7px; }
 .alert-dismissible .close {
     position: absolute;
     top: 0;

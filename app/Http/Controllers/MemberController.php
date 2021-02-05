@@ -192,6 +192,11 @@ class MemberController extends Controller
     }
     public function cart_update( Request $request ){
         $user       = Auth::user();
+        if($request->cancebtn){
+            $deletedRows = Cart::where('user_id',$user->id)->delete();
+            return redirect()->route('member');
+        }
+        
         if(isset($request->template_id)){ 
             $template           = Template::where('id', $request->template_id)->firstOrFail();
             $user->template_id  = $request->template_id;            
@@ -360,7 +365,7 @@ class MemberController extends Controller
     }
 
     public function dashboard_update( Request $request ){
-        $user   = Auth::user();
+        $user   = Auth::user(); 
         if(isset($request->template_id)){
             $template           = Template::where('id', $request->template_id)->firstOrFail();
             $user->template_id  = $request->template_id;            
@@ -396,36 +401,34 @@ class MemberController extends Controller
             $cart->save();
             return redirect()->back()->with(['messenge'=> 'Successfully !!']);
         }
-        
-
     } 
     
     public function accountsetting(){ 
-        return view('fontend.Member.accountsetting',['data'=> Auth::user() ]);
+        return view('fontend.Member.accountsetting',['user'=> Auth::user() ]);
     }
     public function accountsetting_store(Request $request){ 
-        return view('fontend.Member.password',['data'=> Auth::user() ]);
+        return view('fontend.Member.password',['user'=> Auth::user() ]);
 
-    }
-    
+    }    
     public function promotion(){
-        return view('fontend.Member.promotion',['data'=> Auth::user() ]);
+        return view('fontend.Member.promotion',['user'=> Auth::user() ]);
     }
 
     public function voucher(){ 
-        return view('fontend.Member.voucher',['data'=> Auth::user() ]);
+        return view('fontend.Member.voucher',['user'=> Auth::user() ]);
     }
     public function card(){ 
-        return view('fontend.Member.card',['data'=> Auth::user() ]);
+        return view('fontend.Member.card',['user'=> Auth::user() ]);
     }
-
     public function statistical(){ 
-        return view('fontend.Member.statistical',['data'=> Auth::user() ]);
-    } 
-    
+        return view('fontend.Member.statistical',['user'=> Auth::user() ]);
+    }    
     public function domain(){ 
-        return view('fontend.Member.domain',['data'=> Auth::user() ]);
+        return view('fontend.Member.domain',['user'=> Auth::user() ]);
     }
+    public function domain_edit(){ 
+        return view('fontend.Member.domain_edit',['user'=> Auth::user() ]);
+    }    
     public function domain_store(Request $request){ 
         $user       = Auth::user();
         if($request->domain){
@@ -444,26 +447,21 @@ class MemberController extends Controller
             }
         }
     }
-
     public function customer(){ 
         return view('fontend.Member.customer',['data'=> Auth::user() ]);
     }
-
     public function email(){ 
         return view('fontend.Member.email',['data'=> Auth::user() ]);
-    } 
-
+    }
     public function alert(){ 
         return view('fontend.Member.alert',['data'=> Auth::user() ]);
     }
     public function alert_details(Request $request){ 
         return view('fontend.Member.password',['data'=> Auth::user() ]);
-    }
- 
+    } 
     public function card_details(Request $request){ 
         return view('fontend.Member.password',['data'=> Auth::user() ]);
     }
-
     public function password(){ 
         return view('fontend.Member.password',['data'=> Auth::user() ]);
     }
@@ -488,6 +486,22 @@ class MemberController extends Controller
         $user->save();
         return redirect()->route('fontend.packagelist')->with(['messenge'=>'Cập nhật thành công !!!']); 
     }
+    
+    public function package_add (Request $request){  
+        $user           = Auth::user();
+        $package       = DB::table('package')->where('id',$request->package_id)->first();
+        $cart = new Cart();
+        $cart->user_id      = $user->id;
+        $cart->type         = 2; // package
+        $cart->month        = 6;
+        $cart->created      = date('Y-m-d');
+        $cart->price        = $package->price;
+        $cart->name         = $package->title;
+        $cart->description  = $package->description;
+        $cart->relation_id  = $package->id;
+        $cart->save();
+        return redirect()->route('membercart')->with(['messenge'=>'Cập nhật thành công !!!']); 
+    }
     public function payment(){ 
         return view('fontend.Member.payment',['data'=> Auth::user() ]);
     }    
@@ -496,29 +510,44 @@ class MemberController extends Controller
     }
     public function profile_edit(){ 
         return view('fontend.Member.profile_edit',['user'=> Auth::user() ]);
-    }
-    
+    }    
     public function profile_store(Request $request)
     {
-        $user           = Auth::user();
-        
+        $user           = Auth::user();        
         if ($request->hasFile('avatar')) {
             $filename=$request->file('avatar')->getClientOriginalName();
             $request->file('avatar')->move(
                 base_path() . '/public/upload/Avatar/', $filename
             );
-            $user->avatar = $filename;
+            $user->phone = $filename;
         }
         if( !empty($request->phoneNumber) ){ $user->phoneNumber = $request->phoneNumber; }
         if( !empty($request->firstName) ){ $user->firstName = $request->firstName; }
         if( !empty($request->lastName) ){ $user->lastName = $request->lastName; }
-        if( !empty($request->email) ){ $user->email = $request->email; }
+        if( !empty($request->name) ){ $user->name = $request->name; }
+        if( !empty($request->password) ){ $user->password = $request->password; }
+        // if( !empty($request->email) ){ $user->email = $request->email; }
         $user->save();
         return redirect()->route('profile')->with(['messenge'=>'Cập nhật thành công !!!']);   
     }
     public function template(){
         $templates  = Template::where('status',1)->orderBy('id','DESC')->paginate(10);
         return view('fontend.Member.template',['user'=> Auth::user(), 'data'=> $templates ]);
+    }
+    public function template_add (Request $request){  
+        $user           = Auth::user();
+        $template       = DB::table('template')->where('id',$request->template_id)->first();
+        $cart = new Cart();
+        $cart->user_id      = $user->id;
+        $cart->type         = 1; // template
+        $cart->month        = 6;
+        $cart->created      = date('Y-m-d');
+        $cart->price        = $template->price;
+        $cart->name         = $template->title;
+        $cart->description  = $template->description;
+        $cart->relation_id  = $template->id;
+        $cart->save();
+        return redirect()->route('membercart')->with(['messenge'=>'Cập nhật thành công !!!']); 
     }
     public function template_details(Request $request){
         $slug       = $request->slug;

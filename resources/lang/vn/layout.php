@@ -46,9 +46,10 @@ return [
 
     'news'          => "Tin tức",
 
-    'contact'       => "Liên hệ",
-
+    'contact'       => "Liên hệ", 
     'order_info'    => "Thông tin đơn hàng",
+    'order_status'    => "Trạng thái",
+    'payment_action'    => "Thực hiện thanh toán",
 
     'persion_info'  => "Thông tin cá nhân",
 
@@ -88,7 +89,7 @@ return [
 
     'order_total_money' =>"TỔNG TIỀN",
 
-    'order_date'    =>  "Ngày",
+    'order_date'    =>  "NGÀY",
 
     'order_payby'   =>  "THANH TOÁN BẰNG",
 

@@ -42,7 +42,8 @@ return [
     'lastName'      => "Tên",
     'phoneNumber'   => "SỐ ĐIỆN THOẠI",
     'password'      => "MẬT KHẨU",
-    'lastchange'      => "THAY ĐỔI MỚI NHẤT",
+    'lastchange'    => "THAY ĐỔI MỚI NHẤT",
+    'domain'        => "TÊN MIỀN",
 
 
 
