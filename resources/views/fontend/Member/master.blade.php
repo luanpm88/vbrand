@@ -9,8 +9,8 @@
 	          <div class="col-md-3 col-lg-3 col-xl-3 col-sidebar"> 
 				@include('fontend.Member.left')
 			</div>
-        	<div class="col-md-9 col-lg-9 col-xl-9">
-			@yield('content')
+        	<div class="col-md-9 col-lg-9 col-xl-9"> 
+				@yield('content')
 		</div>
 	</div>
 </div>

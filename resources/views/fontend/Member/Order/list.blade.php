@@ -36,7 +36,7 @@
 		                        <th>ID</th>
 							 	<th>{{ __('layout.order_total_money') }}</th>
 							 	<th>{{ __('layout.order_date') }}</th>
-							 	<th>{{ __('layout.order_payby') }}</th>  
+							 	<th>{{ __('layout.order_status') }}</th>  
 							    <th>{{ __('layout.order_tools') }}</th>
 		                    </tr>
 		                </thead>
@@ -46,7 +46,7 @@
 		                	<tr> 
 		                        <td>{{ $row->id }}</td>
 								<td>{{ $row->total }} {{ $row->currency }}</td>
-								<td>{{ $row->created_at }}</td>							   
+								<td>{{ $row->created_at->format('m-d-Y') }}</td>							   
 							    @if($row->invoice_id!='')
 							    <td>{{ $row->payment }} <font color="green">Invoice ID</font> : <strong>{{ $row->invoice_id }}</strong></td>
 							    <td>
@@ -60,7 +60,7 @@
 							    	<font color="green">{{ $row->paystatus }}</font>
 							    	@else
 							    	<a href="{{ url('member/order/show',$row->id) }}" class="btn btn-outline-success btn-sm">
-							    		<i class="fa fa-money"></i> {{ __('layout.payment') }}
+							    		<i class="fa fa-money"></i> {{ __('layout.payment_action') }}
 							    	</a> 
 							    	@endif
 							    </td>

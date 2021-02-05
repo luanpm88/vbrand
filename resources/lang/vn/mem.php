@@ -29,6 +29,21 @@ return [
     'choosed'		=> "ĐÃ CHỌN",
     'choose'		=> "CHỌN",
     'change'        => "THAY ĐỔI",
+    'change_info'        => "THAY ĐỔI THÔNG TIN",
+
+    'profile'       => "HỒ SƠ CỦA BẠN",
+    'profile_update'=> "CẬP NHẬT HỒ SƠ CỦA BẠN",
+    'Profile_edit'  => "SỬA HỒ SƠ CỦA BẠN",
+    'personal_info' => "THÔNG TIN CÁ NHÂN",
+    'personal'      => "CÁ NHÂN",
+    'cance'         => "BỎ QUA",
+    'update'        => "CẬP NHẬT",
+    'firstName'     => "Họ",
+    'lastName'      => "Tên",
+    'phoneNumber'   => "SỐ ĐIỆN THOẠI",
+    'password'      => "MẬT KHẨU",
+    'lastchange'    => "THAY ĐỔI MỚI NHẤT",
+    'domain'        => "TÊN MIỀN",
 
 
 

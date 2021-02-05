@@ -190,6 +190,7 @@
     display: flex;
 }
 .template_details h1{ margin: 0; text-transform: uppercase; }
+.template-img{ height: 200px; overflow: hidden; padding: 7px; }
 .alert-dismissible .close {
     position: absolute;
     top: 0;
@@ -223,3 +224,21 @@ button.close {
 ul.bayerlist{}
 ul.bayerlist li{ padding: 0 0 7px 0; }
 .frminput{padding: 3px 7px;}
+/*
+    for profile
+*/
+.form-horizontal .form-group {
+    margin-right: -15px;
+    margin-left: -15px;
+}
+.form-group {
+    margin-bottom: 15px;
+}
+.img-circle {
+    border-radius: 15%;
+}
+.avatar{
+    width: 150px;
+    height: 150px;
+}
+.lastupdate{font-size: 12px; color: #a5a5a5; }

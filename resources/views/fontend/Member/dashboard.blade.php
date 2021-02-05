@@ -7,56 +7,64 @@
 </div>
 @endif
 
-
  
+      <div class="w-100 mb-4 mt-4 text-center">        
+        <h3>TỔNG QUAN TÀI KHOẢN CỦA BẠN</h3>
+        <p>CHÀO MỪNG BANJN ĐẾN VỚI <strong>BRANDVIET</strong>, NƠI TẬP TRUNG QUẢN LÝ BUSSENESS CỦA BẠN</p>
+      </div>    
+
 
 @if(!empty($user->package_id))
-<div class="card ">
-  <div class="card-header">
-    <h4 class="my-0 font-weight-normal">{{ __('mem.package_name') }} {{ __('mem.choosed') }}</h4>
-  </div>
-  <div class="card-body">
-    <div class="row">
-      <div class="col-lg-7 col-md-7 col-sm-6 col-xs-6">
-
-        <P>{{ __('mem.package_name') }} : <strong>{{ $user->package->title ?? '' }}</strong></P>
-        <P>Giá: {{ Str::currency($user->package->price) ?? '' }}<sup>đ</sup> <small class="text-muted">/ Tháng</small></P>
-        <p>{!! $user->package->description ?? '' !!}</p>
-      </div>
-      <div class="col-lg-5 col-md-5 col-sm-6 col-xs-6">
-        <img src="{{ url('images/gia-han.jpg') }}" class="img">        
-      </div>
+ 
+<div class="list-group mb-4 mt-4">
+  <div class="list-group-item">
+    <div class="d-flex w-100 justify-content-between">
+      <h3 class="mb-1">
+        {{ __('mem.package_name') }} : {{ $user->package->title ?? '' }} 
+        Giá: {{ Str::currency($user->package->price) ?? '' }}<sup>đ</sup> <small class="text-muted">/ Tháng</small>
+      </h3>
+      <small>Ngày: {{ $user->created_at->format('m-d-Y') ?? '' }}</small>
     </div>
+    <p class="mt-3 mb-2">{!! $user->package->description ?? '' !!}</p>
   </div>
-  <div class="card-footer text-right">
-      <a href="{{ url('member/package') }}" class="btn btn-secondary">Bạn còn 15 ngày nữa, Vui lòng gia hạn ngay</a>
+  <div class="list-group-item  ">
+    <div class=" w-100 text-right">
+      <form method="post" action="{{ url('member/package/add') }}">@csrf
+        <input type="hidden" name="package_id" value="{{ $user->package->id ?? '' }}">
+        <button type="submit" class="btn btn-secondary">Bạn còn 15 ngày nữa, Vui lòng gia hạn ngay</button>
+      </form>
+    </div>   
   </div>
-</div> 
+</div>
+ 
 @endif
 
 @if(!empty($user->template_id))
-<div class="card ">
-  <div class="card-header">
-    <h4 class="my-0 font-weight-normal">{{ __('mem.template_name') }} {{ __('mem.choosed') }}</h4>
-  </div>
-  <div class="card-body">
-    <div class="row">
-      <div class="col-lg-7 col-md-7 col-sm-6 col-xs-6">
-
-        <P>{{ __('mem.template_name') }} : <strong>{{ $user->template->title ?? '' }}</strong></P>
-        <P>Giá: {{ Str::currency($user->template->price) ?? '' }}<sup>đ</sup> <small class="text-muted">/ Tháng</small></P>
-        <p>{!! $user->template->description ?? '' !!}</p>
-      </div>
-      <div class="col-lg-5 col-md-5 col-sm-6 col-xs-6">
-        <img src="{{ url('images/gia-han.jpg') }}" class="img">        
-      </div>
+ 
+<div class="list-group mb-4 mt-4">
+  <div class="list-group-item   ">
+    <div class="d-flex w-100 justify-content-between">
+      <h3 class="mb-1">
+        {{ __('mem.template_name') }} : {{ $user->template->title ?? '' }} 
+        Giá: {{ Str::currency($user->template->price) ?? '' }}<sup>đ</sup> <small class="text-muted">/ Tháng</small>
+      </h3>
+      <small>Ngày: {{ $user->created_at->format('m-d-Y') ?? '' }}</small>
     </div>
+    <div class="d-flex w-100 justify-content-between">
+      <p class="mt-3 mb-2">{!! $user->template->description ?? '' !!}</p>
+      <div class="template-img mb-3"><img src="{{ url('upload/Template/'.$user->template->photo) }}" class="w-100 "></div>
+    </div>
+    
   </div>
-  <div class="card-footer text-right">
-      <a href="{{ url('member/template') }}" class="btn btn-secondary">Bạn còn 15 ngày nữa, Vui lòng gia hạn ngay</a>
+  <div class="list-group-item">
+    <div class="w-100 text-right">
+      <form method="post" action="{{ url('member/template/add') }}">@csrf
+        <input type="hidden" name="template_id" value="{{ $user->template->id ?? '' }}">
+        <button type="submit" class="btn btn-secondary">Bạn còn 15 ngày nữa, Vui lòng gia hạn ngay</button>
+      </form>
+    </div>   
   </div>
-</div> 
-
+</div>  
  
 @endif
 

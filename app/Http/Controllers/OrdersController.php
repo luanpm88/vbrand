@@ -161,9 +161,9 @@ class OrdersController extends Controller
     public function destroy_user_order(Request $request){
          if (Auth::check()) {
             $user = Auth::user();
-            if(DB::table('orders')->where('id', $request->id)->where('user_id', $user->id)->exists() )
+            if(DB::table('orders')->where('id', $request->id)->exists() )
             {
-                DB::table('orders')->where('order_id', $request->id)->delete();
+                DB::table('orders')->where('id', $request->id)->delete();
                 DB::table('orders_detail')->where('order_id', $request->id)->delete();
                 return redirect()->route('fontent.userorders')->with(['order_messenge'=>'Xóa thành công']);
             }
