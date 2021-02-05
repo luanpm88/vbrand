@@ -8,6 +8,7 @@ class Message
     public $from;
     public $to;
     public $message;
+    public $data;
 
     public function __construct($conversation)
 	{

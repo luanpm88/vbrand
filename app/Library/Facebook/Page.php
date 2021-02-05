@@ -14,23 +14,34 @@ class Page
 		$this->messenger = $messenger;
 	}
 
+    public function subscribeHooks() {
+        $data = $this->messenger->makeRequest([
+            'path' => '/' . $this->id . '/subscribed_apps',
+            'params' => [
+                'subscribed_fields' => 'messages',
+            ],
+            'token' => $this->accessToken,
+            'method' => 'post',
+        ]);
+    }
+
     public function fetchData()
     {
-        $data = $this->messenger->makeRequest(
-            '/' . $this->id . '?fields=name,picture',
-            $this->accessToken,
-        );
+        $data = $this->messenger->makeRequest([
+            'path' => '/' . $this->id . '?fields=name,picture',
+            'token' => $this->accessToken,
+        ]);
 
         $this->data = $data;
     }
 
     public function getConversations()
     {
-        $data = $this->messenger->makeRequest(
-            '/' . $this->id . '/conversations',
-            $this->accessToken,
-            true
-        );
+        $data = $this->messenger->makeRequest([
+            'path' => '/' . $this->id . '/conversations',
+            'token' => $this->accessToken,
+            'list' => true,
+        ]);
 
         $func = function($item) {
             $conversation = new Conversation($this);
@@ -52,5 +63,29 @@ class Page
         $conversation->fetchData();
 
         return $conversation;
+    }
+
+    public function sendMessage($to, $message) {
+        return $this->messenger->makeRequest([
+            'path' => '/me/messages',
+            'method' => 'post',
+            'params' => [
+                'recipient' => [
+                    'id' => $to
+                ],
+                "message" => [
+                    "text" => $message,
+                ],
+            ],
+            'token' => $this->accessToken,
+        ]);
+    }
+
+    public function contactProfile($contactId)
+    {
+        return $this->messenger->makeRequest([
+            'path' => '/' . $contactId . '?fields=first_name,last_name,profile_pic',
+            'token' => $this->accessToken,
+        ]);
     }
 }
