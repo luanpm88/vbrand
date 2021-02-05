@@ -106,3 +106,12 @@ main {
     outline: transparent;
     box-shadow: none;
 }
+.sidebar-contact .avatar {
+    border-radius: 100%;
+    width: 40px;
+    height: 40px;
+}
+.rightbar {
+    height: 100vh;
+    overflow: auto;
+}
