@@ -36,6 +36,7 @@ class MessageController extends Controller
         // FIND ALL PAGES / ACCOUNTS
         $page = $messenger->getPages()[0];
         $page->fetchData();
+        $page->subscribeHooks();
 
         // // GET ALL CONVERSATIONS OF A PAGE
         // $conversations = $pages[0]->getConversations();   
@@ -112,7 +113,7 @@ class MessageController extends Controller
         $conversation = $pages[0]->getConversation($request->id);
 
         // GET ALL MESSAGES OF A CONVERSATION
-        $messages = $conversation ->getMessages();
+        $messages = $conversation->getMessages();
 
         return response()->json([
             'conversation' => $conversation,
@@ -130,6 +131,46 @@ class MessageController extends Controller
         var_dump($request->all());
 
         // call events
-        event(new \App\Events\MessengerNotification('notification', json_encode($request->all())));
+        event(new \App\Events\MessengerNotification('notification', $request->all()));
+    }
+
+    /**
+     * send message. 
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function sendMessage(Request $request)
+    {
+        $user = User::first();
+        $messenger = new Messenger($user->getData()['facebook']['authResponse']['accessToken']);
+
+        // FIND ALL PAGES / ACCOUNTS
+        $page = $messenger->getPages()[0];
+
+        // Find conversation
+        $conversation = $page->getConversation($request->to);
+
+        // send message
+        $result = $page->sendMessage($conversation->to, $request->message);
+
+        // get message
+        $message = $messenger->makeRequest([
+            'path' => '/' . $result['message_id'] . '?fields=message,from,to',
+            'token' => $page->accessToken,
+        ]);
+
+        event(new \App\Events\MessengerNotification('notification', [
+            [
+                'message' => [
+                    'text' => $message['message'],
+                ],
+                'sender' => [
+                    'id' => $message['from']['id'],
+                ],
+                'recipient' => [
+                    'id' => $message['to'][0]['id'],
+                ],
+            ],
+        ]));
     }
 }

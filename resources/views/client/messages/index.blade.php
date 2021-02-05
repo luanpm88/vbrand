@@ -66,7 +66,10 @@
                 $.ajax({
                     url: '{{ action('Client\MessageController@getConversations') }}', 
                     type: 'GET'
-                }).done(function(data){                    
+                }).done(function(data){                   
+                    console.log('load conversations:');
+                    console.log(data);
+
                     data.forEach(function(item) {
                         var conversation = new Conversation();
                         _this.conversations.push(item);
@@ -87,7 +90,7 @@
                 _this.conversations.forEach(function(conversation) {
                     $('.conversations').append(`
                         <div class="conversation d-flex align-items-center p-2" data-id="` + conversation.id + `">
-                            <img class="avatar" src="https://scontent.fvca1-1.fna.fbcdn.net/v/t1.0-1/p100x100/143798555_349443552790082_2184874643097094180_o.png?_nc_cat=103&ccb=2&_nc_sid=1eb0c7&_nc_ohc=eHJXySNRUdQAX8rHZgT&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.fvca1-1.fna&_nc_tp=30&oh=0f73187b4449d0126c0fafa48d8196fb&oe=604077A6" />
+                            <img class="avatar" src="` + conversation.picture + `" />
                             <div class="ml-3">
                                 <label class="m-0">Luan Pham</label>
                                 <p class="m-0 text-muted">` + conversation.data.snippet + `</p>
@@ -139,13 +142,14 @@
                         id: _this.currentConversationId
                     }
                 }).done(function(data) {                    
+                    console.log('load conversation:');
                     console.log(data);
                     
                     $('.messenger-chatbox').html(`
                         <div class="d-flex align-items-center header py-3 px-3">
-                            <img class="avatar" src="https://scontent.fvca1-1.fna.fbcdn.net/v/t1.0-1/p100x100/143798555_349443552790082_2184874643097094180_o.png?_nc_cat=103&ccb=2&_nc_sid=1eb0c7&_nc_ohc=eHJXySNRUdQAX8rHZgT&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.fvca1-1.fna&_nc_tp=30&oh=0f73187b4449d0126c0fafa48d8196fb&oe=604077A6" />
+                            <img class="avatar" src="` + data.conversation.picture + `" />
                             <div class="ml-2">
-                                <h4 class="m-0 font-weight-bold">Luan Pham</h4>
+                                <h4 class="m-0 font-weight-bold">` + data.conversation.name + `</h4>
                             </div>
                         </div>
                         <div class="chatbox-content p-3">
@@ -153,20 +157,67 @@
                                 
                             </div>
                         </div>
-                    `);
-
-                    data.messages.forEach(function(message) {
-                        $('.messenger-chatbox .messages').append(`
-                            <div class="message-line" data-from="` + message.from.id + `">
-                                <div class="message">` + message.message + `</div>
+                        <div class="chatbox-editor p-3">
+                            <div class="textarea-cover">
+                                <textarea rows="1" placeholder="Nhập nội dung trò chuyện"></textarea>
                             </div>
-                        `);
+                        </div>
+                    `);
+                    
+                    // render messages
+                    data.messages.forEach(function(message) {
+                        _this.appendMessage(message.message, message.from.id, message.to[0].id);
                     });
 
-                    // set from
-                    $('.messenger-chatbox .message-line[data-from={{ $page->id }}]').addClass('own');
+                    // scroll to bottom
+                    $(".chatbox-content").animate({ scrollTop: $(".chatbox-content")[0].scrollHeight }, 1000);
+
+                    // chatbox event
+                    $(".chatbox-editor textarea").on('keypress', function(e) {
+                        var code = (e.keyCode ? e.keyCode : e.which);
+                        
+                        if (code == 13) {
+                            e.preventDefault();
+
+                            var message = $(this).val();
+                            _this.sendMessage(data.conversation.id, message);
+                            return true;
+                        }
+                    });
+
                 }).fail(function(xhr, textStatus, errorThrown){
                     console.log(xhr);
+                });
+            }
+
+            appendMessage(message, from, to) {
+                var _this = this;
+
+                console.log(to);
+
+                // append message to bottom
+                $('.messenger-chatbox .messages').append(`
+                    <div class="message-line ` + (from == '{{ $page->id }}' ? 'own' : '') + `" page-id="{{ $page->id }}" data-from="` + from + `" data-to="` + to + `">
+                        <div class="message">` + message + `</div>
+                    </div>
+                `);
+            }
+
+            sendMessage(to, message) {
+                $(".chatbox-editor textarea").val('');
+
+                $.ajax({
+                    url: '{{ action('Client\MessageController@sendMessage') }}', 
+                    type: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        message: message,
+                        to: to
+                    }
+                }).done(function(res){
+                    console.log(res);
+                }).fail(function(e){
+                    console.log(e);
                 });
             }
         }
@@ -204,7 +255,15 @@
         Echo.private('Messenger')
         .listen('MessengerNotification', (e) => {
             // $('.notification').html(e.message);
-            console.log(e.data);
+            // console.log(e.data);
+            // var data = JSON.parse(e);
+
+            e.data.forEach(function(m) {
+                messenger.appendMessage(m.message.text, m.sender.id, m.recipient.id);
+            });
+
+            // scroll to bottom
+            $(".chatbox-content").animate({ scrollTop: $(".chatbox-content")[0].scrollHeight }, 1000);
         });
     </script>
 @endsection

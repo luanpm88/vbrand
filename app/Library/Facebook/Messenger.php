@@ -24,19 +24,41 @@ class Messenger
             ]);
 
             // get user id
-            $this->userId = $this->makeRequest('/me', $this->accessToken)['id'];
+            $this->userId = $this->makeRequest([
+                'path' => '/me',
+                'token' => $this->accessToken,
+            ])['id'];
         }
 	}
 
-    public function makeRequest($path, $token, $list=false)
+    public function makeRequest($options=[])
     {
+        $default = [
+            'path' => null,
+            'token' => $this->accessToken,
+            'list' => false,
+            'method' => 'get',
+            'params' => [],
+        ];
+
+        $options = array_merge($default, $options);
+
         // FIND USER ID
         try {
-            // Returns a `FacebookFacebookResponse` object
-            $response = $this->fb->get(
-                $path,
-                $token
-            );
+            switch ($options['method']) {
+                case 'post':
+                    $response = $this->fb->post(
+                        $options['path'],
+                        $options['params'],
+                        $options['token']
+                    );
+                    break;
+                default:
+                    $response = $this->fb->get(
+                        $options['path'],
+                        $options['token']
+                    );
+            }
         } catch(FacebookExceptionsFacebookResponseException $e) {
             throw new \Exception('Graph returned an error: ' . $e->getMessage());
             exit;
@@ -45,7 +67,7 @@ class Messenger
             exit;
         }
 
-        if ($list) {
+        if ($options['list']) {
             $graphEdge = $response->getGraphEdge();
             return $graphEdge->asArray();
         } else {
@@ -56,10 +78,11 @@ class Messenger
 
     public function getPages()
     {
-        $data = $this->makeRequest('/' . $this->userId . '/accounts',
-            $this->accessToken,
-            true
-        );
+        $data = $this->makeRequest([
+            'path' => '/' . $this->userId . '/accounts',
+            'token' => $this->accessToken,
+            'list' => true,
+        ]);
 
         $func = function($item) {
             $page = new Page($this);

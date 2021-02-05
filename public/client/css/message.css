@@ -75,7 +75,7 @@ main {
     margin-bottom: 10px;
 }
 .chatbox-content {
-    height: calc(100vh - 73px);
+    height: calc(100vh - 166px);
     overflow: auto;
 }
 .message-line.own {
@@ -84,4 +84,24 @@ main {
 .message-line.own .message {
     background: #eaf1f6;
     color: #222;
+}
+.chatbox-editor {
+    border-top: solid 1px #ddd;
+}
+.chatbox-editor textarea{
+    background: #efefef;
+    border: none;
+    width: 100%;
+    resize: none;
+    height: 40px;
+    display: block;
+}
+.chatbox-editor .textarea-cover {
+    background: #efefef;
+    padding: 10px 10px;
+    border-radius: 10px;
+}
+.chatbox-editor textarea:focus {
+    outline: transparent;
+    box-shadow: none;
 }
