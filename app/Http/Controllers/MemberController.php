@@ -137,7 +137,7 @@ class MemberController extends Controller
         $Products->saleoff = $request->saleoff;
         $Products->content = $request->content;
         $Products->save();
-        return redirect()->route('backend.listProducts')->with(['messenge'=>'Cập nhật thành công!!!']); 
+        return redirect()->route('backend.listProducts')->with(['messenge'=>'Cập nhật thành công !!!']); 
     }
     public function destroy($id)
     {
@@ -361,7 +361,7 @@ class MemberController extends Controller
 
     public function dashboard_update( Request $request ){
         $user   = Auth::user();
-        if(isset($request->template_id)){ 
+        if(isset($request->template_id)){
             $template           = Template::where('id', $request->template_id)->firstOrFail();
             $user->template_id  = $request->template_id;            
             $user->save();            
@@ -486,11 +486,36 @@ class MemberController extends Controller
         $user       = Auth::user();
         $user->package_id = $request->package_id;
         $user->save();
-        return redirect()->route('fontend.packagelist')->with(['messenge'=>'Cập nhật thành công!!!']); 
+        return redirect()->route('fontend.packagelist')->with(['messenge'=>'Cập nhật thành công !!!']); 
     }
     public function payment(){ 
         return view('fontend.Member.payment',['data'=> Auth::user() ]);
     }    
+    public function profile(){ 
+        return view('fontend.Member.profile',['user'=> Auth::user() ]);
+    }
+    public function profile_edit(){ 
+        return view('fontend.Member.profile_edit',['user'=> Auth::user() ]);
+    }
+    
+    public function profile_store(Request $request)
+    {
+        $user           = Auth::user();
+        
+        if ($request->hasFile('avatar')) {
+            $filename=$request->file('avatar')->getClientOriginalName();
+            $request->file('avatar')->move(
+                base_path() . '/public/upload/Avatar/', $filename
+            );
+            $user->avatar = $filename;
+        }
+        if( !empty($request->phoneNumber) ){ $user->phoneNumber = $request->phoneNumber; }
+        if( !empty($request->firstName) ){ $user->firstName = $request->firstName; }
+        if( !empty($request->lastName) ){ $user->lastName = $request->lastName; }
+        if( !empty($request->email) ){ $user->email = $request->email; }
+        $user->save();
+        return redirect()->route('profile')->with(['messenge'=>'Cập nhật thành công !!!']);   
+    }
     public function template(){
         $templates  = Template::where('status',1)->orderBy('id','DESC')->paginate(10);
         return view('fontend.Member.template',['user'=> Auth::user(), 'data'=> $templates ]);
@@ -504,21 +529,18 @@ class MemberController extends Controller
     {
         $user           = Auth::user();
         $template       = DB::table('template')->where('id',$request->template_id)->first();
-         
-        $old_price      = $user->template->price;
-        echo $old_price ;
-         echo('template site'.$template->price);
-        die('');
-       
-
-        if( $template->price > $old_template->price ){
+        if( $template->price > $user->template->price ){
             $cart = new Cart();
             $cart->user_id      = $user->id;
             $cart->type         = 1; // template
             $cart->month        = 6;
-            $cart->relation_id  = $request->template_id;
+            $cart->created      = date('Y-m-d');
+            $cart->price        = $template->price;
+            $cart->name         = $template->title;
+            $cart->description  = $template->description;
+            $cart->relation_id  = $template->id;
             $cart->save();
-            die($request->template_id.'--'.$user->template_id);
+            return redirect()->route('membercart')->with(['messenge'=>'Cập nhật thành công !!!']);     
         }else{
             die('template->price:'.$template->price.'--old_template->price:'.$old_template->price);
         }
@@ -526,7 +548,7 @@ class MemberController extends Controller
         $user->template_id = $request->template_id;
         $user->save();
        
-        return redirect()->route('fontend.templatelist')->with(['messenge'=>'Cập nhật thành công!!!']); 
+        return redirect()->route('fontend.templatelist')->with(['messenge'=>'Cập nhật thành công !!!']); 
     }
     public function template_details_store(Request $request)
     {
@@ -535,7 +557,7 @@ class MemberController extends Controller
         $user       = Auth::user();
         $user->template_id = $template->id;
         $user->save();
-        return redirect()->route('fontend.templatelist')->with(['messenge'=>'Cập nhật thành công!!!']); 
+        return redirect()->route('fontend.templatelist')->with(['messenge'=>'Cập nhật thành công !!!']); 
     }
 
     

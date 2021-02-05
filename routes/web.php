@@ -79,7 +79,10 @@ Route::prefix('member')->middleware(['auth'])->group(function(){
 	Route::get('/', 'MemberController@dashboard')->name('member');
 	Route::post('/', 'MemberController@dashboard_update');
 	
-	Route::get('/profile', 'MemberController@dashboard')->name('profile');
+	Route::get('profile', 'MemberController@profile')->name('profile');
+	Route::get('profile/edit', 'MemberController@profile_edit')->name('profile.edit');
+	Route::post('profile/edit', 'MemberController@profile_store');
+
 	Route::get('dashboard', 'MemberController@dashboard');
 
 	Route::get('password', 'MemberController@password');
@@ -130,7 +133,7 @@ Route::prefix('member')->middleware(['auth'])->group(function(){
 
 	Route::get('card', 'MemberController@card');
 
-	Route::get('cart', 'MemberController@cart');
+	Route::get('cart', 'MemberController@cart')->name('membercart');
 	Route::post('cart', 'MemberController@cart_update');
 
 

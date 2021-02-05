@@ -8,7 +8,6 @@
 @endif
 
 
- 
 
 @if(!empty($user->package_id))
 <div class="card ">
