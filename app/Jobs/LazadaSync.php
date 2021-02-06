@@ -15,16 +15,18 @@ class LazadaSync implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     protected $lazadaConnection;
+    protected $user;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct(UserConnection $lazadaConnection)
+    public function __construct(UserConnection $lazadaConnection, User $user)
     {
         //
         $this->lazadaConnection = $lazadaConnection;
+        $this->user = $user;
     }
 
     /**
@@ -35,6 +37,6 @@ class LazadaSync implements ShouldQueue
     public function handle()
     {
         // import all lazada products
-        $this->lazadaConnection->importProducts();
+        $this->lazadaConnection->importProducts($this->user);
     }
 }

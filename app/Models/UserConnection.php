@@ -49,7 +49,7 @@ class UserConnection extends Model
         return new LazadaConnection(false, false, $this->getData());
     }
 
-    public function importProducts() {
+    public function importProducts($user) {
         $data = $this->service()->getProducts(['offset' => 0, 'limit' => 1])['data'];
         $total = $data['total_products'];
 
@@ -76,6 +76,7 @@ class UserConnection extends Model
                     if (!$p) {
                         $p = new Product();
                         $p->lazada_id = $product["item_id"];
+                        $p->user_id = $user->id;
                     }
 
                     $p->title = $product["attributes"]["name"];

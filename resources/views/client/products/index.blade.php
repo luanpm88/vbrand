@@ -34,12 +34,12 @@
         <div class="sendo-introduce-text fw-bold mb-2">Nhấn vào sàn TMĐT để kết nối:</div>
         @if (!$lazadaConnection->connected())
             <a href="{{ $lazadaConnectLink }}" class="btn btn-light me-2 connection-button">
-                <img height="35px" src="https://laz-img-cdn.alicdn.com/images/ims-web/TB19SB7aMFY.1VjSZFnXXcFHXXa.png" />
+                <img height="35px" src="{{ url('/images/lazada.png') }}" />
             </a>
         @else
             <a href="{{ $lazadaConnectLink }}" class="btn btn-light me-2 connection-connected">
                 <i class="material-icons text-success">check_circle</i>
-                <img height="35px" src="https://laz-img-cdn.alicdn.com/images/ims-web/TB19SB7aMFY.1VjSZFnXXcFHXXa.png" />
+                <img height="35px" src="{{ url('/images/lazada.png') }}" />
             </a>
         @endif
         <a href="" class="btn btn-light connection-button" style="background: #e65b3f; color:#fff">
@@ -61,7 +61,7 @@
                 <div class="text-right"> 
                     <span>Đang liên kết:</span>
                     <a href="" class="btn btn-light me-1 ms-2 px-2 py-1">
-                        <img height="25px" src="https://laz-img-cdn.alicdn.com/images/ims-web/TB19SB7aMFY.1VjSZFnXXcFHXXa.png" />
+                        <img height="25px" src="{{ url('/images/lazada.png') }}" />
                     </a>
                 </div>
             </div>

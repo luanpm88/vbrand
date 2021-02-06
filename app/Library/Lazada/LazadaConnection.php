@@ -20,14 +20,17 @@ if (!defined("LAZOP_AUTOLOADER_PATH"))
 
 class LazadaConnection
 {
-	public $appKey='125327';
-    public $appSecret='OqIyH3WMSHBFob9kRwN1fXX0FyYnIlsc'; 
+	public $appKey;
+    public $appSecret; 
     public $service;
     public $data;
     public $endpoint="https://api.lazada.vn/rest";
 
     public function __construct($appKey=false, $appSecret=false, $data=[])
 	{
+        $this->appKey = env('LAZADA_KEY');
+        $this->appSecret = env('LAZADA_SECRET');
+
 		if ($appKey) {
             $this->appKey = $appKey;
         }
