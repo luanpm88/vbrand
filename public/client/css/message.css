@@ -19,7 +19,7 @@ body {
     padding: 10px!important;
 }
 .conversation:hover, .conversation.active {
-    background-color: rgb(240, 242, 245);
+    background-color: rgba(0,0,0,0.04);
 }
 .conversation label {
     font-size: 17px;
@@ -29,7 +29,8 @@ body {
     top: calc(50% - 10px);
     right: 5px;
     border-radius: 20px;
-    padding: 5px 8px;
+    padding: 5px 7px;
+    background: rgb(0, 153, 255);;
 }
 .conversation .avatar {
     border-radius: 100%;
@@ -127,7 +128,7 @@ main {
 .messenger-search-box {
     border-radius: 30px;
     padding: 15px;
-    background: rgb(245, 245, 245);
+    background: rgba(0,0,0,0.04);
 }
 .messenger-sidebar .header .action {
     background: rgb(240, 242, 245);

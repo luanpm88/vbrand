@@ -259,7 +259,7 @@
                             <img class="avatar" src="` + conversation.picture + `" />
                             <div class="ml-3">
                                 <label class="m-0">Luan Pham</label>
-                                <p class="m-0 text-muted">` + conversation.data.snippet + `</p>
+                                <p class="m-0 text-muted">` + conversation.data.snippet + ` · ` + conversation.updatedTime + `</p>
                             </div>
                             <span class="badge badge-danger unread_count">` + (conversation.data.unread_count ? conversation.data.unread_count : '' ) + `</span>
                         </div>
