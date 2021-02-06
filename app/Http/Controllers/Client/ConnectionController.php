@@ -15,9 +15,9 @@ class ConnectionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $lazadaConnection = User::first()->getUserConnection('lazada');
+        $lazadaConnection = $request->user()->getUserConnection('lazada');
         $lazada = new LazadaConnection();
         
         return view('client.connections.index', [
@@ -33,7 +33,7 @@ class ConnectionController extends Controller
      */
     public function connect(Request $request)
     {
-        $userConnection = User::first()->getUserConnection('lazada');
+        $userConnection = $request->user()->getUserConnection('lazada');
 
         $lazada = new LazadaConnection();
         $lazada->getAccessToken($request->code);
@@ -53,7 +53,7 @@ class ConnectionController extends Controller
      */
     public function getProducts(Request $request)
     {
-        $lazadaConnection = User::first()->getUserConnection('lazada');
+        $lazadaConnection = $request->user()->getUserConnection('lazada');
 
         return view('client.connections.getProducts', [
             'products' => $lazadaConnection->service()->getProducts(),
@@ -67,7 +67,7 @@ class ConnectionController extends Controller
      */
     public function lazadaSync(Request $request)
     {
-        $lazadaConnection = User::first()->getUserConnection('lazada');
+        $lazadaConnection = $request->user()->getUserConnection('lazada');
 
         // start import
         if ($request->isMethod('post')) {
@@ -82,7 +82,7 @@ class ConnectionController extends Controller
             ]);
 
             // start
-            LazadaSync::dispatch($lazadaConnection);
+            LazadaSync::dispatch($lazadaConnection, $request->user());
         }
 
         return view('client.connections.lazadaSync', [
@@ -97,7 +97,7 @@ class ConnectionController extends Controller
      */
     public function lazadaSyncClose(Request $request)
     {
-        $lazadaConnection = User::first()->getUserConnection('lazada');
+        $lazadaConnection = $request->user()->getUserConnection('lazada');
 
         // pending
         $lazadaConnection->updateData([

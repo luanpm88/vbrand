@@ -16,7 +16,7 @@ class MessageController extends Controller
      */
     public function index(Request $request)
     {
-        $user = User::first();
+        $user = $request->user();
 
         try {
             $messenger = new Messenger($user->getData()['facebook']['authResponse']['accessToken']);
@@ -70,7 +70,7 @@ class MessageController extends Controller
      */
     public function saveToken(Request $request)
     {
-        $user = User::first();
+        $user = $request->user();
 
         $user->updateData([
             'facebook' => $request->data
@@ -84,7 +84,7 @@ class MessageController extends Controller
      */
     public function getConversations(Request $request)
     {
-        $user = User::first();
+        $user = $request->user();
         $messenger = new Messenger($user->getData()['facebook']['authResponse']['accessToken']);
 
         // FIND ALL PAGES / ACCOUNTS
@@ -103,7 +103,7 @@ class MessageController extends Controller
      */
     public function getConversation(Request $request)
     {
-        $user = User::first();
+        $user = $request->user();
         $messenger = new Messenger($user->getData()['facebook']['authResponse']['accessToken']);
 
         // FIND ALL PAGES / ACCOUNTS
@@ -141,7 +141,7 @@ class MessageController extends Controller
      */
     public function sendMessage(Request $request)
     {
-        $user = User::first();
+        $user = $request->user();
         $messenger = new Messenger($user->getData()['facebook']['authResponse']['accessToken']);
 
         // FIND ALL PAGES / ACCOUNTS

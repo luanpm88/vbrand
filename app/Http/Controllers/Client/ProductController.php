@@ -16,9 +16,9 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $lazadaConnection = User::first()->getUserConnection('lazada');
+        $lazadaConnection = $request->user()->getUserConnection('lazada');
 
         return view('client.products.index', [
             'lazadaConnectLink' => $lazadaConnection->service()->getConnectLink(),
