@@ -105,6 +105,11 @@ Route::prefix('member')->middleware(['auth'])->group(function(){
 	Route::post('template/{slug}', 'MemberController@template_details_store');
 	Route::post('template', 'MemberController@template_store');  
 
+	Route::get('domain', 'MemberController@domain');
+	Route::get('domain/edit', 'MemberController@domain_edit');
+	Route::post('domain', 'MemberController@domain_store');
+	Route::post('domain/seek', 'MemberController@domain_seek');
+
 	Route::get('promotion', 'MemberController@promotion');
 	Route::get('voucher', 'MemberController@voucher');
 	Route::get('statistical', 'MemberController@statistical');
@@ -124,10 +129,6 @@ Route::prefix('member')->middleware(['auth'])->group(function(){
 	Route::get('payment-cancel/{id}', 'PayPalsdkController@paymentCancel')->name('payment.PayPacancel');
 
 
-	Route::get('domain', 'MemberController@domain');
-	Route::get('domain/edit', 'MemberController@domain_edit');
-	Route::post('domain', 'MemberController@domain_store');
-	Route::post('domain/seek', 'MemberController@domain_seek');
 
 	Route::get('email', 'MemberController@email');
 	Route::post('email', 'MemberController@email_store');

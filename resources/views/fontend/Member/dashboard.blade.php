@@ -8,7 +8,7 @@
 @endif
 
  
-      <div class="w-100 mb-4 mt-4 text-center">        
+      <div class="w-100 mb-4 ">        
         <h3>TỔNG QUAN TÀI KHOẢN CỦA BẠN</h3>
         <p>CHÀO MỪNG BANJN ĐẾN VỚI <strong>BRANDVIET</strong>, NƠI TẬP TRUNG QUẢN LÝ BUSSENESS CỦA BẠN</p>
       </div>    
@@ -21,11 +21,24 @@
     <div class="d-flex w-100 justify-content-between">
       <h3 class="mb-1">
         {{ __('mem.package_name') }} : {{ $user->package->title ?? '' }} 
-        Giá: {{ Str::currency($user->package->price) ?? '' }}<sup>đ</sup> <small class="text-muted">/ Tháng</small>
+       
       </h3>
-      <small>Ngày: {{ $user->created_at->format('m-d-Y') ?? '' }}</small>
+      <small><a href="{{ url('member/package') }}"><i class="fa fa-edit"></i> Đổi Gói Website</a> </small>
     </div>
-    <p class="mt-3 mb-2">{!! $user->package->description ?? '' !!}</p>
+    <div class="row mt-3">
+      <div class="col-lg-6"><p class="mb-2">{!! $user->package->description ?? '' !!}</p> </div>
+      <div class="col-lg-6">
+       <p class="mb-2"> Ngày đăng ký: {{ $user->created_at->format('d-m-Y') ?? '' }}</p>
+       <p class="mb-2"> Dung lượng: 150MB/600MB</p>
+       <p class="mb-2"> Email Account: 15/20 </p>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-lg-12">
+         Giá: {{ Str::currency($user->package->price) ?? '' }}<sup>đ</sup> <small class="text-muted">/ Tháng</small>
+      </div>
+    </div>
+    
   </div>
   <div class="list-group-item  ">
     <div class=" w-100 text-right">
@@ -45,14 +58,22 @@
   <div class="list-group-item   ">
     <div class="d-flex w-100 justify-content-between">
       <h3 class="mb-1">
-        {{ __('mem.template_name') }} : {{ $user->template->title ?? '' }} 
-        Giá: {{ Str::currency($user->template->price) ?? '' }}<sup>đ</sup> <small class="text-muted">/ Tháng</small>
+        {{ __('mem.template_name') }} : {{ $user->template->title ?? '' }}  
       </h3>
-      <small>Ngày: {{ $user->created_at->format('m-d-Y') ?? '' }}</small>
+      <small><a href="{{ url('member/template') }}"><i class="fa fa-edit"></i> Đổi giao diện website</a></small>
     </div>
-    <div class="d-flex w-100 justify-content-between">
-      <p class="mt-3 mb-2">{!! $user->template->description ?? '' !!}</p>
-      <div class="template-img mb-3"><img src="{{ url('upload/Template/'.$user->template->photo) }}" class="w-100 "></div>
+    <div class="row mt-3">
+      <div class="col-lg-6">
+        <p class="mt-3 mb-2">{!! $user->template->description ?? '' !!}</p>
+      </div>
+      <div class="col-lg-6">
+        <div class="template-img mb-3"><img src="{{ url('upload/Template/'.$user->template->photo) }}" class="w-100 "></div>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-lg-12">
+         Giá: {{ Str::currency($user->template->price) ?? '' }}<sup>đ</sup> <small class="text-muted">/ Tháng</small>
+      </div>
     </div>
     
   </div>

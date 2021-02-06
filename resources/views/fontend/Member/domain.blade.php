@@ -31,7 +31,6 @@
     </div>   
   </div>
 
- 
 @else
 
   <div class="list-group-item pb-4">
