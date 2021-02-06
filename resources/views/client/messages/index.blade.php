@@ -14,9 +14,14 @@
                         <div class="ml-2">
                             <h4 class="m-0 font-weight-bold">{{ $page->data['name'] }}</h4>
                         </div>
+                        <div class="ml-auto">
+                          <a href="javascript:;" class="action">
+                            <svg viewBox="0 0 36 36" class="a8c37x1j ms05siws hwsy1cff b7h9ocf4" height="28" width="28"><path d="M12.5 18A2.25 2.25 0 118 18a2.25 2.25 0 014.5 0zm7.75 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm5.5 2.25a2.25 2.25 0 100-4.5 2.25 2.25 0 000 4.5z"></path></svg>
+                          </a>
+                        </div>
                     </div>
-                    <div class="my-3">
-                        <input type="text" class="form-control" placeholder="Search Messenger" />
+                    <div class="my-4">
+                        <input type="text" class="form-control messenger-search-box" placeholder="Search Messenger" />
                     </div>
                     <div class="conversations">
                         <div class="m-5 text-center">

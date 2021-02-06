@@ -12,13 +12,14 @@ body {
 .conversation {
     margin-left: -8px;
     margin-right: -8px;
-    border-radius: 10px;
+    border-radius: 15px;
     cursor: pointer;
     position: relative;
     margin-bottom: 1px;
+    padding: 10px!important;
 }
 .conversation:hover, .conversation.active {
-    background-color: #f2f2f2;
+    background-color: rgb(240, 242, 245);
 }
 .conversation label {
     font-size: 17px;
@@ -122,4 +123,21 @@ main {
 .rightbar {
     height: 100vh;
     overflow: auto;
+}
+.messenger-search-box {
+    border-radius: 30px;
+    padding: 15px;
+    background: rgb(245, 245, 245);
+}
+.messenger-sidebar .header .action {
+    background: rgb(240, 242, 245);
+    height: 35px;
+    display: flex;
+    width: 35px;
+    border-radius: 100%;
+    align-items: center;
+    justify-content: center;
+}
+.messenger-sidebar .header .action:hover {
+    background: rgb(240, 242, 245);
 }
