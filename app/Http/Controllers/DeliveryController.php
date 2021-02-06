@@ -18,13 +18,14 @@ use App\User;
 
 class DeliveryController extends Controller
 {
-     public function send_request($url, $request_param){        
-        $client = new Client(['headers' => [ 'Content-Type' => 'application/json', 'ShopId'   => '885','Token'=>'637170d5-942b-11ea-9821-0281a26fb5d4'  ]]);
+	public function send_request($url, $request_param){
+         
+        $client = new Client(['headers' => [ 'Content-Type' => 'application/json', 'Token'=> 'c90c2263-684c-11eb-8cc1-aa9213cc179e','ShopId' =>'77855'  ]]); 
         $request_data = json_encode($request_param);
         try {
             $res = $client->request('POST', $url ,
                 [
-                    'headers' => [  'Content-Type'     => 'text/plain', 'ShopId'   => '885','Token'=>'637170d5-942b-11ea-9821-0281a26fb5d4' ],
+                    'headers' => [  'Content-Type'     => 'application/json', 'Token'=> 'fccc21b9-6847-11eb-86b9-8a61086fe5fd','ShopId' =>'77855' ],
                     'body'   => $request_data
                 ]);
             $result = $res->getBody()->getContents();
@@ -57,6 +58,32 @@ class DeliveryController extends Controller
                 	]; 
         $data = $this->send_request($url, $request_param);
         echo "<pre>";print_r($data);echo "</pre>";
-    	return view('fontend.Member.delivery',[ 'user'=> Auth::user(),'data'=>$data ]);
+    	return view('fontend.Member.delivery',[ 'user'=> Auth::user(),'data'=>$data ]); 
     }
+   	 
+    public function show_price(Request $request){
+    	$url    =   'https://dev-online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/fee';
+        $request_param = [
+						'service_id'		=>	53321,
+						"service_type_id" 	=> 'null',
+						'insurance_value'	=>	500000,
+						'coupon'			=>	 'null',
+						'from_district_id'	=>	1542,
+						'to_district_id'	=>	1444,
+						'to_ward_code'		=>	20314,
+						'height'			=>	15,
+						'length'			=>	15,
+						'weight'			=>	1000,
+						'width'				=>	15
+                	]; 
+        
+        $data = $this->send_request($url, $request_param);
+        print_r($data);
+        //echo '<script>console.log('.$data->data.');</script>';
+        
+        return view('fontend.Member.delivery',['user'=> Auth::user(),'data'=>$data ]);
+
+        //return $data;
+    }
+     
 }

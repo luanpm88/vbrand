@@ -11,6 +11,7 @@ class Conversation
     public $picture;
     public $name;
     public $to;
+    public $updatedTime;
 
     public function __construct($page)
 	{
@@ -19,6 +20,8 @@ class Conversation
 
     public function fetchData()
     {
+        \Carbon\Carbon::setLocale('vi');
+
         $data = $this->page->messenger->makeRequest([
             'path' => '/' . $this->id . '?fields=snippet,senders,unread_count,updated_time,participants',
             'token' => $this->page->accessToken,
@@ -33,6 +36,9 @@ class Conversation
                 break;
             }
         }
+
+        // update time
+        $this->updatedTime = \Carbon\Carbon::parse($data['updated_time'])->diffForHumans();
 
         // get sender
 

@@ -534,7 +534,7 @@ class MemberController extends Controller
         $templates  = Template::where('status',1)->orderBy('id','DESC')->paginate(10);
         return view('fontend.Member.template',['user'=> Auth::user(), 'data'=> $templates ]);
     }
-    public function template_add (Request $request){  
+    public function template_add(Request $request){  
         $user           = Auth::user();
         $template       = DB::table('template')->where('id',$request->template_id)->first();
         $cart = new Cart();
@@ -571,13 +571,10 @@ class MemberController extends Controller
             $cart->save();
             return redirect()->route('membercart')->with(['messenge'=>'Cập nhật thành công !!!']);     
         }else{
-            die('template->price:'.$template->price.'--old_template->price:'.$old_template->price);
-        }
-
-        $user->template_id = $request->template_id;
-        $user->save();
-       
-        return redirect()->route('fontend.templatelist')->with(['messenge'=>'Cập nhật thành công !!!']); 
+            $user->template_id = $request->template_id;
+            $user->save();
+            return redirect()->route('fontend.templatelist')->with(['messenge'=>'Cập nhật thành công !!!']); 
+        }        
     }
     public function template_details_store(Request $request)
     {

@@ -18,11 +18,11 @@
     </div>
     <div class="w-100 justify-content-between">
       <p class="mt-3 mb-2">Cập nhật tên miền</p>
-      <form method="post">
+      <form method="post" action="{{ url('member/domain') }}">
       @csrf
       <div class="row">
         <div class="col-lg-6">
-            <input id="domain" name="domain" type="text" class="form-control" value="{{ $data->domain ?? '' }}">
+            <input id="domain" name="domain" type="text" class="form-control" value="{{ $user->domain ?? '' }}">
             <p class="pt-2">Ex: brand.com.vn</p>
         </div>
         <div class="col-lg-6"><button type="submit" class="btn btn-secondary">Cập nhật</button> </div>

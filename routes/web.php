@@ -78,6 +78,9 @@ Route::get('sitemap-tags.xml', 'SitemapController@tags');
 Route::prefix('member')->middleware(['auth'])->group(function(){
 	Route::get('/', 'MemberController@dashboard')->name('member');
 	Route::post('/', 'MemberController@dashboard_update');
+
+	Route::get('delivery', 'DeliveryController@show');
+	Route::post('delivery/show', 'DeliveryController@show_price');
 	
 	Route::get('profile', 'MemberController@profile')->name('profile');
 	Route::get('profile/edit', 'MemberController@profile_edit')->name('profile.edit');
@@ -109,6 +112,11 @@ Route::prefix('member')->middleware(['auth'])->group(function(){
 	Route::post('template/{slug}', 'MemberController@template_details_store');
 	Route::post('template', 'MemberController@template_store');  
 
+	Route::get('domain', 'MemberController@domain');
+	Route::get('domain/edit', 'MemberController@domain_edit');
+	Route::post('domain', 'MemberController@domain_store');
+	Route::post('domain/seek', 'MemberController@domain_seek');
+
 	Route::get('promotion', 'MemberController@promotion');
 	Route::get('voucher', 'MemberController@voucher');
 	Route::get('statistical', 'MemberController@statistical');
@@ -128,10 +136,6 @@ Route::prefix('member')->middleware(['auth'])->group(function(){
 	Route::get('payment-cancel/{id}', 'PayPalsdkController@paymentCancel')->name('payment.PayPacancel');
 
 
-	Route::get('domain', 'MemberController@domain');
-	Route::get('domain/edit', 'MemberController@domain_edit');
-	Route::post('domain', 'MemberController@domain_store');
-	Route::post('domain/seek', 'MemberController@domain_seek');
 
 	Route::get('email', 'MemberController@email');
 	Route::post('email', 'MemberController@email_store');

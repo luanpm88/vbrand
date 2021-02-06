@@ -17,7 +17,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts = posts::paginate(10); 
+        $posts = posts::paginate(10);
         return view('backend.Post.list', ['data'=> $posts] );
     }
 

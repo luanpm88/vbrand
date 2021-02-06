@@ -1,6 +1,6 @@
 @extends('fontend.Member.master')
 @section('content')
- <div class="container bg-light mb-4">
+ <div class="bg-light mb-4">
   <div class="row">
       <div class="col-pg-12 mb-4 mt-4 text-center">
       <h3>{{ __('mem.profile') }}</h3>
@@ -8,8 +8,12 @@
     </div>      
     <div class="col-md-3 col-lg-3">
       <div class="text-center mb-3">
-        @if(!empty($user->avatar))
-        <img src="{{ $user->avatar }}" class="avatar img-circle" alt="avatar">
+        @if(!empty($user->phone))
+          <img src="{{ url('upload/Avatar/'. $user->phone ) }}" class="avatar img-circle" alt="avatar">
+        @else
+          @if(!empty($user->avatar))
+            <img src="{{ url($user->avatar) }}" class="avatar img-circle" alt="avatar">
+          @endif
         @endif
       </div>
       <p class="text-center"><a href="{{ url('member/profile/edit') }}"><i class="fa fa-edit"></i> đổi avatar</a></p>
