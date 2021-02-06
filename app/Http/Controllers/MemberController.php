@@ -571,13 +571,10 @@ class MemberController extends Controller
             $cart->save();
             return redirect()->route('membercart')->with(['messenge'=>'Cập nhật thành công !!!']);     
         }else{
-            die('template->price:'.$template->price.'--old_template->price:'.$old_template->price);
-        }
-
-        $user->template_id = $request->template_id;
-        $user->save();
-       
-        return redirect()->route('fontend.templatelist')->with(['messenge'=>'Cập nhật thành công !!!']); 
+            $user->template_id = $request->template_id;
+            $user->save();
+            return redirect()->route('fontend.templatelist')->with(['messenge'=>'Cập nhật thành công !!!']); 
+        }        
     }
     public function template_details_store(Request $request)
     {
