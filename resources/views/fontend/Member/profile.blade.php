@@ -1,6 +1,6 @@
 @extends('fontend.Member.master')
 @section('content')
- <div class="container bg-light mb-4">
+ <div class="bg-light mb-4">
   <div class="row">
       <div class="col-pg-12 mb-4 mt-4 text-center">
       <h3>{{ __('mem.profile') }}</h3>
