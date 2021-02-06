@@ -9,7 +9,6 @@
   <button class="navbar-toggler logo" type="button" data-toggle="collapse" data-target="#menu-content" aria-controls="menu-content" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-
   <div class="collapse navbar-collapse" id="menu-content">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item dropdown">
@@ -39,20 +38,15 @@
             <a href="property_single3.html" class="dropdown-item">Các kênh Marketing khác</a>
         </div>
       </li>
-      
       <li class="nav-item">
         <a class="nav-link" href="#">ĐẠI LÝ</a>
       </li>
-      
       <li class="nav-item">
         <a class="nav-link" href="#">
           KHÁCH HÀNG
         </a>
-         
       </li>
-      
-    </ul>
-    
+    </ul>    
     <ul class="navbar-nav ml-auto">
       @guest
       <li class="nav-item">
@@ -87,8 +81,4 @@
     </ul>    
   </div>
   </div>
-</nav>                         
-
-
-
- 
+</nav>
