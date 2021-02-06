@@ -11,6 +11,8 @@
                 <i class="fas fa-shopping-cart"></i> Đơn Hàng</span> <span class="badge badge-primary badge-pill">10</span></a> 
             <a href="{{ URL('member/customer') }}" class="list-group-item"><i class="fas fa-list"></i> Khách Hàng</a>
             <a href="{{ URL('member/payment') }}" class="list-group-item"><i class="fas fa-money-check-alt"></i> Thanh Toán</a>
+
+            <a href="{{ URL('member/delivery') }}" class="list-group-item"> Delivery</a>
             
         </div>
     </div>

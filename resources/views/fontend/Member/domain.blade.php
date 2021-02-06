@@ -3,16 +3,13 @@
 <script type="text/javascript">    
     var _token = '{{ csrf_token() }}';   
 </script>
- 
 @if (Session::has('messenge'))
 <div class="alert alert-success" role="alert">
   <strong> {{ Session::get('messenge') }}</strong>.
 </div>
 @endif
-
 <div class="list-group mb-4">
 @if(!empty($user->domain))
-
   <div class="list-group-item ">
     <div class="d-flex w-100 justify-content-between">
       <h3 class="mb-1"> {{ __('mem.domain') }} </h3>
@@ -28,11 +25,9 @@
   <div class="list-group-item">
     <div class="w-100 text-right">
       <a href="tel:0838068268" class="btn btn-secondary"><i class="fa fa-plus"></i> MUA THÊM TÊN MIỀN</a>
-    </div>   
+    </div>
   </div>
-
 @else
-
   <div class="list-group-item pb-4">
     <div class="d-flex w-100 justify-content-between">
       <h3 class="mb-1"> {{ __('mem.domain') }} </h3>
@@ -49,17 +44,13 @@
         <div class="col-lg-6"><button type="submit" class="btn btn-secondary">Cập nhật</button> </div>
       </div>
       <form>
-    </div> 
-     
-
+    </div>
   </div>
   <div class="list-group-item">
     <div class="w-100">
       <strong>Lưu ý</strong>: nếu bạn chưa có tên miền, Liên hệ ngay chúng tôi<span class="hot"> HOTLINE: <a href="tel:0838 068 268" class="bold ">0838 068 268</a> - 24/7 </span>
     </div>   
   </div>
-
 @endif
 </div> 
- 
 @endsection()

@@ -78,6 +78,9 @@ Route::get('sitemap-tags.xml', 'SitemapController@tags');
 Route::prefix('member')->middleware(['auth'])->group(function(){
 	Route::get('/', 'MemberController@dashboard')->name('member');
 	Route::post('/', 'MemberController@dashboard_update');
+
+	Route::get('delivery', 'DeliveryController@show');
+	Route::post('delivery/show', 'DeliveryController@show_price');
 	
 	Route::get('profile', 'MemberController@profile')->name('profile');
 	Route::get('profile/edit', 'MemberController@profile_edit')->name('profile.edit');

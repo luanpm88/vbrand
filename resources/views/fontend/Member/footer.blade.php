@@ -47,7 +47,7 @@
         <div class="input-group input-group-lg">
           <input type="text" name="email" class="form-control form-control-lg subscribe-input" placeholder="Email">
           <div class="input-group-append ml-0">
-            <button class="btn subscribe-button" type="button"><i class="bi bi-envelope-fill"></i></button>
+            <button class="btn subscribe-button" type="button"><i class="fas fa-envelope"></i></button>
           </div>
         </div>
       </form> 
