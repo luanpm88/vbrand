@@ -32,8 +32,8 @@ body {
 }
 .conversation .avatar {
     border-radius: 100%;
-    width: 60px;
-    height: 60px;
+    width: 45px;
+    height: 45px;
 }
 .messenger-sidebar .header {
 
@@ -53,9 +53,11 @@ main {
 .messenger-chatbox {
     border-right: solid 1px #ddd;
     height: 100vh;
+    background: rgb(240, 242, 245);
 }
 .messenger-chatbox .header {
     border-bottom: solid 1px #ddd;
+    background-color: #fff;
 }
 .messenger-chatbox .header h3 {
     
@@ -71,6 +73,7 @@ main {
     background: rgb(0, 153, 255);
     color: white;
     border-radius: 50px;
+    border: solid 1px rgb(0, 153, 255);
 }
 .chatbox-content .message-line {
     margin-bottom: 10px;
@@ -78,19 +81,24 @@ main {
 .chatbox-content {
     height: calc(100vh - 166px);
     overflow: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 .message-line.own {
     text-align: right;
 }
 .message-line.own .message {
-    background: #eaf1f6;
+    background: #fff;
     color: #222;
+    border: solid 1px #ccc;
 }
 .chatbox-editor {
     border-top: solid 1px #ddd;
+    background-color: #fff;
 }
 .chatbox-editor textarea{
-    background: #efefef;
+    background: rgb(240, 242, 245);
     border: none;
     width: 100%;
     resize: none;
@@ -98,9 +106,9 @@ main {
     display: block;
 }
 .chatbox-editor .textarea-cover {
-    background: #efefef;
-    padding: 10px 10px;
-    border-radius: 10px;
+    background: rgb(240, 242, 245);
+    padding: 10px 20px;
+    border-radius: 50px;
 }
 .chatbox-editor textarea:focus {
     outline: transparent;
