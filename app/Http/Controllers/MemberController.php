@@ -534,7 +534,7 @@ class MemberController extends Controller
         $templates  = Template::where('status',1)->orderBy('id','DESC')->paginate(10);
         return view('fontend.Member.template',['user'=> Auth::user(), 'data'=> $templates ]);
     }
-    public function template_add (Request $request){  
+    public function template_add(Request $request){  
         $user           = Auth::user();
         $template       = DB::table('template')->where('id',$request->template_id)->first();
         $cart = new Cart();
