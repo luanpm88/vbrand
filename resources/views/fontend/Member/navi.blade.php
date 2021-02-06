@@ -60,17 +60,23 @@
       @else
       <li class="nav-item dropdown user-account">
         <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <span class="user-image" style="background-image:url('{{ url('images/profile3.jpg') }}');"></span>{{ Auth::user()->name }}
+          @if(!empty($user->phone))
+            <span class="user-image" style="background-image:url('{{ url('upload/Avatar/'. $user->phone) }}')"></span>
+          @else
+            @if(!empty($user->avatar))
+              <span class="user-image" style="background-image:url('{{ url($user->avatar) }}')"></span>
+            @endif
+          @endif
+          {{ Auth::user()->name }}
         </a>
         <div class="dropdown-menu">
-            <a href="{{ URL('member/profile') }}" class="dropdown-item">  Tài khoản</a>
+            <a href="{{ URL('member/profile') }}" class="dropdown-item"><i class="fas fa-user-circle"></i>  Tài khoản</a>
             <a href="{{ URL('member/password') }}" class="dropdown-item"><i class="fa fa-fw fa-lock"></i> Đổi mật khẩu</a>
             <a href="{{ URL('member/alert') }}" class="dropdown-item"><i class="fas fa-bell"></i> Thông báo</a>
             <a href="{{ URL('member/payment') }}" class="dropdown-item"><i class="fa fa-fw fa-credit-card"></i> Thanh toán</a>
-            <a href="{{ URL('member/account') }}" class="dropdown-item"><i class="fas fa-cog"></i> Cấu hình</a> 
             <a  href="{{ route('logout') }}" class="dropdown-item"
-                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                  {{ __('layout.logout') }}  <i class="fa fa-sign-out" aria-hidden="true"></i>
+                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fas fa-sign-out-alt"></i> 
+                  {{ __('layout.logout') }} 
             </a>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
             @csrf
