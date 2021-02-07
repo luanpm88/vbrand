@@ -23,7 +23,7 @@ Route::get('/policy', function () {
     return view('policy');
 });
 
-Broadcast::routes();
+Broadcast::routes(); 
 
 // Store Backend
 Route::namespace('Client')->group(function () {
@@ -98,6 +98,10 @@ Route::prefix('member')->middleware(['auth'])->group(function(){
 	Route::get('account', 'MemberController@accountsetting');
 	Route::post('account', 'MemberController@alert_store');
 
+	Route::get('delivery', 'DeliveryController@show')->name('delivery');
+	Route::post('delivery', 'DeliveryController@show_details');
+
+
 	Route::get('package', 'MemberController@package')->name('fontend.packagelist');
 	Route::post('package', 'MemberController@package_store');
 	Route::post('package/add', 'MemberController@package_add');
@@ -120,7 +124,7 @@ Route::prefix('member')->middleware(['auth'])->group(function(){
 	
 	
 	Route::get('order/show/{id}', 'OrdersController@details_user_order');
-	Route::get('order/del/{id}', 'OrdersController@destroy_user_order');
+	Route::get('order/del/{id}', 'OrdersController@destroy_user_order'); 
 
 	Route::get('payment', 'OrdersController@list_user_order')->name('fontent.userorders');;
 	Route::post('paymentmaker', 'OrdersController@make_new_orders');

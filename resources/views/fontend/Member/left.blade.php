@@ -12,7 +12,8 @@
             <a href="{{ URL('member/customer') }}" class="list-group-item"><i class="fas fa-list"></i> Khách Hàng</a>
             <a href="{{ URL('member/payment') }}" class="list-group-item"><i class="fas fa-money-check-alt"></i> Thanh Toán</a>
 
-            <a href="{{ URL('member/delivery') }}" class="list-group-item"> Delivery</a>
+            <a href="{{ URL('member/delivery') }}" class="list-group-item"><i class="fas fa-money-check-alt"></i> Delivery</a>
+ 
             
         </div>
     </div>

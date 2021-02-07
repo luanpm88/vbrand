@@ -3,18 +3,22 @@
 <script type="text/javascript">    
     var _token = '{{ csrf_token() }}';   
 </script>
+ 
 @if (Session::has('messenge'))
 <div class="alert alert-success" role="alert">
   <strong> {{ Session::get('messenge') }}</strong>.
 </div>
 @endif
+ 
+ 
+
 <div class="list-group mb-4"> 
   <div class="list-group-item pb-4">
     <div class="d-flex w-100 justify-content-between">
       <h3 class="mb-1"> check tính năng </h3>
     </div>
     <div class="w-100 justify-content-between">
-      <form method="post" action="{{ url('member/delivery/show') }}">
+      <form method="post" action="{{ url('member/delivery') }}">
       @csrf
       <div class="row">
         <div class="col-lg-3">
@@ -57,4 +61,5 @@
   <p>{{ $data->data }}</p>
   @endif
 </div>
+
 @endsection()
