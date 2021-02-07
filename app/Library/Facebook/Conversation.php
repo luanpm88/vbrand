@@ -40,7 +40,7 @@ class Conversation
         // update time
         $this->updatedTime = \Carbon\Carbon::parse($data['updated_time'])->diffForHumans();
 
-        // get sender
+        // get last sender
 
         $this->data = $data;
     }

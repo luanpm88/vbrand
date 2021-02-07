@@ -5,6 +5,15 @@
 @endsection
 
 @section('content')
+<img src="{{ url('/images/chat-bg.png') }}" style="filter: blur(14px);
+-webkit-filter: blur(14px);
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+opacity: 0.5;
+height: 100%;" />
+
     <div class="row mt-5">
         <div class="col-2"></div>
         <div class="col-8 text-center">
@@ -67,14 +76,24 @@
                 }
               
               </script>
+
               
-              
-              <!-- The JS SDK Login Button -->
-              <fb:login-button scope="read_insights,public_profile,email,pages_messaging,pages_read_engagement,pages_manage_metadata,pages_read_user_content" onlogin="checkLoginState();">
-              </fb:login-button>
-              
-              <div id="status">
-              </div>
+
+              <main>
+                <div class="row">
+                  <div class="col-3"></div>
+                  <div class="col-6 p-5">
+                    <!-- The JS SDK Login Button -->
+                    <fb:login-button size="xlarge"
+                      scope="read_insights,public_profile,email,pages_messaging,pages_read_engagement,pages_manage_metadata,pages_read_user_content"
+                      onlogin="checkLoginState();"> Login with Facebook
+                    </fb:login-button>
+                    
+                    <div id="status">
+                    </div>
+                  </div>
+                </div>
+              </main>
               
               <!-- Load the JS SDK asynchronously -->
               <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
