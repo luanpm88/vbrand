@@ -16,7 +16,7 @@ body {
     cursor: pointer;
     position: relative;
     margin-bottom: 1px;
-    padding: 10px!important;
+    padding: 10px 10px 10px 10px!important;
 }
 .conversation:hover, .conversation.active {
     background-color: rgba(0,0,0,0.04);
@@ -26,7 +26,7 @@ body {
 }
 .conversation .unread_count {
     position: absolute;
-    top: calc(50% - 10px);
+    top: calc(50% - 28px);
     right: 5px;
     border-radius: 20px;
     padding: 5px 7px;
@@ -71,11 +71,13 @@ main {
 }
 .chatbox-content .message {
     display: inline-block;
-    padding: 5px 14px;
+    padding: 5px 15px;
     background: rgb(0, 153, 255);
     color: white;
-    border-radius: 50px;
+    border-radius: 18px;
     border: solid 1px rgb(0, 153, 255);
+    max-width: 60%;
+    text-align: left;
 }
 .chatbox-content .message-line {
     margin-bottom: 10px;
@@ -141,4 +143,25 @@ main {
 }
 .messenger-sidebar .header .action:hover {
     background: rgb(240, 242, 245);
+}
+.conversation .small {
+    font-size: 90%;
+}
+.conversation .snippet {
+    overflow: hidden;
+    display: inline-block;
+    text-overflow: ellipsis;
+    max-width: 165px;
+    white-space: nowrap;
+}
+.message-line.pending {
+    opacity: 0.8;
+}
+.message-line.pending .message {
+    color: #888;
+}
+.message-line.pending .spinner-grow {
+    height: 20px;
+    width: 20px;
+    border-width: 2px;
 }

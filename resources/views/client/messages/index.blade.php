@@ -259,7 +259,7 @@
                             <img class="avatar" src="` + conversation.picture + `" />
                             <div class="ml-3">
                                 <label class="m-0">Luan Pham</label>
-                                <p class="m-0 text-muted">` + conversation.data.snippet + ` · ` + conversation.updatedTime + `</p>
+                                <p class="m-0 text-muted small"><span class="snippet">` + conversation.data.snippet + `</span> · ` + conversation.updatedTime + `</p>
                             </div>
                             <span class="badge badge-danger unread_count">` + (conversation.data.unread_count ? conversation.data.unread_count : '' ) + `</span>
                         </div>
@@ -376,7 +376,8 @@
             appendMessage(message, from, to) {
                 var _this = this;
 
-                console.log(to);
+                // remove all pending message
+                $('.message-line.pending').remove();
 
                 // append message to bottom
                 $('.messenger-chatbox .messages').append(`
@@ -386,8 +387,30 @@
                 `);
             }
 
+            appendNotSentMessage(message, from, to) {
+                var _this = this;
+
+                // append message to bottom
+                $('.messenger-chatbox .messages').append(`
+                    <div class="message-line pending ` + (from == '{{ $page->id }}' ? 'own' : '') + `" page-id="{{ $page->id }}" data-from="` + from + `" data-to="` + to + `">
+                        <div class="spinner-grow text-info" role="status">
+                          <span class="sr-only">Loading...</span>
+                        </div>
+                        <div class="message">` + message + `</div>
+                    </div>
+                `);
+            }
+
             sendMessage(to, message) {
+                var _this = this;
+
                 $(".chatbox-editor textarea").val('');
+
+                // append pending message
+                _this.appendNotSentMessage(message, '{{ $page->id }}', to);
+
+                // scroll to bottom
+                $(".chatbox-content").animate({ scrollTop: $(".chatbox-content")[0].scrollHeight }, 1000);
 
                 $.ajax({
                     url: '{{ action('Client\MessageController@sendMessage') }}', 
@@ -445,6 +468,9 @@
                 // check sender is in conversation
                 if (messenger.currentConversation && (messenger.currentConversation.to == m.sender.id || messenger.currentConversation.to == m.recipient.id)) {
                     messenger.appendMessage(m.message.text, m.sender.id, m.recipient.id);
+
+                    // update snippet
+                    $('.conversation[data-id="'+messenger.currentConversation.id+'"] .snippet').html(m.message.text);
                 } else {
                     messenger.loadConversations(function() {
                         // add active
