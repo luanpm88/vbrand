@@ -14,7 +14,7 @@ class Product extends Model
         if (!empty(trim($request->keyword))) {
             foreach (explode(' ', trim($request->keyword)) as $keyword) {
                 $query = $query->where(function ($q) use ($keyword) {
-                    $q->orwhere('products.title', 'like', '%'.$keyword.'%');
+                    $q->orwhere('products.title', 'like', '%'.strtolower($keyword).'%');
                 });
             }
         }

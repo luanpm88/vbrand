@@ -25,6 +25,7 @@ app.post('/webhook', (req, res) => {
         let webhook_event = entry.messaging[0];
         console.log(webhook_event);
 
+        // send response to vbrand
         const axios = require('axios');
         const https = require('https');
         const agent = new https.Agent({  

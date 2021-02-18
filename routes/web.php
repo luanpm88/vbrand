@@ -32,6 +32,7 @@ Route::namespace('Client')->group(function () {
 	Route::post('/facebook/webhooks', 'MessageController@webhooks');
 
 	// Product
+	Route::get('/client/products/select2', 'ProductController@select2');
 	Route::get('/client/products/image/{id}', 'ProductController@image');
 	Route::post('/client/products/list', 'ProductController@list');
     Route::get('/client/products', 'ProductController@index');
@@ -44,6 +45,7 @@ Route::namespace('Client')->group(function () {
 	Route::post('client/connection/lazada/sync/close', 'ConnectionController@lazadaSyncClose');
 
 	// Message
+	Route::get('client/messages/right-bar', 'MessageController@rightbar');
 	Route::post('client/messages/send', 'MessageController@sendMessage');
 	Route::get('client/messages/get-conversation', 'MessageController@getConversation');
 	Route::get('client/messages/get-conversations', 'MessageController@getConversations');

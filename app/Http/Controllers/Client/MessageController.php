@@ -161,17 +161,60 @@ class MessageController extends Controller
         ]);
 
         event(new \App\Events\MessengerNotification('notification', [
-            [
-                'message' => [
-                    'text' => $message['message'],
-                ],
-                'sender' => [
-                    'id' => $message['from']['id'],
-                ],
-                'recipient' => [
-                    'id' => $message['to'][0]['id'],
-                ],
+            'message' => [
+                'text' => $message['message'],
+            ],
+            'sender' => [
+                'id' => $message['from']['id'],
+            ],
+            'recipient' => [
+                'id' => $message['to'][0]['id'],
             ],
         ]));
+    }
+
+    /**
+     * Right bar. 
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function rightbar(Request $request)
+    {
+        $user = $request->user();
+        $messenger = new Messenger($user->getData()['facebook']['authResponse']['accessToken']);
+
+        // FIND ALL PAGES / ACCOUNTS
+        $page = $messenger->getPages()[0];
+
+        // Find conversation
+        $conversation = $page->getConversation($request->conversationId);
+
+        // // send message
+        // $result = $page->sendMessage($conversation->to, $request->message);
+
+        // // get message
+        // $message = $messenger->makeRequest([
+        //     'path' => '/' . $result['message_id'] . '?fields=message,from,to',
+        //     'token' => $page->accessToken,
+        // ]);
+
+        // event(new \App\Events\MessengerNotification('notification', [
+        //     [
+        //         'message' => [
+        //             'text' => $message['message'],
+        //         ],
+        //         'sender' => [
+        //             'id' => $message['from']['id'],
+        //         ],
+        //         'recipient' => [
+        //             'id' => $message['to'][0]['id'],
+        //         ],
+        //     ],
+        // ]));
+
+        return view('client.messages.rightbar', [
+            'messenger' => $messenger,
+            'conversation' => $conversation,
+        ]);
     }
 }

@@ -39,170 +39,10 @@
                 </div>
             </div>
             <div class="col-4 rightbar">
-                <ul class="nav nav-pills mt-3">
-                    <li class="nav-item">
-                      <a class="nav-link active" aria-current="page" href="#">Khách hàng</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#">Đơn hàng</a>
-                    </li>
-                  </ul>
-
-                  <div class="row mt-4">
-                    <div class="col-md-12 order-md-1">
-                        <div class="d-flex align-items-center sidebar-contact">
-                            <img class="avatar" src="https://platform-lookaside.fbsbx.com/platform/profilepic/?psid=3788656437867402&width=1024&ext=1615134286&hash=AeRDIEoOewRHv3Zi1SU" />
-                            <div class="ml-3">
-                                <h4 class="mb-0">Luan Pham</h4>
-                                <p class="text-muted mb-0">luanpm@live.com</p>
-                            </div>
-                        </div>
-                      <form class="needs-validation" novalidate="">
-                        <div class="row mt-3">
-                          <div class="col-md-6 mb-3">
-                            <label for="firstName">First name</label>
-                            <input type="text" class="form-control" id="firstName" placeholder="" value="" required="">
-                            <div class="invalid-feedback">
-                              Valid first name is required.
-                            </div>
-                          </div>
-                          <div class="col-md-6 mb-3">
-                            <label for="lastName">Last name</label>
-                            <input type="text" class="form-control" id="lastName" placeholder="" value="" required="">
-                            <div class="invalid-feedback">
-                              Valid last name is required.
-                            </div>
-                          </div>
-                        </div>
-                
-                        <div class="mb-3">
-                          <label for="username">Username</label>
-                          <div class="input-group">
-                            <div class="input-group-prepend">
-                              <span class="input-group-text">@</span>
-                            </div>
-                            <input type="text" class="form-control" id="username" placeholder="Username" required="">
-                            <div class="invalid-feedback" style="width: 100%;">
-                              Your username is required.
-                            </div>
-                          </div>
-                        </div>
-                
-                        <div class="mb-3">
-                          <label for="email">Email <span class="text-muted">(Optional)</span></label>
-                          <input type="email" class="form-control" id="email" placeholder="you@example.com">
-                          <div class="invalid-feedback">
-                            Please enter a valid email address for shipping updates.
-                          </div>
-                        </div>
-                
-                        <div class="mb-3">
-                          <label for="address">Address</label>
-                          <input type="text" class="form-control" id="address" placeholder="1234 Main St" required="">
-                          <div class="invalid-feedback">
-                            Please enter your shipping address.
-                          </div>
-                        </div>
-                
-                        <div class="mb-3">
-                          <label for="address2">Address 2 <span class="text-muted">(Optional)</span></label>
-                          <input type="text" class="form-control" id="address2" placeholder="Apartment or suite">
-                        </div>
-                
-                        <div class="row">
-                          <div class="col-md-5 mb-3">
-                            <label for="country">Country</label>
-                            <select class="custom-select d-block w-100" id="country" required="">
-                              <option value="">Choose...</option>
-                              <option>United States</option>
-                            </select>
-                            <div class="invalid-feedback">
-                              Please select a valid country.
-                            </div>
-                          </div>
-                          <div class="col-md-4 mb-3">
-                            <label for="state">State</label>
-                            <select class="custom-select d-block w-100" id="state" required="">
-                              <option value="">Choose...</option>
-                              <option>California</option>
-                            </select>
-                            <div class="invalid-feedback">
-                              Please provide a valid state.
-                            </div>
-                          </div>
-                          <div class="col-md-3 mb-3">
-                            <label for="zip">Zip</label>
-                            <input type="text" class="form-control" id="zip" placeholder="" required="">
-                            <div class="invalid-feedback">
-                              Zip code required.
-                            </div>
-                          </div>
-                        </div>
-                        <hr class="mb-4">
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" class="custom-control-input" id="same-address">
-                          <label class="custom-control-label" for="same-address">Shipping address is the same as my billing address</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" class="custom-control-input" id="save-info">
-                          <label class="custom-control-label" for="save-info">Save this information for next time</label>
-                        </div>
-                        <hr class="mb-4">
-                
-                        <h4 class="mb-3">Payment</h4>
-                
-                        <div class="d-block my-3">
-                          <div class="custom-control custom-radio">
-                            <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked="" required="">
-                            <label class="custom-control-label" for="credit">Credit card</label>
-                          </div>
-                          <div class="custom-control custom-radio">
-                            <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required="">
-                            <label class="custom-control-label" for="debit">Debit card</label>
-                          </div>
-                          <div class="custom-control custom-radio">
-                            <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required="">
-                            <label class="custom-control-label" for="paypal">PayPal</label>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-6 mb-3">
-                            <label for="cc-name">Name on card</label>
-                            <input type="text" class="form-control" id="cc-name" placeholder="" required="">
-                            <small class="text-muted">Full name as displayed on card</small>
-                            <div class="invalid-feedback">
-                              Name on card is required
-                            </div>
-                          </div>
-                          <div class="col-md-6 mb-3">
-                            <label for="cc-number">Credit card number</label>
-                            <input type="text" class="form-control" id="cc-number" placeholder="" required="">
-                            <div class="invalid-feedback">
-                              Credit card number is required
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-3 mb-3">
-                            <label for="cc-expiration">Expiration</label>
-                            <input type="text" class="form-control" id="cc-expiration" placeholder="" required="">
-                            <div class="invalid-feedback">
-                              Expiration date required
-                            </div>
-                          </div>
-                          <div class="col-md-3 mb-3">
-                            <label for="cc-cvv">CVV</label>
-                            <input type="text" class="form-control" id="cc-cvv" placeholder="" required="">
-                            <div class="invalid-feedback">
-                              Security code required
-                            </div>
-                          </div>
-                        </div>
-                        <hr class="mb-4">
-                        <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
-                      </form>
-                    </div>
-                  </div>
+              <div class="text-center m-5 pt-5">
+                <svg style="width:200px;height: 200px;" class="my-4 p-3" xmlns="http://www.w3.org/2000/svg" id="Capa_1" enable-background="new 0 0 512 512" height="512" viewBox="0 0 512 512" width="512"><g><g><path d="m351.885 174.784c-59.894 0-49.34 49.409-109.235 49.409-14.465 0-99.378-49.409-113.842-49.409-38.044 0-76.088 0-114.132 0-19.47 111.56-19.47 225.649 0 337.209h337.209c19.47-111.56 19.47-225.649 0-337.209z" fill="#e49542"></path><path d="m69.166 512h-54.49c-19.453-111.569-19.453-225.647 0-337.216h54.49c-19.48 111.569-19.48 225.647 0 337.216z" fill="#e28424"></path><path d="m237.753 316.585-49.401-31.144c-3.099-1.953-7.044-1.953-10.142 0l-34.821 21.952c-6.332 3.992-14.58-.559-14.58-8.044v-124.565h108.945v141.801z" fill="#db5c6e"></path></g><g><g><path d="m402.834.722c-51.926-1.89-103.845-.068-155.764 5.457-14.443 1.533-25.751 13.099-26.904 27.572-7.483 93.835-7.483 187.67 0 281.512 1.154 14.473 12.462 26.039 26.904 27.572 77.442 8.242 154.891 8.242 232.341 0 14.435-1.533 25.751-13.099 26.904-27.572 5.586-70.088 7.005-140.168 4.242-210.248" fill="#ededed"></path><path d="m510.558 105.015c-25.523-.918-51.046-2.74-76.577-5.457-14.435-1.533-25.751-13.099-26.904-27.572-1.897-23.755-3.309-47.509-4.242-71.264 25.522.918 106.789 80.538 107.723 104.293z" fill="#dbdbdb"></path></g><g><path d="m270.882 153.046c-2.768 0-5.33-1.482-6.707-3.893l-12.576-22.009c-2.117-3.705-.83-8.425 2.875-10.542 3.703-2.117 8.423-.83 10.542 2.875l5.493 9.612 16.553-32.354c1.945-3.8 6.601-5.301 10.397-3.359 3.799 1.944 5.303 6.599 3.359 10.397l-23.056 45.065c-1.292 2.525-3.864 4.139-6.699 4.205-.061.002-.121.003-.181.003z" fill="#95d6a4"></path><g fill="#407093"><path d="m392.959 123.701h-73.867c-4.268 0-7.726-3.459-7.726-7.726s3.459-7.726 7.726-7.726h73.867c4.268 0 7.726 3.459 7.726 7.726s-3.459 7.726-7.726 7.726z"></path><path d="m461.622 150.95h-142.53c-4.268 0-7.726-3.459-7.726-7.726s3.459-7.726 7.726-7.726h142.53c4.268 0 7.726 3.459 7.726 7.726s-3.459 7.726-7.726 7.726z"></path></g></g><g><path d="m270.882 228.503c-2.768 0-5.33-1.482-6.707-3.893l-12.576-22.009c-2.117-3.705-.83-8.425 2.875-10.542 3.703-2.117 8.423-.83 10.542 2.875l5.493 9.612 16.553-32.354c1.945-3.8 6.601-5.301 10.397-3.359 3.799 1.944 5.303 6.599 3.359 10.397l-23.056 45.065c-1.292 2.525-3.864 4.14-6.699 4.205-.061.003-.121.003-.181.003z" fill="#95d6a4"></path><g fill="#407093"><path d="m392.959 199.158h-73.867c-4.268 0-7.726-3.459-7.726-7.726s3.459-7.726 7.726-7.726h73.867c4.268 0 7.726 3.459 7.726 7.726s-3.459 7.726-7.726 7.726z"></path><path d="m459.237 226.404h-140.148c-4.268 0-7.726-3.459-7.726-7.726s3.459-7.726 7.726-7.726h140.149c4.268 0 7.726 3.459 7.726 7.726s-3.459 7.726-7.727 7.726z"></path></g></g><g><path d="m270.882 303.96c-2.768 0-5.33-1.482-6.707-3.893l-12.576-22.009c-2.117-3.705-.83-8.425 2.875-10.542 3.703-2.118 8.423-.83 10.542 2.875l5.493 9.612 16.553-32.354c1.945-3.8 6.601-5.302 10.397-3.359 3.799 1.944 5.303 6.599 3.359 10.397l-23.056 45.065c-1.292 2.525-3.864 4.139-6.699 4.205-.061.003-.121.003-.181.003z" fill="#95d6a4"></path><g fill="#407093"><path d="m392.959 274.616h-73.867c-4.268 0-7.726-3.459-7.726-7.726s3.459-7.726 7.726-7.726h73.867c4.268 0 7.726 3.459 7.726 7.726 0 4.266-3.459 7.726-7.726 7.726z"></path><path d="m403.66 301.868h-84.571c-4.268 0-7.726-3.459-7.726-7.726s3.459-7.726 7.726-7.726h84.571c4.268 0 7.726 3.459 7.726 7.726s-3.458 7.726-7.726 7.726z"></path></g></g></g><g><path d="m133.302 471.87c-26.264 2.202-52.528 2.202-78.792 0-7.188-.603-12.874-6.288-13.476-13.476-2.202-26.264-2.202-52.528 0-78.792.603-7.188 6.288-12.874 13.476-13.476 26.264-2.202 52.528-2.202 78.792 0 7.188.603 12.874 6.288 13.476 13.476 2.202 26.264 2.202 52.528 0 78.792-.602 7.188-6.288 12.873-13.476 13.476z" fill="#ededed"></path><g fill="#dbdbdb"><path d="m121.452 411.372h-55.091c-4.267 0-7.726-3.459-7.726-7.726s3.459-7.726 7.726-7.726h55.091c4.267 0 7.726 3.459 7.726 7.726 0 4.266-3.459 7.726-7.726 7.726z"></path><path d="m121.452 442.077h-55.091c-4.267 0-7.726-3.459-7.726-7.726s3.459-7.726 7.726-7.726h55.091c4.267 0 7.726 3.459 7.726 7.726s-3.459 7.726-7.726 7.726z"></path></g></g></g></svg>
+                  <p class="text-muted display-4 mt-2" style="font-size: 24px;">No contact selected!</p>
+              </div>
             </div>
         </div>
     </main>
@@ -325,7 +165,7 @@
                     console.log(data);
 
                     // set current conversation
-                    _this.currentConversation = data.conversation;
+                    _this.currentConversation = new Conversation(data.conversation);
                     
                     $('.messenger-chatbox').html(`
                         <div class="d-flex align-items-center header py-3 px-3">
@@ -353,7 +193,7 @@
                     });
 
                     // scroll to bottom
-                    $(".chatbox-content").animate({ scrollTop: $(".chatbox-content")[0].scrollHeight }, 1000);
+                    messenger.scrollChatboxBottom()
 
                     // chatbox event
                     $(".chatbox-editor textarea").on('keypress', function(e) {
@@ -367,6 +207,9 @@
                             return true;
                         }
                     });
+
+                    // load rightbar
+                    _this.loadRightbar();
 
                 }).fail(function(xhr, textStatus, errorThrown){
                     console.log(xhr);
@@ -410,7 +253,7 @@
                 _this.appendNotSentMessage(message, '{{ $page->id }}', to);
 
                 // scroll to bottom
-                $(".chatbox-content").animate({ scrollTop: $(".chatbox-content")[0].scrollHeight }, 1000);
+                messenger.scrollChatboxBottom()
 
                 $.ajax({
                     url: '{{ action('Client\MessageController@sendMessage') }}', 
@@ -425,6 +268,38 @@
                 }).fail(function(e){
                     console.log(e);
                 });
+            }
+
+            loadRightbar() {
+              var _this = this;
+
+              $('.rightbar').html(`
+                <div class="m-5 text-center">
+                  <div class="spinner-border text-info" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                </div>
+              `);
+
+              $.ajax({
+                    url: '{{ action('Client\MessageController@rightbar') }}', 
+                    type: 'GET',
+                    data: {
+                        conversationId: _this.currentConversationId
+                    }
+                }).done(function(res){
+                  $('.rightbar').html(res);
+                }).fail(function(e){
+                    console.log(e);
+                });
+            }
+
+            scrollChatboxBottom() {
+                if (!$(".chatbox-content").length) {
+                    return;
+                }
+
+                $(".chatbox-content").animate({ scrollTop: $(".chatbox-content")[0].scrollHeight }, 1000);
             }
         }
 
@@ -447,8 +322,27 @@
             }
 
             renderMessages() {
-                
+                messenger.scrollChatboxBottom()
             }
+        }
+
+        class Contact {
+          constructor(attributes) {
+            this.conversations = [];
+
+            // attribute default
+            if (!attributes) {
+                attributes = {};
+            }
+
+            // Auto set contact attributes
+            var keys =  Object.keys(attributes);
+            for (var i = 0; i < keys.length; i += 1) {
+                var key = keys[i];
+                var value = attributes[key];
+                this[key] = value;
+            }
+          }
         }
 
         var messenger = new Messenger();
@@ -460,28 +354,31 @@
     <script>
         Echo.private('Messenger')
         .listen('MessengerNotification', (e) => {
-            e.data.forEach(function(m) {
-                // upcoming notification
-                console.log('upcoming notification:');
-                console.log(m);
+            console.log('upcoming notification (raw):');
+            console.log(e);
 
-                // check sender is in conversation
-                if (messenger.currentConversation && (messenger.currentConversation.to == m.sender.id || messenger.currentConversation.to == m.recipient.id)) {
-                    messenger.appendMessage(m.message.text, m.sender.id, m.recipient.id);
+            // get conversation data from webhook
+            var m = e.data;
 
-                    // update snippet
-                    $('.conversation[data-id="'+messenger.currentConversation.id+'"] .snippet').html(m.message.text);
-                } else {
-                    messenger.loadConversations(function() {
-                        // add active
-                        $('.conversation').removeClass('active');
-                        $('.conversation[data-id="'+messenger.currentConversation.id+'"]').addClass('active');
-                    });
-                }
-            });
+            // e.data.forEach(function(m) {
+            // upcoming notification
+            console.log('upcoming notification:');
+            console.log(m);
+
+            // check sender is in conversation
+            if (messenger.currentConversation && (messenger.currentConversation.to == m.sender.id || messenger.currentConversation.to == m.recipient.id)) {
+                messenger.appendMessage(m.message.text, m.sender.id, m.recipient.id);
+            }
+            // });
 
             // scroll to bottom
-            $(".chatbox-content").animate({ scrollTop: $(".chatbox-content")[0].scrollHeight }, 1000);
+            messenger.scrollChatboxBottom()
+            
+            // reload conversations list
+            messenger.loadConversations(function() {
+                // add active
+                $('.conversation[data-id="'+messenger.currentConversationId+'"]').addClass('active');
+            });
         });
     </script>
 @endsection

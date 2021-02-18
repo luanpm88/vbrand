@@ -12,6 +12,7 @@ class Conversation
     public $name;
     public $to;
     public $updatedTime;
+    public $contact;
 
     public function __construct($page)
 	{
@@ -30,6 +31,7 @@ class Conversation
         // get pic
         foreach($data['participants'] as $sender) {
             if ($sender["id"] != $this->id) {
+                $this->contact = $this->page->contactProfile($sender['id']);
                 $this->picture = $this->page->contactProfile($sender['id'])['profile_pic'];
                 $this->name = $sender['name'];
                 $this->to = $sender['id'];

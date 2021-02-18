@@ -126,6 +126,7 @@ main {
 .rightbar {
     height: 100vh;
     overflow: auto;
+    padding: 0;
 }
 .messenger-search-box {
     border-radius: 30px;

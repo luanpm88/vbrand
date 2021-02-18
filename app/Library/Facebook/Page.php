@@ -84,7 +84,7 @@ class Page
     public function contactProfile($contactId)
     {
         return $this->messenger->makeRequest([
-            'path' => '/' . $contactId . '?fields=first_name,last_name,profile_pic',
+            'path' => '/' . $contactId . '?fields=',
             'token' => $this->accessToken,
         ]);
     }
