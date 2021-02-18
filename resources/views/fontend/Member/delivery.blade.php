@@ -56,9 +56,24 @@
 
 <div class="col-lg-12">
   @if(isset($data))
-  <p>{{ $data->code }}</p>
-  <p>{{ $data->message }}</p>
-  <p>{{ $data->data }}</p>
+  <p>{{ $data->code ?? '' }}</p>
+  <p>{{ $data->message ?? ''  }}</p>
+  <p>{{ $data->data ?? ''  }}</p>
+ 
+
+  @if($data->success)
+    <div class="alert alert-success" role="alert">
+      <h3>GIAO HÀNG TIẾT KIỆM</h3>
+      <p>Khu vực: <strong>{{ $data->fee->name }} </strong>.</p>
+      <p>Giá vận chuyển: <strong>{{ $data->fee->fee }} </strong>.</p>
+      <p>Bảo hiểm: <strong>{{ $data->fee->insurance_fee }} </strong>.</p>
+      <p>vat: <strong>{{ $data->fee->include_vat }} </strong>.</p>
+      <p>delivery_type: <strong>{{ $data->fee->delivery_type }} </strong>.</p>
+      <p>dt: <strong>{{ $data->fee->dt }} - TRONG NƯỚC </strong>.</p>
+      <p>delivery: <strong>{{ $data->fee->delivery }} </strong>.</p>
+    </div>
+  @endif 
+
   @endif
 </div>
 

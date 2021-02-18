@@ -18,14 +18,15 @@ use App\User;
 
 class DeliveryController extends Controller
 {
+    //---- for ghn.vn
 	public function send_request($url, $request_param){
          
-        $client = new Client(['headers' => [ 'Content-Type' => 'application/json', 'Token'=> 'c90c2263-684c-11eb-8cc1-aa9213cc179e','ShopId' =>'77855'  ]]); 
+        $client = new Client(['headers' => [ 'Content-Type' => 'application/json', 'Token'=> 'fccc21b9-6847-11eb-86b9-8a61086fe5fd','ShopId' =>'1449088'  ]]); 
         $request_data = json_encode($request_param);
         try {
             $res = $client->request('POST', $url ,
                 [
-                    'headers' => [  'Content-Type'     => 'application/json', 'Token'=> 'fccc21b9-6847-11eb-86b9-8a61086fe5fd','ShopId' =>'77855' ],
+                    'headers' => [  'Content-Type'     => 'application/json', 'Token'=> 'fccc21b9-6847-11eb-86b9-8a61086fe5fd','ShopId' =>'1449088' ],
                     'body'   => $request_data
                 ]);
             $result = $res->getBody()->getContents();
@@ -41,7 +42,7 @@ class DeliveryController extends Controller
     public function show(){
     	return view('fontend.Member.delivery',['user'=> Auth::user()]);
     }
-    public function show_details(){
+    public function show_details_ghn(){
     	$url    =   'https://dev-online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/fee';
         $request_param = [
 						"from_district_id"	=> 1454,
@@ -61,29 +62,53 @@ class DeliveryController extends Controller
     	return view('fontend.Member.delivery',[ 'user'=> Auth::user(),'data'=>$data ]); 
     }
    	 
-    public function show_price(Request $request){
-    	$url    =   'https://dev-online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/fee';
-        $request_param = [
-						'service_id'		=>	53321,
-						"service_type_id" 	=> 'null',
-						'insurance_value'	=>	500000,
-						'coupon'			=>	 'null',
-						'from_district_id'	=>	1542,
-						'to_district_id'	=>	1444,
-						'to_ward_code'		=>	20314,
-						'height'			=>	15,
-						'length'			=>	15,
-						'weight'			=>	1000,
-						'width'				=>	15
-                	]; 
-        
-        $data = $this->send_request($url, $request_param);
+    public function show_details(Request $request){
+    	$url    =   'https://services.giaohangtietkiem.vn/services/shipment/fee';
+        // /services/shipment/fee?address=P.503%20t%C3%B2a%20nh%C3%A0%20Auu%20Vi%E1%BB%87t,%20s%E1%BB%91%201%20L%C3%AA%20%C4%90%E1%BB%A9c%20Th%E1%BB%8D&province=H%C3%A0%20n%E1%BB%99i&district=Qu%E1%BA%ADn%20C%E1%BA%A7u%20Gi%E1%BA%A5y&pick_province=H%C3%A0%20N%E1%BB%99i&pick_district=Qu%E1%BA%ADn%20Hai%20B%C3%A0%20Tr%C6%B0ng&weight=1000&value=3000000&deliver_option=xteam
+
+        $request_param = [ 
+                "pick_province" =>  "Hồ Chí Minh",
+                "pick_district" =>  "Quận 12",
+                "province"      =>  "Hà Nội",
+                "district"      =>  "Quận Hoàn Kiếm",
+                "address"       =>  "1202 nguyễn Văn Quá, số 1 Tân Kỳ Tân Quý",
+                "weight"        =>  200,
+                "value"         =>  300000,
+                "transport"     =>  "fly",
+                "deliver_option"=>  "xteam"
+            ];
+        $data = $this->send_request_ghtk($url, $request_param);
+
         print_r($data);
-        //echo '<script>console.log('.$data->data.');</script>';
-        
         return view('fontend.Member.delivery',['user'=> Auth::user(),'data'=>$data ]);
 
         //return $data;
     }
+    //---------------ninja van
+    public function send_request_ghtk($url, $request_param){
+        
+        $client = new Client(
+            ['headers' => [ 'Content-Type' => 'application/json','Token'=> '11f3A71b6ee9FfA389B7E9d15EEc04AE52782135','Host' =>'services.giaohangtietkiem.vn'  ]]
+        ); 
+        $request_data = json_encode($request_param);
+        try {
+            $res = $client->request('GET', $url ,
+                [
+                    //'headers' => [  'Content-Type'     => 'application/json', 'Token'=> '11f3A71b6ee9FfA389B7E9d15EEc04AE52782135','Host' =>'services.giaohangtietkiem.vn' ],
+                    'body'   => $request_data
+                ]);
+            $result = $res->getBody()->getContents();
+            $data = json_decode($result);
+
+        } catch (ClientException $e) {
+            $response = $e->getResponse();
+            $responseBodyAsString = $response->getBody()->getContents(); 
+            $data = json_decode($responseBodyAsString);
+        }
+        return $data;
+    }
+
+
+
      
 }
