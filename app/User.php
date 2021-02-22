@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Models\UserConnection;
+use App\Library\Facebook\Messenger;
 
 class User extends Authenticatable
 {
@@ -91,5 +92,16 @@ class User extends Authenticatable
         $this['data'] = json_encode($data);
 
         $this->save();
+    }
+
+    /**
+     * FB: get messenger.
+     *
+     * @var object | collect
+     */
+    public function messenger()
+    {
+        // return messenger
+        return new Messenger($this->getData()['facebook']['authResponse']['accessToken']);
     }
 }

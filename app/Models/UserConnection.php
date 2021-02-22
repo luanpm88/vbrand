@@ -90,8 +90,12 @@ class UserConnection extends Model
                         $p->photo = $photo;
                     }
 
-                    $p->save();
+                    // get price
+                    if (isset($product["skus"][0]["price"])) {
+                        $p->price = $product["skus"][0]["price"];
+                    }
 
+                    $p->save();
 
                     $imported++;
                     // importing

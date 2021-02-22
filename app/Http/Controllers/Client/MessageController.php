@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\Library\Facebook\Messenger;
+use App\Models\Contact;
+use App\Models\CustomerOrder;
 
 class MessageController extends Controller
 {
@@ -85,16 +87,13 @@ class MessageController extends Controller
      */
     public function getConversations(Request $request)
     {
+        // find user
         $user = $request->user();
-        $messenger = new Messenger($user->getData()['facebook']['authResponse']['accessToken']);
 
-        // FIND ALL PAGES / ACCOUNTS
-        $pages = $messenger->getPages();
+        // @todo Get first page of user for test
+        $page = $user->messenger()->getPages()[0];
 
-        // GET ALL CONVERSATIONS OF A PAGE
-        $conversations = $pages[0]->getConversations();
-
-        return response()->json($conversations);
+        return response()->json($page->getConversations());
     }
 
     /**
@@ -104,21 +103,18 @@ class MessageController extends Controller
      */
     public function getConversation(Request $request)
     {
+        // find user
         $user = $request->user();
-        $messenger = new Messenger($user->getData()['facebook']['authResponse']['accessToken']);
 
-        // FIND ALL PAGES / ACCOUNTS
-        $pages = $messenger->getPages();
+        // @todo Get first page of user for test
+        $page = $user->messenger()->getPages()[0];
 
         // GET ALL CONVERSATIONS OF A PAGE
-        $conversation = $pages[0]->getConversation($request->id);
-
-        // GET ALL MESSAGES OF A CONVERSATION
-        $messages = $conversation->getMessages();
+        $conversation = $page->getConversation($request->id);
 
         return response()->json([
             'conversation' => $conversation,
-            'messages' => $messages,
+            'messages' => $conversation->getMessages(),
         ]);
     }
     
@@ -142,11 +138,11 @@ class MessageController extends Controller
      */
     public function sendMessage(Request $request)
     {
+        // find user
         $user = $request->user();
-        $messenger = new Messenger($user->getData()['facebook']['authResponse']['accessToken']);
 
-        // FIND ALL PAGES / ACCOUNTS
-        $page = $messenger->getPages()[0];
+        // @todo Get first page of user for test
+        $page = $user->messenger()->getPages()[0];
 
         // Find conversation
         $conversation = $page->getConversation($request->to);
@@ -155,7 +151,7 @@ class MessageController extends Controller
         $result = $page->sendMessage($conversation->to, $request->message);
 
         // get message
-        $message = $messenger->makeRequest([
+        $message = $user->messenger()->makeRequest([
             'path' => '/' . $result['message_id'] . '?fields=message,from,to',
             'token' => $page->accessToken,
         ]);
@@ -180,41 +176,91 @@ class MessageController extends Controller
      */
     public function rightbar(Request $request)
     {
+        // find user
         $user = $request->user();
-        $messenger = new Messenger($user->getData()['facebook']['authResponse']['accessToken']);
 
-        // FIND ALL PAGES / ACCOUNTS
-        $page = $messenger->getPages()[0];
+        // @todo Get first page of user for test
+        $page = $user->messenger()->getPages()[0];
 
         // Find conversation
         $conversation = $page->getConversation($request->conversationId);
 
-        // // send message
-        // $result = $page->sendMessage($conversation->to, $request->message);
+        // Contact
+        $contact = Contact::findByConversation($conversation);
 
-        // // get message
-        // $message = $messenger->makeRequest([
-        //     'path' => '/' . $result['message_id'] . '?fields=message,from,to',
-        //     'token' => $page->accessToken,
-        // ]);
-
-        // event(new \App\Events\MessengerNotification('notification', [
-        //     [
-        //         'message' => [
-        //             'text' => $message['message'],
-        //         ],
-        //         'sender' => [
-        //             'id' => $message['from']['id'],
-        //         ],
-        //         'recipient' => [
-        //             'id' => $message['to'][0]['id'],
-        //         ],
-        //     ],
-        // ]));
+        // First order
+        $order = $contact->getCustomerOrder();
 
         return view('client.messages.rightbar', [
-            'messenger' => $messenger,
-            'conversation' => $conversation,
+            'contact' => $contact,
+            'order' => $order,
         ]);
+    }
+
+    /**
+     * Save contact info. 
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function contactSave(Request $request, $id)
+    {
+        // find contact
+        $contact = Contact::find($id);
+
+        // update contact
+        $contact->update($request->all());
+        $contact->status = Contact::STATUS_MODIFIED;
+        $contact->save();
+
+        return response()->json(array_merge($contact->toArray(), [
+            'status' => $contact->getStatus(),
+        ]));
+    }
+
+    /**
+     * Contact order. 
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function customerOrder(Request $request, $id)
+    {
+        // find contact
+        $contact = Contact::find($id);
+
+        // first order
+        $order = $contact->getCustomerOrder();
+
+        return view('client.messages.customerOrder', [
+            'contact' => $contact,
+            'order' => $order,
+        ]);
+    }
+
+    /**
+     * Add product. 
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function addProduct(Request $request, $order_id)
+    {
+        // find order
+        $order = CustomerOrder::find($order_id);
+
+        // add product
+        $order->addProduct($request->product_id);
+    }
+    
+    /**
+     * Update product quantity. 
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function updateQuantity(Request $request, $order_id)
+    {
+        // find order
+        $order = CustomerOrder::find($order_id);
+
+        // update detail quantity
+        $order->updateQuantity($request->detail_id, $request->quantity);
     }
 }

@@ -45,6 +45,10 @@ Route::namespace('Client')->group(function () {
 	Route::post('client/connection/lazada/sync/close', 'ConnectionController@lazadaSyncClose');
 
 	// Message
+	Route::post('client/messages/order/{order_id}/update-quantity', 'MessageController@updateQuantity');
+	Route::post('client/messages/order/{order_id}/add-product', 'MessageController@addProduct');
+	Route::get('client/messages/contact/{id}/order', 'MessageController@customerOrder');
+	Route::post('client/messages/contact/{id}/save', 'MessageController@contactSave');
 	Route::get('client/messages/right-bar', 'MessageController@rightbar');
 	Route::post('client/messages/send', 'MessageController@sendMessage');
 	Route::get('client/messages/get-conversation', 'MessageController@getConversation');

@@ -154,6 +154,9 @@
                     </div>
                 `);
 
+                // loading rightbar
+                _this.rightbarLoading();
+
                 $.ajax({
                     url: '{{ action('Client\MessageController@getConversation') }}', 
                     type: 'GET',
@@ -270,18 +273,22 @@
                 });
             }
 
+            rightbarLoading() {
+                $('.rightbar').html(`
+                    <div class="m-5 text-center">
+                    <div class="spinner-border text-info" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    </div>
+                `);
+            }
+
             loadRightbar() {
-              var _this = this;
+                var _this = this;
 
-              $('.rightbar').html(`
-                <div class="m-5 text-center">
-                  <div class="spinner-border text-info" role="status">
-                    <span class="sr-only">Loading...</span>
-                  </div>
-                </div>
-              `);
+                _this.rightbarLoading();
 
-              $.ajax({
+                $.ajax({
                     url: '{{ action('Client\MessageController@rightbar') }}', 
                     type: 'GET',
                     data: {
@@ -345,6 +352,71 @@
           }
         }
 
+        class Order {
+            constructor(attributes) {
+                // attribute default
+                if (!attributes) {
+                    attributes = {};
+                }
+
+                // Auto set contact attributes
+                var keys =  Object.keys(attributes);
+                for (var i = 0; i < keys.length; i += 1) {
+                    var key = keys[i];
+                    var value = attributes[key];
+                    this[key] = value;
+                }
+            }
+
+            load() {
+                var _this = this;
+
+                $.ajax({
+                    url: _this.url, 
+                    type: 'GET'
+                }).done(function(res){
+                    $('.order-container').html(res);
+                }).fail(function(e){
+                    console.log(e);
+                });
+            }
+
+            addProduct(productId) {
+                var _this = this;
+
+                $.ajax({
+                    url: _this.addProductUrl,
+                    type: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        product_id: productId
+                    }
+                }).done(function(res){
+                    order.load();
+                }).fail(function(e){
+                    console.log(e);
+                });
+            }
+
+            updateQuantity(detailId, value) {
+                var _this = this;
+
+                $.ajax({
+                    url: _this.updateQuantityUrl,
+                    type: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        detail_id: detailId,
+                        quantity: value
+                    }
+                }).done(function(res){
+                    order.load();
+                }).fail(function(e){
+                    console.log(e);
+                });
+            }
+        }
+
         var messenger = new Messenger();
         messenger.loadConversations();
         
@@ -361,7 +433,6 @@
             var m = e.data;
 
             // e.data.forEach(function(m) {
-            // upcoming notification
             console.log('upcoming notification:');
             console.log(m);
 
@@ -369,7 +440,6 @@
             if (messenger.currentConversation && (messenger.currentConversation.to == m.sender.id || messenger.currentConversation.to == m.recipient.id)) {
                 messenger.appendMessage(m.message.text, m.sender.id, m.recipient.id);
             }
-            // });
 
             // scroll to bottom
             messenger.scrollChatboxBottom()

@@ -174,3 +174,9 @@ body {
     font-size: 17px;
     line-height: 20px;
   }
+  .order-summary-title {
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 230px;
+    text-overflow: ellipsis;
+  }

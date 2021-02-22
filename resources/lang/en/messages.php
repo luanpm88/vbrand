@@ -7,4 +7,7 @@ return [
     'connection.sync.status.importing' => 'Đang tải sản phẩm...',
     'connection.sync.status.done' => 'Hoàn thành',
     'pagination.page_of' => 'Page :page of <span class="font-weight-semibold">:pages</span>',
+    'contact.status.new' => 'Khách hàng mới',
+    'contact.status.modified' => 'Đã cập nhật',
+    'contact.updated_at' => 'Cập nhật: :time',
 ];
