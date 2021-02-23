@@ -31,3 +31,7 @@ function addMaskLoading(text, callback, options) {
         }
     });
 }
+
+function initJs() {
+    
+}

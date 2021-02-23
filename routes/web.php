@@ -44,7 +44,14 @@ Route::namespace('Client')->group(function () {
 	Route::match(['get', 'post'], 'client/connection/lazada/sync', 'ConnectionController@lazadaSync');
 	Route::post('client/connection/lazada/sync/close', 'ConnectionController@lazadaSyncClose');
 
+	// District
+	Route::get('client/districts/select-box', 'DistrictController@selectBox');
+
+	// Ward
+	Route::get('client/wards/select-box', 'WardController@selectBox');
+
 	// Message
+	Route::get('client/messages/order/{order_id}/shipping-fee', 'MessageController@shippingFee');
 	Route::post('client/messages/order/{order_id}/update-quantity', 'MessageController@updateQuantity');
 	Route::post('client/messages/order/{order_id}/add-product', 'MessageController@addProduct');
 	Route::get('client/messages/contact/{id}/order', 'MessageController@customerOrder');

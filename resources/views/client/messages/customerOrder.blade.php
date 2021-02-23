@@ -89,78 +89,105 @@
     </div>
 
     <div class="px-3">
-      <div class="row px-0">
+      <div class="row px-0 order-shipping-area-select">
         <div class="col-md-4 mb-3">
-          <label for="country">Quốc gia</label>
-          <select class="custom-select d-block w-100" id="country" required="">
+          <label for="province">Tỉnh/Thành</label>
+          <select name="province_id" class="custom-select d-block w-100" id="country" required="">
             <option value="">Chọn...</option>
-            <option value="vn" selected>Việt Nam</option>
+            @foreach(App\Models\Province::all() as $province)
+              <option value="{{ $province->id }}">{{ $province->name }}</option>
+            @endforeach
           </select>
           <div class="invalid-feedback">
             Please select a valid country.
           </div>
         </div>
         <div class="col-md-4 mb-3">
-          <label for="state">Tỉnh/Thành</label>
-          <select class="custom-select d-block w-100" id="state" required="">
-            <option value="">Chọn...</option>
-            <option>TP. Hồ Chí Minh</option>
-          </select>
+          <label for="state">Quận/Huyện</label>
+          <div class="districts-box">
+            <select name="district_id" class="custom-select d-block w-100" id="state" required="">
+              <option value="">Chọn...</option>
+            </select>
+          </div>
           <div class="invalid-feedback">
             Please provide a valid state.
           </div>
         </div>
         <div class="col-md-4 mb-3">
-          <label for="zip">Quận/Huyện</label>
-          <select class="custom-select d-block w-100" id="state" required="">
-            <option value="">Chọn...</option>
-            <option>Quận Gò Vấp</option>
-          </select>
+          <label for="zip">Phường/Xã</label>
+          <div class="wards-box">
+            <select name="ward_id" class="custom-select d-block w-100" id="state" required="">
+              <option value="">Chọn...</option>
+            </select>
+          </div>
           <div class="invalid-feedback">
             Please provide a valid state.
           </div>
         </div>
       </div>
+      <script>
+        var districtBox = new Box($('.districts-box'), '{{ action('Client\DistrictController@selectBox') }}');
+        var wardBox = new Box($('.wards-box'), '{{ action('Client\WardController@selectBox') }}');
+
+        $('.order-shipping-area-select').on('change', '[name=province_id]', function() {
+          var province_id = $(this).val();
+
+          districtBox.load({
+            data: {
+              province_id: province_id
+            },
+            callback: loadShippingFee
+          })
+        });
+
+        $('.order-shipping-area-select').on('change', '[name=district_id]', function() {
+          var district_id = $(this).val();
+
+          wardBox.load({
+            data: {
+              district_id: district_id
+            },
+            callback: loadShippingFee
+          })
+        });
+
+        $('.order-shipping-area-select').on('change', '[name=ward_id]', function() {
+          loadShippingFee();
+        });
+      </script>
     </div>
 
-    <table class="table table-striped mb-4">
-      <thead>
-          <tr>
-              <th scope="col" style="width:50px;"> </th>
-              <th scope="col">Đơn vị</th>
-              <th scope="col" class="text-right">Phí vận chuyển</th>
-          </tr>
-      </thead>
-      <tbody>
-          <tr>
-            <td>
-              <input class="form-control" type="radio" name="shipping_method" />
-            </td>
-            <td class="p-2">
-              <img style="width:120px" src="{{ url('/images/ghn_logo.png') }}" />
-            </td>
-            <td class="text-right text-nowrap">36,000 ₫</td>
-          </tr>
-          <tr>
-            <td>
-              <input class="form-control" type="radio" name="shipping_method" />
-            </td>
-            <td class="p-2">
-              <img style="width:150px" src="https://giaohangtietkiem.vn/wp-content/themes/giaohangtk/images/logo.png" />
-            </td>
-            <td class="text-right text-nowrap">20,000 ₫</td>
-          </tr>
-          <tr>
-            <td>
-              <input class="form-control" type="radio" name="shipping_method" />
-            </td>
-            <td class="p-2">
-              <img style="width:150px" src="https://viettelpost.com.vn/wp-content/uploads/2019/06/logo-01.png" />
-            </td>
-            <td class="text-right text-nowrap">40,000 ₫</td>
-          </tr>
-      </tbody>
-    </table>
+    <div class="shipping-fee-table">
+      
+    </div>
+
+    <script>
+      var shippingFeeBox = new Box($('.shipping-fee-table'), '{{ action('Client\MessageController@shippingFee', [
+        'order_id' => $order->id
+      ]) }}');
+
+      function loadShippingFee() {
+        var district_id = $('.order-shipping-area-select [name=district_id]').val();
+        var ward_id = $('.order-shipping-area-select [name=ward_id]').val();
+
+        if (ward_id || district_id) {
+          shippingFeeBox.load({
+            data: {
+              ward_id: ward_id,
+              district_id: district_id
+            }
+          });
+        } else {
+          shippingFeeBox.loadHtml(`
+            <div class="alert alert-info mx-2">
+              Chọn địa chỉ giao hàng để xem bảng giá.
+            </div>
+          `);
+        }
+      }
+
+      loadShippingFee();
+    </script>
   </div>
 
   <div class="section">

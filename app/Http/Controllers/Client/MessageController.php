@@ -263,4 +263,39 @@ class MessageController extends Controller
         // update detail quantity
         $order->updateQuantity($request->detail_id, $request->quantity);
     }
+
+    /**
+     * Shipping fee table 
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function shippingFee(Request $request, $order_id)
+    {
+        // find order
+        $order = CustomerOrder::find($order_id);
+
+        // ward
+        if ($request->ward_id) {
+            $to_ward_code = \App\Models\Ward::find($request->ward_id)->ghn_id;
+        } else {
+            $to_ward_code = null;
+        }
+
+        // district
+        if ($request->district_id) {
+            $to_district_id = \App\Models\District::find($request->district_id)->ghn_id;
+        } else {
+            $to_district_id = null;
+        }
+
+        $service = new \App\Library\GHN\Service();
+        $fee = $service->getFee([
+            "to_district_id" => (int) $to_district_id,
+            "to_ward_code" => (string) $to_ward_code,
+        ])['data'];
+
+        return view('client.messages.shippingFee', [
+            'fee' => $fee,
+        ]);
+    }
 }

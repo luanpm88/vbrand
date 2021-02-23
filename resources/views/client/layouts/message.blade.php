@@ -16,6 +16,9 @@
         <link href="{{ asset('client/css/popup.css') }}" rel="stylesheet">
         <script src="{{ asset('client/js/popup.js') }}"></script> 
 
+        <!-- Box -->
+        <script src="{{ asset('client/js/box.js') }}"></script> 
+
         <!-- DataList -->
         <link href="{{ asset('client/css/datalist.css') }}" rel="stylesheet">
         <script src="{{ asset('client/js/datalist.js') }}"></script> 
